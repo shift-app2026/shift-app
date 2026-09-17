@@ -39,6 +39,20 @@
     <span id="toastText">メッセージ</span>
   </div>
 
+  <!-- 目標金額入力用カスタムモーダル -->
+  <div id="goalModal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl p-5 w-full max-w-xs shadow-2xl border border-rose-100 space-y-4">
+      <h3 class="text-xs font-bold text-rose-900 text-center tracking-wide">今月の目標給与額の設定</h3>
+      <div>
+        <input type="text" inputmode="numeric" id="modalGoalInput" oninput="formatInputNumber(this)" class="w-full p-2.5 border rounded-xl border-rose-200/80 bg-stone-50 text-center font-bold text-stone-800 text-sm focus:outline-none focus:border-rose-400" placeholder="例: 285,000">
+      </div>
+      <div class="flex space-x-2">
+        <button type="button" onclick="closeGoalModal()" class="flex-1 py-2 rounded-xl text-xs font-bold bg-stone-100 text-stone-600 hover:bg-stone-200 transition">キャンセル</button>
+        <button type="button" onclick="submitGoalModal()" class="flex-1 py-2 rounded-xl text-xs font-bold bg-rose-900 text-rose-50 hover:bg-rose-800 transition shadow-sm">保存する</button>
+      </div>
+    </div>
+  </div>
+
   <div class="w-full max-w-md bg-white rounded-[2.5rem] shadow-2xl border border-rose-100/60 overflow-hidden flex flex-col min-h-[720px]">
     
     <!-- ヘッダー -->
@@ -645,14 +659,30 @@
     }
 
     function editMonthlyGoal() {
-      let newGoal = prompt("今月の目標給与額（円）を入力してください", monthlyGoal);
-      if (newGoal !== null) {
-        let clean = Number(newGoal.replace(/[^0-9]/g, ''));
+      const modal = document.getElementById('goalModal');
+      const input = document.getElementById('modalGoalInput');
+      if (modal && input) {
+        input.value = monthlyGoal.toLocaleString();
+        modal.classList.remove('hidden');
+        input.focus();
+      }
+    }
+
+    function closeGoalModal() {
+      const modal = document.getElementById('goalModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function submitGoalModal() {
+      const input = document.getElementById('modalGoalInput');
+      if (input) {
+        let clean = Number(input.value.replace(/[^0-9]/g, ''));
         if (!isNaN(clean) && clean > 0) {
           monthlyGoal = clean;
           saveAllDataStorage();
           initOverviewPage();
           showToast("月間目標を更新しました");
+          closeGoalModal();
         } else {
           showToast("正しい金額を入力してください");
         }
