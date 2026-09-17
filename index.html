@@ -44,7 +44,7 @@
     <div class="bg-white rounded-3xl p-5 w-full max-w-xs shadow-2xl border border-rose-100 space-y-4">
       <h3 class="text-xs font-bold text-rose-900 text-center tracking-wide">今月の目標給与額の設定</h3>
       <div>
-        <input type="text" inputmode="numeric" id="modalGoalInput" oninput="formatInputNumber(this)" class="w-full p-2.5 border rounded-xl border-rose-200/80 bg-stone-50 text-center font-bold text-stone-800 text-sm focus:outline-none focus:border-rose-400" placeholder="例: 285,000">
+        <input type="text" inputmode="numeric" id="modalGoalInput" oninput="formatInputNumber(this)" class="w-full p-2.5 border rounded-xl border-rose-200/80 bg-stone-50 text-center font-bold text-stone-800 text-sm focus:outline-none focus:border-rose-400" placeholder="例: 200,000">
       </div>
       <div class="flex space-x-2">
         <button type="button" onclick="closeGoalModal()" class="flex-1 py-2 rounded-xl text-xs font-bold bg-stone-100 text-stone-600 hover:bg-stone-200 transition">キャンセル</button>
@@ -73,7 +73,7 @@
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-stone-500">月間目標の達成度</span>
             <button onclick="editMonthlyGoal()" class="text-[11px] text-rose-800 font-bold bg-rose-50 hover:bg-rose-100 px-2.5 py-1 rounded-lg transition border border-rose-200/60">
-              目標変更: <span id="goalTargetDisplay">¥285,000</span> ✏️
+              目標変更: <span id="goalTargetDisplay">未設定</span> ✏️
             </button>
           </div>
 
@@ -284,6 +284,12 @@
 
       <!-- タブ3: 設定 -->
       <div id="tab-settings" class="tab-content hidden space-y-4">
+        
+        <!-- 上部の「設定を保存する」ボタン -->
+        <button onclick="saveSettings()" class="w-full bg-stone-900 text-rose-100 font-bold py-3 rounded-2xl text-xs hover:bg-stone-800 transition shadow-md flex items-center justify-center space-x-1">
+          <span>💾 設定を保存する</span>
+        </button>
+
         <div class="bg-white p-3.5 rounded-2xl border border-rose-100 shadow-sm space-y-3">
           <div class="flex justify-between items-center">
             <label class="text-xs font-bold text-stone-700">バイトの登録数</label>
@@ -294,9 +300,12 @@
             </select>
           </div>
 
+          <!-- 各バイト先の社名入力 ＆「設定」ボタン（選択中が色が変わる） -->
           <div class="pt-2 border-t border-rose-100 space-y-2">
-            <label class="text-[10px] font-bold text-stone-500 block">設定するバイト先を選択</label>
-            <div class="flex space-x-1.5" id="settingsJobTabContainer"></div>
+            <div class="flex justify-between items-center">
+              <label class="text-[10px] font-bold text-stone-500 block">バイト先の名前を設定（「設定」ボタンで下の詳細を切り替え）</label>
+            </div>
+            <div id="settingsJobNameInputs" class="space-y-2"></div>
           </div>
 
           <div class="pt-2 border-t border-rose-100">
@@ -311,13 +320,7 @@
           </div>
 
           <div id="settingSubPaneWage" class="space-y-2.5 pt-2">
-            <h2 id="activeSettingTitle" class="text-xs font-bold text-rose-900 tracking-wide uppercase">● バイトの設定</h2>
-            
             <div class="space-y-2 text-xs">
-              <div>
-                <label class="text-stone-500 block mb-0.5 font-bold">バイト先の名前</label>
-                <input type="text" id="settingJobName" oninput="onJobNameInput(this.value)" class="w-full p-2 border rounded-xl border-rose-200/80 bg-white font-bold text-stone-800">
-              </div>
               <div class="grid grid-cols-2 gap-2">
                 <div>
                   <label class="text-stone-500 block mb-0.5 font-bold">給与 締め日</label>
@@ -437,9 +440,6 @@
 
         </div>
 
-        <button onclick="saveSettings()" class="w-full bg-stone-900 text-rose-100 font-bold py-3 rounded-xl text-xs hover:bg-stone-800 transition shadow">
-          設定を保存する
-        </button>
       </div>
 
     </div>
@@ -491,35 +491,35 @@
 
     let savedWages = {};
     try {
-      savedWages = JSON.parse(localStorage.getItem('mybasket_wages_v42') || localStorage.getItem('mybasket_wages_v41') || '{}');
+      savedWages = JSON.parse(localStorage.getItem('mybasket_wages_v43') || localStorage.getItem('mybasket_wages_v42') || localStorage.getItem('mybasket_wages_v41') || '{}');
     } catch (e) { savedWages = {}; }
 
-    let monthlyGoal = Number(savedWages.monthlyGoal) || 285000;
+    let monthlyGoal = Number(savedWages.monthlyGoal) || 0;
 
     let configData = {
       jobCount: savedWages.jobCount !== undefined ? Number(savedWages.jobCount) : 1,
       job1: {
-        name: savedWages.job1?.name || 'まいばすけっと',
+        name: savedWages.job1?.name !== undefined ? savedWages.job1.name : '',
         closeDay: savedWages.job1?.closeDay || '20',
         payDay: savedWages.job1?.payDay || '5',
         morningEnd: savedWages.job1?.morningEnd || '09:00',
         dayEnd: savedWages.job1?.dayEnd || '17:00',
         eveningEnd: savedWages.job1?.eveningEnd || '22:00',
-        paid: Number(savedWages.job1?.paid) || 1650,
-        morning: Number(savedWages.job1?.morning) || 1890,
-        day: Number(savedWages.job1?.day) || 1520,
-        evening: Number(savedWages.job1?.evening) || 1570,
-        night: Number(savedWages.job1?.night) || 1900,
+        paid: Number(savedWages.job1?.paid) || 1200,
+        morning: Number(savedWages.job1?.morning) || 1100,
+        day: Number(savedWages.job1?.day) || 1100,
+        evening: Number(savedWages.job1?.evening) || 1150,
+        night: Number(savedWages.job1?.night) || 1375,
         satBonus: savedWages.job1?.satBonus !== undefined ? Number(savedWages.job1.satBonus) : 0,
-        sunBonus: savedWages.job1?.sunBonus !== undefined ? Number(savedWages.job1.sunBonus) : 50,
-        holBonus: savedWages.job1?.holBonus !== undefined ? Number(savedWages.job1.holBonus) : 50,
+        sunBonus: savedWages.job1?.sunBonus !== undefined ? Number(savedWages.job1.sunBonus) : 0,
+        holBonus: savedWages.job1?.holBonus !== undefined ? Number(savedWages.job1.holBonus) : 0,
         transMonth: Number(savedWages.job1?.transMonth) || 0,
         transDay: Number(savedWages.job1?.transDay) || 0,
         allowanceMonth: Number(savedWages.job1?.allowanceMonth) || 0,
-        presets: (savedWages.job1?.presets && savedWages.job1.presets.length > 0) ? savedWages.job1.presets : JSON.parse(JSON.stringify(defaultPresets1))
+        presets: (savedWages.job1?.presets && savedWages.job1.presets.length > 0) ? savedWages.job1.presets : JSON.parse(JSON.stringify(defaultPresets2))
       },
       job2: {
-        name: savedWages.job2?.name || 'ジョナサン',
+        name: savedWages.job2?.name !== undefined ? savedWages.job2.name : '',
         closeDay: savedWages.job2?.closeDay || '20',
         payDay: savedWages.job2?.payDay || '5',
         morningEnd: savedWages.job2?.morningEnd || '09:00',
@@ -539,7 +539,7 @@
         presets: (savedWages.job2?.presets && savedWages.job2.presets.length > 0) ? savedWages.job2.presets : JSON.parse(JSON.stringify(defaultPresets2))
       },
       job3: {
-        name: savedWages.job3?.name || 'マック',
+        name: savedWages.job3?.name !== undefined ? savedWages.job3.name : '',
         closeDay: savedWages.job3?.closeDay || '31',
         payDay: savedWages.job3?.payDay || '10',
         morningEnd: savedWages.job3?.morningEnd || '09:00',
@@ -562,7 +562,7 @@
 
     window.onload = function() {
       document.getElementById('settingJobCount').value = configData.jobCount;
-      updateSettingsJobTabs();
+      renderSettingsJobNameInputs();
       loadSettingsToUI(currentSettingsJobKey);
       updateJobSelectUI();
       initOverviewPage();
@@ -662,7 +662,7 @@
       const modal = document.getElementById('goalModal');
       const input = document.getElementById('modalGoalInput');
       if (modal && input) {
-        input.value = monthlyGoal.toLocaleString();
+        input.value = monthlyGoal > 0 ? monthlyGoal.toLocaleString() : '';
         modal.classList.remove('hidden');
         input.focus();
       }
@@ -677,7 +677,7 @@
       const input = document.getElementById('modalGoalInput');
       if (input) {
         let clean = Number(input.value.replace(/[^0-9]/g, ''));
-        if (!isNaN(clean) && clean > 0) {
+        if (!isNaN(clean) && clean >= 0) {
           monthlyGoal = clean;
           saveAllDataStorage();
           initOverviewPage();
@@ -725,7 +725,7 @@
 
       const activeKeys = getActiveJobKeys();
       activeKeys.forEach(jk => {
-        let name = configData[jk].name;
+        let name = configData[jk].name || `(未設定)`;
         container.innerHTML += `
           <button type="button" id="jobTabBtn_${jk}" onclick="switchJobTab('${jk}')" class="flex-1 py-2 rounded-xl text-xs font-bold border transition shadow-sm bg-white text-stone-600 border-stone-200">
             ${name}
@@ -815,7 +815,7 @@
 
       const currentJob = configData[currentSelectedJobKey] || configData[getFirstActiveJobKey()];
       const presets = currentJob.presets || [];
-      label.innerText = `ワンタッチ時間選択（${currentJob.name}）`;
+      label.innerText = `ワンタッチ時間選択（${currentJob.name || 'バイト先'}）`;
 
       presets.forEach(p => {
         if (p.start && p.end) {
@@ -905,7 +905,7 @@
           if (todayShift.isPaidLeave) timeDisplay = `☆有給 (${timeDisplay})`;
           breakdownHtml += `
             <div class="flex justify-between items-center py-0.5 border-b border-rose-50 last:border-b-0">
-              <span class="font-bold text-stone-700">・${jobConf.name} <span class="text-[10px] text-stone-400 font-normal">(${timeDisplay})</span></span>
+              <span class="font-bold text-stone-700">・${jobConf.name || 'バイト先'} <span class="text-[10px] text-stone-400 font-normal">(${timeDisplay})</span></span>
               <span>${(jobMins / 60).toFixed(2)}時間 / <span class="font-bold text-stone-800">${formatCurrency(jobPay)}</span></span>
             </div>
           `;
@@ -990,7 +990,7 @@
       const goalProgressCircle = document.getElementById('goalProgressCircle');
       const monthlyProgressHours = document.getElementById('monthlyProgressHours');
 
-      if (goalTargetDisplay) goalTargetDisplay.innerText = formatCurrency(monthlyGoal);
+      if (goalTargetDisplay) goalTargetDisplay.innerText = monthlyGoal > 0 ? formatCurrency(monthlyGoal) : '未設定';
       if (goalCurrentPay) goalCurrentPay.innerText = formatCurrency(totalPay);
       if (monthlyProgressHours) monthlyProgressHours.innerText = `${(totalMins / 60).toFixed(2)} 時間`;
 
@@ -1108,7 +1108,7 @@
       let fullHtml = '';
 
       activeKeys.forEach(jk => {
-        let jName = configData[jk].name;
+        let jName = configData[jk].name || 'バイト先';
         actualHtml += `<div class="flex justify-between"><span>・${jName}:</span><span>${(jobTotals[jk].mins / 60).toFixed(2)}時間 / ${formatCurrency(jobTotals[jk].pay)}</span></div>`;
         fullHtml += `<div class="flex justify-between"><span>・${jName}:</span><span>${(fullJobTotals[jk].mins / 60).toFixed(2)}時間 / ${formatCurrency(fullJobTotals[jk].pay + (configData[jk].transMonth || 0) + (configData[jk].allowanceMonth || 0))}</span></div>`;
       });
@@ -1187,7 +1187,7 @@
         let payDayText = (payDayVal === 31) ? '月末' : `${payDayVal}日`;
         breakdownHtml += `
           <div class="flex justify-between items-center py-0.5 border-b border-rose-50 last:border-b-0">
-            <span>・${job.name} <span class="text-[10px] text-stone-400">(${payDayText}支給)</span></span>
+            <span>・${job.name || 'バイト先'} <span class="text-[10px] text-stone-400">(${payDayText}支給)</span></span>
             <span class="font-bold text-stone-800">${formatCurrency(jobReceivePay)}</span>
           </div>
         `;
@@ -1325,7 +1325,7 @@
           paydayJobs.forEach(jk => {
             let textColor = (jk === 'job2') ? 'text-sky-600' : (jk === 'job3') ? 'text-emerald-600' : 'text-rose-600';
             if (isSelected) textColor = 'text-amber-200';
-            paydayHtml += `<span class="text-[9px] font-bold ${textColor}" title="${configData[jk].name}給料日">📌</span>`;
+            paydayHtml += `<span class="text-[9px] font-bold ${textColor}" title="${configData[jk].name || 'バイト先'}給料日">📌</span>`;
           });
           paydayHtml += '</div>';
         } else {
@@ -1347,7 +1347,7 @@
         if (d.getDay() === 0) dayClass += " text-rose-600 font-bold";
 
         if (isSelected) {
-          dayClass += " bg-rose-900 text-white font-bold shadow-md scale-105";
+          dayClass += " bg-stone-900 text-white font-bold shadow-md scale-105";
         } else if (hasShift) {
           if (jobKey === 'job2') dayClass += " bg-sky-50/90 border border-sky-200/70 font-bold hover:bg-sky-100/60";
           else if (jobKey === 'job3') dayClass += " bg-emerald-50/90 border border-emerald-200/70 font-bold hover:bg-emerald-100/60";
@@ -1413,21 +1413,20 @@
         if (isSunday) dayColor = "text-rose-600 font-bold";
         if (isSaturday) dayColor = "text-sky-600 font-bold";
 
-        let bgStyle = "bg-stone-50/60 hover:bg-rose-50/50";
+        let bgStyle = "bg-stone-50/60 hover:bg-stone-100/50 border-stone-100";
         if (isSelected) {
-          bgStyle = "bg-rose-900 text-rose-50 font-bold shadow-md";
+          bgStyle = "bg-stone-900 text-stone-100 font-bold shadow-md border-stone-800";
         } else if (hasShift) {
-          if (jobKey === 'job2') bgStyle = "bg-sky-50/80 border border-sky-100 font-medium";
-          else if (jobKey === 'job3') bgStyle = "bg-emerald-50/80 border border-emerald-100 font-medium";
-          else bgStyle = "bg-rose-50/80 border border-rose-100 font-medium";
+          if (jobKey === 'job2') bgStyle = "bg-sky-50/80 border-sky-100 font-medium";
+          else if (jobKey === 'job3') bgStyle = "bg-emerald-50/80 border-emerald-100 font-medium";
+          else bgStyle = "bg-rose-50/80 border-rose-100 font-medium";
         } else {
-          bgStyle = "bg-stone-50/30 border border-stone-100 hover:bg-rose-50/30";
+          bgStyle = "bg-stone-50/30 border-stone-100 hover:bg-stone-100/30";
         }
 
         let dotIndicator = '';
         if (hasShift) {
-          let dotColorClass = (jobKey === 'job2') ? 'bg-sky-600' : (jobKey === 'job3') ? 'bg-emerald-600' : 'bg-rose-600';
-          if (isSelected) dotColorClass = 'bg-amber-200';
+          let dotColorClass = dotCardColor(isSelected, jobKey);
           dotIndicator = `<span class="w-2 h-2 rounded-full ${dotColorClass} inline-block shrink-0"></span>`;
         }
 
@@ -1448,12 +1447,12 @@
           <div onclick="selectCalendarDate('${dateStr}')" 
                class="flex justify-between items-center p-2.5 rounded-xl border transition cursor-pointer ${bgStyle}">
             <div class="flex items-center space-x-2.5">
-              <span class="w-16 font-bold ${isSelected ? 'text-rose-100' : dayColor}">
+              <span class="w-16 font-bold ${isSelected ? 'text-stone-100' : dayColor}">
                 ${d.getMonth()+1}/${d.getDate()} (${dayOfWeek})
               </span>
               <div class="flex items-center space-x-1.5">
                 ${dotIndicator}
-                <span class="text-xs ${isSelected ? 'text-rose-100' : 'text-stone-700'}">
+                <span class="text-xs ${isSelected ? 'text-stone-100' : 'text-stone-700'}">
                   ${hasShift ? timeTexts.join(' / ') : '<span class="text-stone-300 font-normal">--:--</span>'}
                 </span>
               </div>
@@ -1602,60 +1601,61 @@
     }
 
     function onJobCountChange(val) {
+      syncUIFormToConfig(currentSettingsJobKey);
       configData.jobCount = Number(val);
-      updateSettingsJobTabs();
       ensureValidSelectedJob();
+      renderSettingsJobNameInputs();
       loadSettingsToUI(currentSettingsJobKey);
     }
 
-    function updateSettingsJobTabs() {
-      const container = document.getElementById('settingsJobTabContainer');
+    function renderSettingsJobNameInputs() {
+      const container = document.getElementById('settingsJobNameInputs');
       if (!container) return;
       container.innerHTML = '';
 
       const activeKeys = getActiveJobKeys();
-      activeKeys.forEach(jk => {
-        let name = configData[jk].name;
+      activeKeys.forEach((jk) => {
+        let jobName = configData[jk].name !== undefined ? configData[jk].name : '';
+        let isSelected = (jk === currentSettingsJobKey);
+
+        // 選択中かどうかにかかわらず、枠線や背景色を落ち着いた統一感のあるもの（石色ベースやシンプルなボーダー）に変更
+        let wrapperClass = "flex items-center justify-between p-2 rounded-xl border transition ";
+        if (isSelected) {
+          wrapperClass += "bg-stone-50 border-stone-400 shadow-sm";
+        } else {
+          wrapperClass += "bg-stone-50/60 border-stone-200 hover:bg-stone-100/60";
+        }
+
+        let btnClass = "px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-sm shrink-0 ";
+        if (isSelected) {
+          btnClass += "bg-stone-900 text-stone-100";
+        } else {
+          btnClass += "bg-white text-stone-600 border border-stone-200 hover:bg-stone-100";
+        }
+
         container.innerHTML += `
-          <button type="button" id="setJobTabBtn_${jk}" onclick="switchSettingsJobTab('${jk}')" class="flex-1 py-2 rounded-xl text-xs font-bold border transition shadow-sm bg-white text-stone-600 border-stone-200">
-            ${name}
-          </button>
+          <div class="${wrapperClass}">
+            <input type="text" id="settingJobName_${jk}" value="${jobName}" oninput="onJobNameDirectInput('${jk}', this.value)" placeholder="バイト先名を入力" class="w-full p-1.5 border rounded-lg border-stone-200 bg-white font-bold text-xs text-stone-800 mr-2 focus:outline-none focus:border-stone-400">
+            <button type="button" onclick="selectSettingsJob('${jk}')" class="${btnClass}">
+              ${isSelected ? '設定中 ✓' : '設定'}
+            </button>
+          </div>
         `;
       });
-      updateSettingsJobTabUI();
     }
 
-    function switchSettingsJobTab(jobKey) {
+    function selectSettingsJob(jobKey) {
       syncUIFormToConfig(currentSettingsJobKey);
       currentSettingsJobKey = jobKey;
-      updateSettingsJobTabUI();
+      renderSettingsJobNameInputs();
       loadSettingsToUI(currentSettingsJobKey);
     }
 
-    function updateSettingsJobTabUI() {
-      const activeKeys = getActiveJobKeys();
-      activeKeys.forEach(jk => {
-        let btn = document.getElementById(`setJobTabBtn_${jk}`);
-        if (!btn) return;
-
-        if (jk === currentSettingsJobKey) {
-          if (jk === 'job1') btn.className = "flex-1 py-2 rounded-xl text-xs font-bold border transition shadow-sm bg-rose-900 text-white border-rose-900";
-          else if (jk === 'job2') btn.className = "flex-1 py-2 rounded-xl text-xs font-bold border transition shadow-sm bg-sky-700 text-white border-sky-700";
-          else btn.className = "flex-1 py-2 rounded-xl text-xs font-bold border transition shadow-sm bg-emerald-700 text-white border-emerald-700";
-        } else {
-          btn.className = "flex-1 py-2 rounded-xl text-xs font-bold border transition shadow-sm bg-white text-stone-600 border-stone-200 hover:bg-stone-50";
-        }
-      });
-    }
-
-    function onJobNameInput(val) {
-      const j = configData[currentSettingsJobKey];
-      j.name = val.trim() || currentSettingsJobKey;
-      const titleEl = document.getElementById('activeSettingTitle');
-      if (titleEl) titleEl.innerText = `● ${j.name} の設定`;
-      
-      const btn = document.getElementById(`setJobTabBtn_${currentSettingsJobKey}`);
-      if (btn) btn.innerText = j.name;
+    function onJobNameDirectInput(jobKey, val) {
+      if (configData[jobKey]) {
+        configData[jobKey].name = val;
+        updateJobSelectUI();
+      }
     }
 
     function formatInputNumber(input) {
@@ -1678,7 +1678,6 @@
       const j = configData[jobKey];
 
       const countEl = document.getElementById('settingJobCount');
-      const nameEl = document.getElementById('settingJobName');
       const closeEl = document.getElementById('settingCloseDay');
       const payEl = document.getElementById('settingPayDay');
       
@@ -1707,7 +1706,15 @@
       const allowMVal = document.getElementById('settingAllowanceMonth');
 
       if (countEl) configData.jobCount = Number(countEl.value);
-      if (nameEl) j.name = nameEl.value.trim() || jobKey;
+
+      const activeKeys = getActiveJobKeys();
+      activeKeys.forEach(jk => {
+        let nameInput = document.getElementById(`settingJobName_${jk}`);
+        if (nameInput && configData[jk]) {
+          configData[jk].name = nameInput.value;
+        }
+      });
+
       if (closeEl) j.closeDay = closeEl.value;
       if (payEl) j.payDay = payEl.value;
 
@@ -1744,13 +1751,12 @@
 
     function loadSettingsToUI(jobKey) {
       const j = configData[jobKey];
-      const titleEl = document.getElementById('activeSettingTitle');
       const presetTitleEl = document.getElementById('settingPresetTitle');
-      if (titleEl) titleEl.innerText = `● ${j.name} の設定`;
-      if (presetTitleEl) presetTitleEl.innerText = `ワンタッチ時間の設定（${j.name}）`;
+      if (presetTitleEl) presetTitleEl.innerText = `ワンタッチ時間の設定（${j.name || 'バイト先'}）`;
 
       document.getElementById('settingJobCount').value = configData.jobCount;
-      document.getElementById('settingJobName').value = j.name;
+      renderSettingsJobNameInputs();
+
       document.getElementById('settingCloseDay').value = j.closeDay;
       document.getElementById('settingPayDay').value = j.payDay;
 
@@ -1789,12 +1795,12 @@
       const presets = configData[currentSettingsJobKey].presets || [];
       presets.forEach((p, idx) => {
         container.innerHTML += `
-          <div class="flex items-center space-x-1.5 bg-stone-50 p-2 rounded-xl border border-rose-100">
+          <div class="flex items-center space-x-1.5 bg-stone-50 p-2 rounded-xl border border-stone-200">
             <span class="text-[10px] text-stone-400 font-bold w-4">${idx+1}.</span>
-            <input type="time" id="settingPreset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs flex-1">
+            <input type="time" id="settingPreset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-stone-200 bg-white text-xs flex-1">
             <span>〜</span>
-            <input type="time" id="settingPreset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs flex-1">
-            <button type="button" onclick="removePresetRowActive(${idx})" class="bg-rose-100 text-rose-800 hover:bg-rose-200 font-bold px-2 py-1 rounded-lg text-xs transition">✕</button>
+            <input type="time" id="settingPreset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-stone-200 bg-white text-xs flex-1">
+            <button type="button" onclick="removePresetRowActive(${idx})" class="bg-stone-100 text-stone-700 hover:bg-stone-200 font-bold px-2 py-1 rounded-lg text-xs transition">✕</button>
           </div>
         `;
       });
@@ -1828,14 +1834,13 @@
         payload[jk].presets = cleaned;
       });
 
-      localStorage.setItem('mybasket_wages_v42', JSON.stringify(payload));
+      localStorage.setItem('mybasket_wages_v43', JSON.stringify(payload));
     }
 
     function saveSettings() {
       saveAllDataStorage();
       showToast("設定を保存しました");
       ensureValidSelectedJob();
-      updateSettingsJobTabs();
       loadSettingsToUI(currentSettingsJobKey);
       updateJobSelectUI();
       renderPresetButtons();
