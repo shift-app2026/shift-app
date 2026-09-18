@@ -118,15 +118,11 @@
           </div>
         </div>
 
-        <!-- スッキリレイアウト：一番上にランダム応援メッセージ、その下に各バイト先の給料日カウント -->
-        <div class="bg-gradient-to-br from-rose-50/70 via-white to-stone-50 p-4 rounded-3xl border border-rose-200/70 shadow-xs space-y-3">
-          <!-- 一番上のランダム応援メッセージ -->
-          <div class="text-center pb-2 border-b border-rose-100">
-            <p id="randomEncourageMessage" class="text-xs font-bold text-rose-950 tracking-wide">
-              疲れてない？無理しないでね♫
-            </p>
+        <!-- スッキリ・コンパクトになったカウントダウンカード -->
+        <div class="bg-white p-3 rounded-3xl border border-rose-100/80 shadow-sm space-y-2">
+          <div class="text-xs font-bold text-rose-900 border-b border-rose-100 pb-2 text-center tracking-wide">
+            お給料日まで何日？
           </div>
-          <!-- その下の各バイト先給料日表示エリア -->
           <div id="allJobsCountdownContainer" class="space-y-1.5"></div>
         </div>
 
@@ -1078,23 +1074,10 @@
 
     function renderAllJobsCountdown() {
       const container = document.getElementById('allJobsCountdownContainer');
-      const encourageEl = document.getElementById('randomEncourageMessage');
       if (!container) return;
       container.innerHTML = '';
 
       const now = new Date();
-
-      // 一番上のランダム応援メッセージのバリエーション
-      const encouragePool = [
-        "疲れてない？無理しないでね♫",
-        "お財布が待ち遠しいね〜♡",
-        "今日のご飯は何にする？☆！",
-        "今日も一緒にファイトだよ♫",
-        "いつもお仕事お疲れ様♡"
-      ];
-      let encourageIndex = now.getDate() % encouragePool.length;
-      if (encourageEl) encourageEl.innerText = encouragePool[encourageIndex];
-
       const activeKeys = getActiveJobKeys();
 
       activeKeys.forEach((jk, index) => {
@@ -1116,14 +1099,13 @@
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         const daysLeft = Math.max(0, diffDays);
 
-        // 各バイトごとの記号（♫, ♡, ☆!）をローテーション
-        const symbolPool = ["♫", "♡", "☆！"];
+        const symbolPool = ["♪", "♡", "☆！"];
         let symbol = symbolPool[index % symbolPool.length];
 
         container.innerHTML += `
-          <div class="flex justify-between items-center text-xs px-2 py-1 bg-white/70 rounded-xl border border-rose-100/60">
-            <span class="font-bold text-rose-900">${jobName}</span>
-            <span class="font-bold text-rose-950">お給料日まであと ${daysLeft} 日 ${symbol}</span>
+          <div class="flex items-center justify-between bg-rose-50/40 px-3 py-2 rounded-xl border border-rose-100/60">
+            <span class="text-stone-700 font-medium text-xs">${jobName} <span class="text-[10px] text-stone-400 font-normal">（${payDayVal}日）</span></span>
+            <span class="text-rose-800 font-bold text-xs">あと ${daysLeft} 日 ${symbol}</span>
           </div>
         `;
       });
