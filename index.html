@@ -253,11 +253,11 @@
         <div class="bg-white p-2.5 rounded-2xl border border-rose-100 space-y-1.5 shadow-sm">
           <div class="text-xs font-bold text-stone-700 border-b border-rose-100 pb-1 flex justify-between items-center tracking-wide">
             <span id="standaloneListTitleLabel">〇月の予定表</span>
-            <div class="flex items-center space-x-1.5">
-              <span class="text-[11px] text-stone-800 font-bold flex items-center space-x-0.5"><span>📅</span><span>Google</span></span>
-              <select id="calendarFeatureSelect" onchange="onCalendarFeatureChange(this.value)" class="text-[11px] font-bold text-white bg-gradient-to-br from-rose-950 via-rose-900 to-stone-900 border border-rose-900/40 rounded-lg px-2 py-0.5 focus:outline-none shadow-xs">
+            <div class="flex items-center space-x-1 shrink-0">
+              <span class="text-[10px] text-stone-800 font-bold flex items-center space-x-0.5 shrink-0"><span>📅</span><span>Googleカレンダー</span></span>
+              <select id="calendarFeatureSelect" onchange="onCalendarFeatureChange(this.value)" class="text-[10px] font-bold text-white bg-gradient-to-br from-rose-950 via-rose-900 to-stone-900 border border-rose-900/40 rounded-lg px-1.5 py-0.5 focus:outline-none shadow-xs shrink-0">
                 <option value="use" class="bg-white text-stone-800 font-bold">利用する</option>
-                <option value="none" class="bg-white text-stone-800 font-bold">不要</option>
+                <option value="none" class="bg-white text-stone-800 font-bold">利用しない</option>
               </select>
             </div>
           </div>
@@ -292,7 +292,6 @@
 
           <div id="settingSubPaneWage" class="space-y-2 pt-1 border-t border-rose-100">
             <div class="space-y-1.5 text-xs">
-              <!-- 給与締め日・支払日の横並びレイアウト -->
               <div class="grid grid-cols-2 gap-1.5 pt-1">
                 <div class="bg-stone-50 p-1.5 rounded-xl border border-rose-200/80 flex items-center justify-between px-2">
                   <span class="font-bold text-stone-700 text-[11px]">給与 締め日</span>
@@ -313,7 +312,6 @@
               <div class="pt-1.5 border-t border-rose-100 space-y-1.5">
                 <div class="text-[11px] font-bold text-stone-700">【時給入力＆その他手当】</div>
                 <div class="grid grid-cols-2 gap-1.5">
-                  <!-- 早朝 -->
                   <div class="p-2 rounded-xl border border-rose-200/80 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-700 text-[11px]">早朝</span>
@@ -324,7 +322,6 @@
                       <span class="text-[10px] font-bold text-stone-700">円</span>
                     </div>
                   </div>
-                  <!-- 日中 -->
                   <div class="p-2 rounded-xl border border-rose-200/80 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-700 text-[11px]">日中</span>
@@ -335,7 +332,6 @@
                       <span class="text-[10px] font-bold text-stone-700">円</span>
                     </div>
                   </div>
-                  <!-- 夕方 -->
                   <div class="p-2 rounded-xl border border-rose-200/80 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-700 text-[11px]">夕方</span>
@@ -346,7 +342,6 @@
                       <span class="text-[10px] font-bold text-stone-700">円</span>
                     </div>
                   </div>
-                  <!-- 夜 -->
                   <div class="p-2 rounded-xl border border-rose-200/80 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-700 text-[11px]">夜</span>
@@ -357,7 +352,6 @@
                       <span class="text-[10px] font-bold text-stone-700">円</span>
                     </div>
                   </div>
-                  <!-- 深夜 -->
                   <div class="p-2 rounded-xl border border-rose-200/80 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-700 text-[11px]">深夜</span>
@@ -368,7 +362,6 @@
                       <span class="text-[10px] font-bold text-stone-700">円</span>
                     </div>
                   </div>
-                  <!-- 追加 -->
                   <div class="p-2 rounded-xl border border-rose-200/80 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-700 text-[11px]">追加</span>
@@ -381,9 +374,7 @@
                   </div>
                 </div>
 
-                <!-- 有給休暇・交通費の横並び（交通費の「月」と「1日」の間隔を少しあけて調整） -->
                 <div class="grid grid-cols-2 gap-1.5 pt-1 items-stretch">
-                  <!-- 有給休暇 -->
                   <div class="p-2 rounded-xl border border-rose-200/80 space-y-1.5 bg-stone-50/50 flex flex-col justify-between">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-700 text-[11px]">有給休暇</span>
@@ -395,7 +386,6 @@
                     </div>
                   </div>
                   
-                  <!-- 交通費（月と1日の間隔を適切に調整） -->
                   <div class="p-2 rounded-xl border border-rose-200/80 space-y-1.5 bg-stone-50/50 flex flex-col justify-between">
                     <span class="font-bold text-stone-700 text-[11px]">交通費</span>
                     <div class="flex items-center justify-between text-[11px] px-1">
@@ -413,9 +403,7 @@
                   </div>
                 </div>
                 
-                <!-- 時給アップ＆その他手当 -->
                 <div class="pt-1.5 border-t border-rose-100 grid grid-cols-12 gap-1.5 items-stretch">
-                  <!-- 時給アップ (col-span-8) -->
                   <div class="col-span-8 p-2 rounded-xl border border-rose-200/80 space-y-1.5 px-2 bg-stone-50/50 flex flex-col justify-between">
                     <span class="font-bold text-stone-700 text-[11px] block">時給アップ</span>
                     <div class="grid grid-cols-3 gap-1 text-center">
@@ -437,7 +425,6 @@
                     </div>
                   </div>
 
-                  <!-- その他手当 (col-span-4) -->
                   <div class="col-span-4 p-2 rounded-xl border border-rose-200/80 space-y-1.5 px-2 bg-stone-50/50 flex flex-col justify-between">
                     <span class="font-bold text-stone-700 text-[11px] block">その他手当</span>
                     <div class="flex items-center justify-between">
@@ -1560,17 +1547,55 @@
       return null;
     }
 
-    function generateGoogleCalendarUrl(dateStr, jobName, startTime, endTime) {
-      if (!dateStr || !startTime || !endTime) return '#';
+    // まとめて登録用のGoogleカレンダーリンク生成（同日の全シフト・給料日を網羅）
+    function generateBatchGoogleCalendarUrl(dateStr, dayData) {
+      if (!dateStr) return '#';
       let [y, m, d] = dateStr.split('-');
       let padM = String(m).padStart(2, '0');
       let padD = String(d).padStart(2, '0');
-      let startIso = `${y}${padM}${padD}T${startTime.replace(':', '')}00`;
-      let endIso = `${y}${padM}${padD}T${endTime.replace(':', '')}00`;
-      
-      let text = encodeURIComponent(`バイト: ${jobName}`);
-      let details = encodeURIComponent(`シフト予定 (${startTime}〜${endTime})`);
-      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${startIso}/${endIso}&details=${details}`;
+      let dateIso = `${y}${padM}${padD}`;
+
+      let descriptions = [];
+      let earliestStart = '23:59';
+      let latestEnd = '00:00';
+
+      const activeKeys = getActiveJobKeys();
+      activeKeys.forEach(jk => {
+        let jobShift = dayData[jk];
+        let jName = configData[jk]?.name || 'バイト';
+        if (jobShift) {
+          if (jobShift.start1 && jobShift.end1) {
+            descriptions.push(`${jName}: ${jobShift.start1}〜${jobShift.end1}`);
+            if (jobShift.start1 < earliestStart) earliestStart = jobShift.start1;
+            if (jobShift.end1 > latestEnd) latestEnd = jobShift.end1;
+          }
+          if (jobShift.start2 && jobShift.end2) {
+            descriptions.push(`${jName}: ${jobShift.start2}〜${jobShift.end2}`);
+            if (jobShift.start2 < earliestStart) earliestStart = jobShift.start2;
+            if (jobShift.end2 > latestEnd) latestEnd = jobShift.end2;
+          }
+          if (!jobShift.start1 && !jobShift.end1 && jobShift.isPaidLeave) {
+            descriptions.push(`${jName}: 有給休暇`);
+          }
+        }
+      });
+
+      let paydayJobs = getPaydayJobs(new Date(y, m - 1, d));
+      paydayJobs.forEach(jk => {
+        let jName = configData[jk]?.name || 'バイト';
+        descriptions.push(`${jName} お給料日`);
+      });
+
+      let text = encodeURIComponent(`本日の予定 (${m}/${d})`);
+      let details = encodeURIComponent(descriptions.join('\n'));
+
+      if (earliestStart !== '23:59' && latestEnd !== '00:00') {
+        let startIso = `${dateIso}T${earliestStart.replace(':', '')}00`;
+        let endIso = `${dateIso}T${latestEnd.replace(':', '')}00`;
+        return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${startIso}/${endIso}&details=${details}`;
+      } else {
+        return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dateIso}/${dateIso}&details=${details}&allDay=true`;
+      }
     }
 
     function dotCardColorClass(jk) {
@@ -1707,49 +1732,47 @@
         const dayData = shiftsData[dateStr] || {};
         let isSelected = (dateStr === selectedCalendarDateStr);
 
-        let shiftSummaries = [];
-        let dotsHtml = [];
+        let linesHtml = '';
         let hasPaid = false;
-        let gcalButtonsHtml = '';
 
         activeKeys.forEach(jk => {
           let jobShift = dayData[jk];
-          let dotColor = dotCardColorClass(jk);
           if (jobShift) {
             let jName = configData[jk]?.name || 'バイト';
-            let hasTime1 = !!(jobShift.start1 && jobShift.end1);
-            let hasTime2 = !!(jobShift.start2 && jobShift.end2);
+            let t1 = !!(jobShift.start1 && jobShift.end1);
+            let t2 = !!(jobShift.start2 && jobShift.end2);
 
-            let times = [];
-            if (hasTime1) times.push(`${jobShift.start1}〜${jobShift.end1}`);
-            if (hasTime2) times.push(`${jobShift.start2}〜${jobShift.end2}`);
-
-            if (times.length > 0 || jobShift.isPaidLeave) {
-              shiftSummaries.push(`${activeKeys.length > 1 && jName ? jName + ': ' : ''}${times.join('/')}`);
-              
-              if (hasTime1) dotsHtml.push(`<span class="w-1.5 h-1.5 rounded-full ${dotColor} inline-block shrink-0"></span>`);
-              if (hasTime2) dotsHtml.push(`<span class="w-1.5 h-1.5 rounded-full ${dotColor} inline-block shrink-0"></span>`);
-              if (!hasTime1 && !hasTime2) dotsHtml.push(`<span class="w-1.5 h-1.5 rounded-full ${dotColor} inline-block shrink-0"></span>`);
-
+            if (t1 || t2 || jobShift.isPaidLeave) {
               if (jobShift.isPaidLeave) hasPaid = true;
 
-              if (isCalendarUse) {
-                if (hasTime1) {
-                  let url1 = generateGoogleCalendarUrl(dateStr, jName, jobShift.start1, jobShift.end1);
-                  let btnColor = jk === 'job2' ? 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-slate-100' : jk === 'job3' ? 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100' : 'bg-sky-50 text-sky-800 border-sky-200 hover:bg-sky-100';
-                  gcalButtonsHtml += `<a href="${url1}" target="_blank" onclick="event.stopPropagation();" class="text-[9px] ${btnColor} font-bold px-1.5 py-0.5 rounded border transition">📅 ${jName}(1)登録</a>`;
-                }
-                if (hasTime2) {
-                  let url2 = generateGoogleCalendarUrl(dateStr, jName, jobShift.start2, jobShift.end2);
-                  let btnColor = jk === 'job2' ? 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-slate-100' : jk === 'job3' ? 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100' : 'bg-sky-50 text-sky-800 border-sky-200 hover:bg-sky-100';
-                  gcalButtonsHtml += `<a href="${url2}" target="_blank" onclick="event.stopPropagation();" class="text-[9px] ${btnColor} font-bold px-1.5 py-0.5 rounded border transition">📅 ${jName}(2)登録</a>`;
-                }
+              if (t1) {
+                linesHtml += `<div class="text-xs text-stone-700 font-medium"><span>${jName} ${jobShift.start1}〜${jobShift.end1}</span></div>`;
+              }
+              if (t2) {
+                linesHtml += `<div class="text-xs text-stone-700 font-medium"><span>${jName} ${jobShift.start2}〜${jobShift.end2}</span></div>`;
+              }
+              if (!t1 && !t2 && jobShift.isPaidLeave) {
+                linesHtml += `<div class="text-xs text-rose-800 font-medium">${jName} 有給休暇</div>`;
               }
             }
           }
         });
 
-        const hasShift = shiftSummaries.length > 0;
+        let paydayJobs = getPaydayJobs(d);
+        if (paydayJobs.length > 0) {
+          paydayJobs.forEach(jk => {
+            let jName = configData[jk]?.name || 'バイト';
+            linesHtml += `<div class="text-xs font-bold text-stone-900 flex items-center space-x-1"><span><span class="text-rose-700">📌</span><span>${jName} お給料日</span></span></div>`;
+          });
+        }
+
+        const hasShift = (linesHtml !== '');
+        let batchCalendarIcon = '';
+        if (hasShift && isCalendarUse) {
+          let batchUrl = generateBatchGoogleCalendarUrl(dateStr, dayData);
+          batchCalendarIcon = `<a href="${batchUrl}" target="_blank" onclick="event.stopPropagation();" class="text-sm hover:scale-110 transition inline-block ml-1" title="Googleカレンダーに登録">📅</a>`;
+        }
+
         const isAllFinished = isAllShiftsFinishedForDate(new Date(d), dayData);
 
         const dayOfWeek = weekDays[d.getDay()];
@@ -1770,17 +1793,6 @@
           bgStyle = "bg-stone-50/30 border border-stone-100 hover:bg-stone-100/30";
         }
 
-        let paydayJobs = getPaydayJobs(d);
-        let listPaydayHtml = '';
-        if (paydayJobs.length > 0) {
-          paydayJobs.forEach(jk => {
-            let jName = configData[jk]?.name || 'バイト';
-            let textColor = "text-stone-900";
-
-            listPaydayHtml += `<span class="text-[10px] font-bold ${textColor} bg-white/90 px-2 py-1 rounded border border-stone-200 flex items-center space-x-1"><span class="text-rose-700">📌</span><span>${jName}</span></span>`;
-          });
-        }
-
         let badgeHtml = '';
         if (hasShift) {
           if (hasPaid) {
@@ -1792,25 +1804,17 @@
 
         container.innerHTML += `
           <div onclick="selectCalendarDate('${dateStr}'); switchTab('calendar');" 
-               class="flex flex-col p-2 rounded-xl border transition cursor-pointer ${bgStyle} space-y-1">
-            <div class="flex justify-between items-center">
-              <div class="flex items-center space-x-2.5">
-                <span class="w-16 font-bold ${isSelected ? 'text-rose-950' : dayColor}">
-                  ${d.getMonth()+1}/${d.getDate()} (${dayOfWeek})
-                </span>
-                <div class="flex items-center space-x-1.5 overflow-hidden">
-                  <div class="flex items-center space-x-1 shrink-0">${dotsHtml.join('')}</div>
-                  <span class="text-xs truncate ${isSelected ? 'text-stone-800' : 'text-stone-700'}">
-                    ${hasShift ? shiftSummaries.join(' / ') : '<span class="text-stone-300 font-normal">--:--</span>'}
-                  </span>
-                </div>
-              </div>
-              <div class="flex items-center space-x-1 shrink-0">
-                ${listPaydayHtml}
-                ${badgeHtml}
-              </div>
+               class="flex items-start p-2 rounded-xl border transition cursor-pointer ${bgStyle} space-x-2">
+            <div class="w-16 shrink-0 font-bold ${isSelected ? 'text-rose-950' : dayColor} pt-0.5">
+              ${d.getMonth()+1}/${d.getDate()} (${dayOfWeek})
             </div>
-            ${gcalButtonsHtml ? `<div class="flex flex-wrap gap-1 pt-1 border-t border-stone-100">${gcalButtonsHtml}</div>` : ''}
+            <div class="flex-1 space-y-0.5 pt-0.5">
+              ${hasShift ? linesHtml : `<div class="text-xs text-stone-300">予定なし</div>`}
+            </div>
+            <div class="flex items-center space-x-1 shrink-0 pt-0.5">
+              ${batchCalendarIcon}
+              ${badgeHtml}
+            </div>
           </div>
         `;
       }
