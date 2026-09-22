@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>マイシフト＆給料</title>
   
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%239d174d'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='%23fef3c7'>📅</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%239d174d'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='%23fef3c7'>🗓️</text></svg>">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -254,7 +254,7 @@
           <div class="text-xs font-bold text-stone-700 border-b border-rose-100 pb-1 flex justify-between items-center tracking-wide">
             <span id="standaloneListTitleLabel">〇月の予定表</span>
             <div class="flex items-center space-x-1 shrink-0">
-              <span class="text-[10px] text-stone-800 font-bold flex items-center space-x-0.5 shrink-0"><span>📅</span><span>Googleカレンダー</span></span>
+              <span class="text-[10px] text-stone-800 font-bold flex items-center space-x-0.5 shrink-0"><span>🗓️</span><span>Googleカレンダー</span></span>
               <select id="calendarFeatureSelect" onchange="onCalendarFeatureChange(this.value)" class="text-[10px] font-bold text-white bg-gradient-to-br from-rose-950 via-rose-900 to-stone-900 border border-rose-900/40 rounded-lg px-1.5 py-0.5 focus:outline-none shadow-xs shrink-0">
                 <option value="use" class="bg-white text-stone-800 font-bold">利用する</option>
                 <option value="none" class="bg-white text-stone-800 font-bold">利用しない</option>
@@ -1770,7 +1770,7 @@
         let batchCalendarIcon = '';
         if (hasShift && isCalendarUse) {
           let batchUrl = generateBatchGoogleCalendarUrl(dateStr, dayData);
-          batchCalendarIcon = `<a href="${batchUrl}" target="_blank" onclick="event.stopPropagation();" class="text-sm hover:scale-110 transition inline-block ml-1" title="Googleカレンダーに登録">📅</a>`;
+          batchCalendarIcon = `<a href="${batchUrl}" target="_blank" onclick="event.stopPropagation();" class="text-sm hover:scale-110 transition inline-block ml-1" title="Googleカレンダーに登録">🗓️</a>`;
         }
 
         const isAllFinished = isAllShiftsFinishedForDate(new Date(d), dayData);
