@@ -211,14 +211,14 @@
               <span class="text-[11px] font-bold text-stone-600">【 1回目の時間 】</span>
               <button type="button" onclick="clearSlot(1)" class="text-[10px] text-rose-800 hover:text-rose-950 font-bold px-2 py-0.5 rounded bg-rose-100/60 hover:bg-rose-200/60 transition">クリア</button>
             </div>
-            <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="grid grid-cols-2 gap-2 text-xs px-1">
               <div>
                 <label class="text-stone-400 text-[10px] block mb-0.5">開始時間</label>
-                <input type="time" id="shiftStart1" onchange="autoSaveShift()" class="w-full p-1.5 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
+                <input type="time" id="shiftStart1" onchange="autoSaveShift()" class="w-full p-2 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
               </div>
               <div>
                 <label class="text-stone-400 text-[10px] block mb-0.5">終了時間</label>
-                <input type="time" id="shiftEnd1" onchange="autoSaveShift()" class="w-full p-1.5 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
+                <input type="time" id="shiftEnd1" onchange="autoSaveShift()" class="w-full p-2 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
               </div>
             </div>
           </div>
@@ -228,14 +228,14 @@
               <span class="text-[11px] font-bold text-stone-600">【 2回目の時間（任意） 】</span>
               <button type="button" onclick="clearSlot(2)" class="text-[10px] text-rose-800 hover:text-rose-950 font-bold px-2 py-0.5 rounded bg-rose-100/60 hover:bg-rose-200/60 transition">クリア</button>
             </div>
-            <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="grid grid-cols-2 gap-2 text-xs px-1">
               <div>
                 <label class="text-stone-400 text-[10px] block mb-0.5">開始時間</label>
-                <input type="time" id="shiftStart2" onchange="autoSaveShift()" class="w-full p-1.5 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
+                <input type="time" id="shiftStart2" onchange="autoSaveShift()" class="w-full p-2 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
               </div>
               <div>
                 <label class="text-stone-400 text-[10px] block mb-0.5">終了時間</label>
-                <input type="time" id="shiftEnd2" onchange="autoSaveShift()" class="w-full p-1.5 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
+                <input type="time" id="shiftEnd2" onchange="autoSaveShift()" class="w-full p-2 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
               </div>
             </div>
           </div>
@@ -440,7 +440,7 @@
 
               <div class="pt-2 border-t border-rose-100 space-y-1.5">
                 <div class="flex justify-between items-center">
-                  <span id="presetSettingsTitleLabel" class="text-xs font-bold text-stone-700">ワンタッチ時間の変更</span>
+                  <span id="presetSettingsTitleLabel" class="text-xs font-bold text-stone-700">ワンタッチ時間の登録</span>
                   <button type="button" onclick="addPresetRow()" class="bg-rose-900 text-rose-50 text-[10px] font-bold px-2 py-0.5 rounded-lg hover:bg-rose-800 transition shadow-sm">+ 時間を追加</button>
                 </div>
                 <div id="jobPresetSettingsList" class="space-y-1"></div>
@@ -473,28 +473,28 @@
     let toastTimer = null;
 
     const defaultPresets1 = [
-      { start: '06:45', end: '09:00' },
-      { start: '19:00', end: '20:45' },
-      { start: '19:00', end: '21:00' },
-      { start: '19:00', end: '22:15' },
-      { start: '19:00', end: '23:15' }
+      { start: '06:45', end: '09:00', breakMins: 0 },
+      { start: '19:00', end: '20:45', breakMins: 0 },
+      { start: '19:00', end: '21:00', breakMins: 0 },
+      { start: '19:00', end: '22:15', breakMins: 15 },
+      { start: '19:00', end: '23:15', breakMins: 45 }
     ];
 
     const defaultPresets2 = [
-      { start: '09:00', end: '13:00' },
-      { start: '10:00', end: '15:00' },
-      { start: '17:00', end: '21:00' },
-      { start: '18:00', end: '22:00' }
+      { start: '09:00', end: '13:00', breakMins: 0 },
+      { start: '10:00', end: '15:00', breakMins: 30 },
+      { start: '17:00', end: '21:00', breakMins: 0 },
+      { start: '18:00', end: '22:00', breakMins: 0 }
     ];
 
     let shiftsData = {};
     try {
-      shiftsData = JSON.parse(localStorage.getItem('mybasket_shifts_v15') || localStorage.getItem('mybasket_shifts_v14') || '{}');
+      shiftsData = JSON.parse(localStorage.getItem('mybasket_shifts_v16') || localStorage.getItem('mybasket_shifts_v15') || '{}');
     } catch (e) { shiftsData = {}; }
 
     let savedWages = {};
     try {
-      savedWages = JSON.parse(localStorage.getItem('mybasket_wages_v69') || '{}');
+      savedWages = JSON.parse(localStorage.getItem('mybasket_wages_v71') || localStorage.getItem('mybasket_wages_v70') || '{}');
     } catch (e) { savedWages = {}; }
 
     let monthlyGoal = Number(savedWages.monthlyGoal) || 0;
@@ -508,7 +508,12 @@
     };
 
     function createDefaultJobConfig(savedJob, defName, defPresets, defPaid, defMorn, defDay, defEve, defNight, defMidnight, defExtra, tM, tD, tEv, tN, tMid, tEx) {
-      let loadedPresets = (savedJob?.presets && savedJob.presets.length > 0) ? savedJob.presets : JSON.parse(JSON.stringify(defPresets));
+      let loadedPresets = (savedJob?.presets && savedJob.presets.length > 0) ? savedJob.presets.map(p => ({
+        start: p.start || '',
+        end: p.end || '',
+        breakMins: Number(p.breakMins) || 0
+      })) : JSON.parse(JSON.stringify(defPresets));
+
       return {
         name: savedJob?.name !== undefined ? savedJob.name : defName,
         closeDay: savedJob?.closeDay || '20',
@@ -519,7 +524,7 @@
         evening: Number(savedJob?.evening) !== NaN && savedJob?.evening !== undefined ? Number(savedJob.evening) : defEve,
         night: Number(savedJob?.night) !== NaN && savedJob?.night !== undefined ? Number(savedJob.night) : defNight,
         midnight: Number(savedJob?.midnight) !== NaN && savedJob?.midnight !== undefined ? Number(savedJob.midnight) : defMidnight,
-        extraWage: Number(savedJob?.extraWage) !== NaN && savedJob?.extraWage !== undefined ? Number(savedJob.extraWage) : 0,
+        extraWage: Number(savedJob?.extraWage) !== NaN && savedJob?.extraWage !== undefined ? Number(savedJob.extraWage) : defExtra,
         timeMorning: savedJob?.timeMorning !== undefined ? savedJob.timeMorning : tM,
         timeDay: savedJob?.timeDay !== undefined ? savedJob.timeDay : tD,
         timeEvening: savedJob?.timeEvening !== undefined ? savedJob.timeEvening : tEv,
@@ -734,6 +739,63 @@
       renderBreakdownContent(jobKey);
     }
 
+    function calculateJobShiftMinutesAndPay(jobShift, job, dateObj) {
+      let totalMins = 0;
+      let totalPay = 0;
+      if (!jobShift) return { totalMins, totalPay };
+
+      let isPaid = jobShift.isPaidLeave;
+      if (isPaid) {
+        return { totalMins: 0, totalPay: job.paid || 1650 };
+      }
+
+      let slots = [];
+      if (jobShift.start1 && jobShift.end1) slots.push({ start: jobShift.start1, end: jobShift.end1 });
+      if (jobShift.start2 && jobShift.end2) slots.push({ start: jobShift.start2, end: jobShift.end2 });
+
+      let rawMinsList = slots.map(s => getMinutesDiff(s.start, s.end));
+      let breakMins = Number(jobShift.breakMins !== undefined ? jobShift.breakMins : 0);
+
+      slots.forEach((slot, idx) => {
+        let rawMins = rawMinsList[idx];
+        if (rawMins <= 0) return;
+
+        let [sH, sM] = slot.start.split(':').map(Number);
+        let [eH, eM] = slot.end.split(':').map(Number);
+        let startMins = sH * 60 + sM;
+        let endMins = eH * 60 + eM;
+
+        let slotBreak = 0;
+        if (breakMins > 0) {
+          if (idx === 0) {
+            slotBreak = Math.min(breakMins, rawMins);
+          } else {
+            let prevBreakUsed = Math.min(breakMins, rawMinsList[0]);
+            let remBreak = Math.max(0, breakMins - prevBreakUsed);
+            slotBreak = Math.min(remBreak, rawMins);
+          }
+        }
+
+        let effectiveEndMins = endMins - slotBreak;
+        if (effectiveEndMins > startMins) {
+          totalMins += (rawMins - slotBreak);
+          for (let min = startMins; min < effectiveEndMins; min += 15) {
+            let rateInfo = getRateForMinuteDetailed(min, job, dateObj, false);
+            let rate = rateInfo.rate;
+            let dayOfWeek = dateObj.getDay();
+            let isHol = isJapaneseHoliday(dateObj);
+            if (dayOfWeek === 6 && job.satBonus) rate += job.satBonus;
+            else if (dayOfWeek === 0 && job.sunBonus) rate += job.sunBonus;
+            else if (isHol && job.holBonus) rate += job.holBonus;
+
+            totalPay += (rate / 4);
+          }
+        }
+      });
+
+      return { totalMins, totalPay };
+    }
+
     function renderBreakdownContent(jobKey) {
       const contentArea = document.getElementById('breakdownContentArea');
       if (!contentArea) return;
@@ -756,22 +818,50 @@
           let isPaid = jobShift.isPaidLeave;
           let hasWork = false;
 
-          ['start1', 'start2'].forEach((stKey, idx) => {
-            let eKey = idx === 0 ? 'end1' : 'end2';
-            let s = jobShift[stKey], e = jobShift[eKey];
-            if (s && e) {
-              let [sH, sM] = s.split(':').map(Number);
-              let [eH, eM] = e.split(':').map(Number);
-              let startMins = sH * 60 + sM;
-              let endMins = eH * 60 + eM;
-              if (endMins > startMins) {
-                hasWork = true;
-                for (let min = startMins; min < endMins; min += 15) {
-                  let rateInfo = getRateForMinuteDetailed(min, job, new Date(d), isPaid);
-                  if (isPaid) {
-                    paidMins += 15;
-                    paidPay += (rateInfo.rate / 4);
-                  } else {
+          if (isPaid) {
+            paidPay += (job.paid || 1650);
+            workDaysCount++;
+          } else {
+            ['start1', 'start2'].forEach((stKey, idx) => {
+              let eKey = idx === 0 ? 'end1' : 'end2';
+              let s = jobShift[stKey], e = jobShift[eKey];
+              if (s && e) {
+                let [sH, sM] = s.split(':').map(Number);
+                let [eH, eM] = e.split(':').map(Number);
+                let startMins = sH * 60 + sM;
+                let endMins = eH * 60 + eM;
+                if (endMins > startMins) hasWork = true;
+              }
+            });
+
+            if (hasWork) {
+              workDaysCount++;
+              let breakMins = Number(jobShift.breakMins) || 0;
+              let effectiveMinsCounted = 0;
+
+              ['start1', 'start2'].forEach((stKey, idx) => {
+                let eKey = idx === 0 ? 'end1' : 'end2';
+                let s = jobShift[stKey], e = jobShift[eKey];
+                if (s && e) {
+                  let [sH, sM] = s.split(':').map(Number);
+                  let [eH, eM] = e.split(':').map(Number);
+                  let startMins = sH * 60 + sM;
+                  let endMins = eH * 60 + eM;
+                  let rawSlotMins = endMins - startMins;
+
+                  let slotBreak = 0;
+                  if (breakMins > 0) {
+                    if (idx === 0) slotBreak = Math.min(breakMins, rawSlotMins);
+                    else {
+                      let slot1Raw = getMinutesDiff(jobShift.start1, jobShift.end1);
+                      let rem = Math.max(0, breakMins - Math.min(breakMins, slot1Raw));
+                      slotBreak = Math.min(rem, rawSlotMins);
+                    }
+                  }
+                  let effEndMins = endMins - slotBreak;
+
+                  for (let min = startMins; min < effEndMins; min += 15) {
+                    let rateInfo = getRateForMinuteDetailed(min, job, new Date(d), false);
                     if (rateInfo.category === 'morning') { mornMins += 15; mornPay += (rateInfo.rate / 4); }
                     else if (rateInfo.category === 'day') { dayMins += 15; dayPay += (rateInfo.rate / 4); }
                     else if (rateInfo.category === 'evening') { eveMins += 15; evePay += (rateInfo.rate / 4); }
@@ -780,11 +870,9 @@
                     else { dayMins += 15; dayPay += (rateInfo.rate / 4); }
                   }
                 }
-              }
+              });
             }
-          });
-
-          if (hasWork || isPaid) workDaysCount++;
+          }
         }
       }
 
@@ -1032,7 +1120,7 @@
         };
       }
 
-      localStorage.setItem('mybasket_shifts_v15', JSON.stringify(shiftsData));
+      localStorage.setItem('mybasket_shifts_v16', JSON.stringify(shiftsData));
       renderCalendar();
       renderStandaloneShiftList();
       initOverviewPage();
@@ -1050,17 +1138,19 @@
 
       presets.forEach(p => {
         if (p.start && p.end) {
+          let breakText = p.breakMins > 0 ? `(休${p.breakMins}分)` : '';
           container.innerHTML += `
-            <button type="button" onclick="setPresetTime('${p.start}', '${p.end}')" 
-                    class="bg-white border border-rose-200/80 hover:bg-rose-50 text-rose-950 py-2.5 px-1 rounded-xl text-center shadow-sm active:scale-95 transition flex items-center justify-center">
+            <button type="button" onclick="setPresetTime('${p.start}', '${p.end}', ${p.breakMins || 0})" 
+                    class="bg-white border border-rose-200/80 hover:bg-rose-50 text-rose-950 py-2 px-1 rounded-xl text-center shadow-sm active:scale-95 transition flex flex-col items-center justify-center">
               <span class="text-[10px] font-bold tracking-tight text-stone-700">${p.start}-${p.end}</span>
+              ${breakText ? `<span class="text-[9px] text-rose-800 font-bold">${breakText}</span>` : ''}
             </button>
           `;
         }
       });
     }
 
-    function setPresetTime(start, end) {
+    function setPresetTime(start, end, breakMins) {
       if (!selectedCalendarDateStr) {
         showToast("カレンダーから日付を選択してください");
         return;
@@ -1081,8 +1171,16 @@
         s1.value = start;
         e1.value = end;
       }
+
+      // 該当日のシフトデータに休憩時間を紐付け保存
+      if (!shiftsData[selectedCalendarDateStr]) shiftsData[selectedCalendarDateStr] = {};
+      if (!shiftsData[selectedCalendarDateStr][currentSelectedJobKey]) {
+        shiftsData[selectedCalendarDateStr][currentSelectedJobKey] = {};
+      }
+      shiftsData[selectedCalendarDateStr][currentSelectedJobKey].breakMins = breakMins;
+
       autoSaveShift();
-      showToast("時間を入力しました");
+      showToast(breakMins > 0 ? `時間を入力しました (休憩${breakMins}分)` : "時間を入力しました");
     }
 
     function renderPresetInputs(jobKey) {
@@ -1093,12 +1191,17 @@
       const presets = configData[jobKey].presets || [];
       presets.forEach((p, idx) => {
         container.innerHTML += `
-          <div class="flex items-center space-x-1.5 bg-stone-50 p-1.5 rounded-xl border border-rose-100">
+          <div class="flex items-center space-x-1 bg-stone-50 p-1.5 rounded-xl border border-rose-100 text-xs">
             <span class="text-[10px] text-stone-400 font-bold w-4">${idx+1}.</span>
-            <input type="time" id="preset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs flex-1">
+            <input type="time" id="preset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-20">
             <span>〜</span>
-            <input type="time" id="preset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs flex-1">
-            <button type="button" onclick="removePresetRow(${idx})" class="bg-rose-100 text-rose-800 hover:bg-rose-200 font-bold px-2 py-0.5 rounded-lg text-xs transition">✕</button>
+            <input type="time" id="preset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-20">
+            <div class="flex items-center space-x-0.5 ml-1">
+              <span class="text-[10px] text-stone-500">休</span>
+              <input type="text" inputmode="numeric" id="preset_break_${idx}" value="${p.breakMins ? p.breakMins : ''}" oninput="formatInputNumber(this)" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-10 text-center" placeholder="0">
+              <span class="text-[10px] text-stone-500">分</span>
+            </div>
+            <button type="button" onclick="removePresetRow(${idx})" class="bg-rose-100 text-rose-800 hover:bg-rose-200 font-bold px-2 py-0.5 rounded-lg text-xs transition ml-auto">✕</button>
           </div>
         `;
       });
@@ -1106,7 +1209,7 @@
 
     function addPresetRow() {
       syncPresetInputsToConfig(currentSettingsJobKey);
-      configData[currentSettingsJobKey].presets.push({ start: '', end: '' });
+      configData[currentSettingsJobKey].presets.push({ start: '', end: '', breakMins: 0 });
       renderPresetInputs(currentSettingsJobKey);
     }
 
@@ -1122,8 +1225,10 @@
         presets.forEach((p, idx) => {
           const s = document.getElementById(`preset_start_${idx}`);
           const e = document.getElementById(`preset_end_${idx}`);
+          const b = document.getElementById(`preset_break_${idx}`);
           if (s) p.start = s.value;
           if (e) p.end = e.value;
+          if (b) p.breakMins = parseFormattedNumber(b.value);
         });
       }
     }
@@ -1162,16 +1267,18 @@
 
         if (jobShift) {
           let isPaid = jobShift.isPaidLeave;
-          if (jobShift.start1 && jobShift.end1) {
-            jobMins += getMinutesDiff(jobShift.start1, jobShift.end1);
-            jobPay += calculateRangePay(jobShift.start1, jobShift.end1, now, jk, isPaid);
-            timeStrs.push(`${jobShift.start1}〜${jobShift.end1}`);
+          if (isPaid) {
+            hasAnyTodayShift = true;
+            jobPay += jobConf.paid || 1650;
+            timeStrs.push(`有給`);
+          } else {
+            let res = calculateJobShiftMinutesAndPay(jobShift, jobConf, now);
+            jobMins += res.totalMins;
+            jobPay += res.totalPay;
+            if (jobShift.start1 && jobShift.end1) timeStrs.push(`${jobShift.start1}〜${jobShift.end1}`);
+            if (jobShift.start2 && jobShift.end2) timeStrs.push(`${jobShift.start2}〜${jobShift.end2}`);
           }
-          if (jobShift.start2 && jobShift.end2) {
-            jobMins += getMinutesDiff(jobShift.start2, jobShift.end2);
-            jobPay += calculateRangePay(jobShift.start2, jobShift.end2, now, jk, isPaid);
-            timeStrs.push(`${jobShift.start2}〜${jobShift.end2}`);
-          }
+
           if (jobMins > 0 || isPaid) {
             hasAnyTodayShift = true;
             if (jobConf.transDay > 0) jobPay += jobConf.transDay;
@@ -1180,7 +1287,6 @@
 
         if (jobMins > 0 || (jobShift && jobShift.isPaidLeave)) {
           let timeDisplay = timeStrs.length > 0 ? timeStrs.join(' / ') : '';
-          if (jobShift.isPaidLeave) timeDisplay = `有給 (${timeDisplay})`;
           breakdownHtml += `
             <div class="flex justify-between items-center py-0.5 border-b border-rose-50 last:border-b-0">
               <span class="font-bold text-stone-700">・${jobConf.name || 'バイト先'} <span class="text-[10px] text-stone-400 font-normal">(${timeDisplay})</span></span>
@@ -1225,30 +1331,19 @@
         if (dayData) {
           getActiveJobKeys().forEach(jk => {
             let jobShift = dayData[jk];
+            let jobConf = configData[jk];
             if (jobShift) {
               let isPaid = jobShift.isPaidLeave;
-              let hasWork = false;
-
-              if (jobShift.start1 && jobShift.end1) {
-                let m1 = getMinutesDiff(jobShift.start1, jobShift.end1);
-                if (m1 > 0) {
-                  totalMins += m1;
-                  totalPay += calculateRangePay(jobShift.start1, jobShift.end1, new Date(d), jk, isPaid);
-                  hasWork = true;
-                }
-              }
-              if (jobShift.start2 && jobShift.end2) {
-                let m2 = getMinutesDiff(jobShift.start2, jobShift.end2);
-                if (m2 > 0) {
-                  totalMins += m2;
-                  totalPay += calculateRangePay(jobShift.start2, jobShift.end2, new Date(d), jk, isPaid);
-                  hasWork = true;
-                }
-              }
-
-              if (hasWork || isPaid) {
-                let jobConf = configData[jk];
+              if (isPaid) {
+                totalPay += jobConf.paid || 1650;
                 if (jobConf.transDay > 0) totalPay += jobConf.transDay;
+              } else {
+                let res = calculateJobShiftMinutesAndPay(jobShift, jobConf, new Date(d));
+                if (res.totalMins > 0) {
+                  totalMins += res.totalMins;
+                  totalPay += res.totalPay;
+                  if (jobConf.transDay > 0) totalPay += jobConf.transDay;
+                }
               }
             }
           });
@@ -1373,19 +1468,17 @@
           if (dayData && dayData[jk]) {
             let jobShift = dayData[jk];
             let isPaid = jobShift.isPaidLeave;
-            let hasWork = false;
-            if (jobShift.start1 && jobShift.end1) {
-              jobReceivePay += calculateRangePay(jobShift.start1, jobShift.end1, new Date(d), jk, isPaid);
-              hasWork = true;
-            }
-            if (jobShift.start2 && jobShift.end2) {
-              jobReceivePay += calculateRangePay(jobShift.start2, jobShift.end2, new Date(d), jk, isPaid);
-              hasWork = true;
-            }
-
-            if (hasWork || isPaid) {
+            if (isPaid) {
+              jobReceivePay += job.paid || 1650;
               jobWorkDays++;
               if (job.transDay > 0) jobReceivePay += job.transDay;
+            } else {
+              let res = calculateJobShiftMinutesAndPay(jobShift, job, new Date(d));
+              if (res.totalMins > 0) {
+                jobReceivePay += res.totalPay;
+                jobWorkDays++;
+                if (job.transDay > 0) jobReceivePay += job.transDay;
+              }
             }
           }
         }
@@ -1437,22 +1530,18 @@
         if (dayData) {
           getActiveJobKeys().forEach(jk => {
             let jobShift = dayData[jk];
+            let jobConf = configData[jk];
             if (jobShift) {
               let isPaid = jobShift.isPaidLeave;
-              let hasWork = false;
-
-              if (jobShift.start1 && jobShift.end1) {
-                totalYearPay += calculateRangePay(jobShift.start1, jobShift.end1, new Date(d), jk, isPaid);
-                hasWork = true;
-              }
-              if (jobShift.start2 && jobShift.end2) {
-                totalYearPay += calculateRangePay(jobShift.start2, jobShift.end2, new Date(d), jk, isPaid);
-                hasWork = true;
-              }
-
-              if (hasWork || isPaid) {
-                let jobConf = configData[jk];
+              if (isPaid) {
+                totalYearPay += jobConf.paid || 1650;
                 if (jobConf.transDay > 0) totalYearPay += jobConf.transDay;
+              } else {
+                let res = calculateJobShiftMinutesAndPay(jobShift, jobConf, new Date(d));
+                if (res.totalMins > 0) {
+                  totalYearPay += res.totalPay;
+                  if (jobConf.transDay > 0) totalYearPay += jobConf.transDay;
+                }
               }
             }
           });
@@ -1547,7 +1636,6 @@
       return null;
     }
 
-    // まとめて登録用のGoogleカレンダーリンク生成（同日の全シフト・給料日を網羅）
     function generateBatchGoogleCalendarUrl(dateStr, dayData) {
       if (!dateStr) return '#';
       let [y, m, d] = dateStr.split('-');
@@ -1889,34 +1977,6 @@
       return { rate: defaultRate, category };
     }
 
-    function calculateRangePay(startStr, endStr, dateObj, jobKey = 'job1', isPaid = false) {
-      if (!startStr || !endStr) return 0;
-      const [inH, inM] = startStr.split(':').map(Number);
-      const [outH, outM] = endStr.split(':').map(Number);
-      if (isNaN(inH) || isNaN(inM) || isNaN(outH) || isNaN(outM)) return 0;
-
-      let startMins = inH * 60 + inM;
-      let endMins = outH * 60 + outM;
-      if (endMins <= startMins) return 0;
-
-      const currentJob = configData[jobKey] || configData.job1;
-
-      let subtotal = 0;
-      for (let min = startMins; min < endMins; min += 15) {
-        let rateInfo = getRateForMinuteDetailed(min, currentJob, dateObj, isPaid);
-        let rate = rateInfo.rate;
-        if (!isPaid) {
-          let dayOfWeek = dateObj.getDay();
-          let isHol = isJapaneseHoliday(dateObj);
-          if (dayOfWeek === 6 && currentJob.satBonus) rate += currentJob.satBonus;
-          else if (dayOfWeek === 0 && currentJob.sunBonus) rate += currentJob.sunBonus;
-          else if (isHol && currentJob.holBonus) rate += currentJob.holBonus;
-        }
-        subtotal += (rate / 4);
-      }
-      return isNaN(subtotal) ? 0 : subtotal;
-    }
-
     function calculatePeriodTotalPay(start, end) {
       let totalMins = 0;
       for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
@@ -1925,14 +1985,13 @@
         if (dayData) {
           getActiveJobKeys().forEach(jk => {
             let jobShift = dayData[jk];
+            let jobConf = configData[jk];
             if (jobShift) {
-              if (jobShift.start1 && jobShift.end1) {
-                let m1 = getMinutesDiff(jobShift.start1, jobShift.end1);
-                if (m1 > 0) totalMins += m1;
-              }
-              if (jobShift.start2 && jobShift.end2) {
-                let m2 = getMinutesDiff(jobShift.start2, jobShift.end2);
-                if (m2 > 0) totalMins += m2;
+              if (jobShift.isPaidLeave) {
+                // 有給時は労働時間は加算しない
+              } else {
+                let res = calculateJobShiftMinutesAndPay(jobShift, jobConf, new Date(d));
+                if (res.totalMins > 0) totalMins += res.totalMins;
               }
             }
           });
@@ -2104,7 +2163,7 @@
       document.getElementById('settingAllowanceMonth').value = j.allowanceMonth ? j.allowanceMonth.toLocaleString() : '';
 
       const presetTitle = document.getElementById('presetSettingsTitleLabel');
-      if (presetTitle) presetTitle.innerText = `ワンタッチ時間の変更`;
+      if (presetTitle) presetTitle.innerText = `ワンタッチ時間の登録`;
       renderPresetInputs(jobKey);
     }
 
@@ -2112,7 +2171,7 @@
       syncUIFormToConfig(currentSettingsJobKey);
       let payload = JSON.parse(JSON.stringify(configData));
       payload.monthlyGoal = monthlyGoal;
-      localStorage.setItem('mybasket_wages_v69', JSON.stringify(payload));
+      localStorage.setItem('mybasket_wages_v71', JSON.stringify(payload));
     }
 
     function saveSettings() {
