@@ -252,14 +252,14 @@
 
         <div class="bg-white p-2.5 rounded-2xl border border-rose-100 space-y-1.5 shadow-sm">
           <div class="text-xs font-bold text-stone-700 border-b border-rose-100 pb-1 flex justify-between items-center tracking-wide">
-            <span id="standaloneListTitleLabel">〇月の予定表</span>
             <div class="flex items-center space-x-1 shrink-0">
               <span class="text-[10px] text-stone-800 font-bold flex items-center space-x-0.5 shrink-0"><span>🗓️</span><span>Googleカレンダー</span></span>
-              <select id="calendarFeatureSelect" onchange="onCalendarFeatureChange(this.value)" class="text-[10px] font-bold text-white bg-gradient-to-br from-rose-950 via-rose-900 to-stone-900 border border-rose-900/40 rounded-lg px-1.5 py-0.5 focus:outline-none shadow-xs shrink-0">
-                <option value="use" class="bg-white text-stone-800 font-bold">利用する</option>
-                <option value="none" class="bg-white text-stone-800 font-bold">利用しない</option>
+              <select id="calendarFeatureSelect" onchange="onCalendarFeatureChange(this.value)" class="text-[10px] font-medium text-stone-700 bg-stone-50 border border-stone-200 rounded-lg px-1.5 py-0.5 focus:outline-none shadow-xs shrink-0">
+                <option value="use">利用する</option>
+                <option value="none">利用しない</option>
               </select>
             </div>
+            <span class="text-[9px] text-stone-400 font-normal">（※日付の🗓️をクリックして登録）</span>
           </div>
           <div id="standaloneShiftListContainer" class="space-y-1 max-h-[480px] overflow-y-auto pr-1 text-xs"></div>
         </div>
@@ -489,12 +489,12 @@
 
     let shiftsData = {};
     try {
-      shiftsData = JSON.parse(localStorage.getItem('mybasket_shifts_v16') || localStorage.getItem('mybasket_shifts_v15') || '{}');
+      shiftsData = JSON.parse(localStorage.getItem('mybasket_shifts_v19') || localStorage.getItem('mybasket_shifts_v18') || '{}');
     } catch (e) { shiftsData = {}; }
 
     let savedWages = {};
     try {
-      savedWages = JSON.parse(localStorage.getItem('mybasket_wages_v71') || localStorage.getItem('mybasket_wages_v70') || '{}');
+      savedWages = JSON.parse(localStorage.getItem('mybasket_wages_v74') || localStorage.getItem('mybasket_wages_v73') || '{}');
     } catch (e) { savedWages = {}; }
 
     let monthlyGoal = Number(savedWages.monthlyGoal) || 0;
@@ -837,7 +837,6 @@
             if (hasWork) {
               workDaysCount++;
               let breakMins = Number(jobShift.breakMins) || 0;
-              let effectiveMinsCounted = 0;
 
               ['start1', 'start2'].forEach((stKey, idx) => {
                 let eKey = idx === 0 ? 'end1' : 'end2';
@@ -1120,7 +1119,7 @@
         };
       }
 
-      localStorage.setItem('mybasket_shifts_v16', JSON.stringify(shiftsData));
+      localStorage.setItem('mybasket_shifts_v19', JSON.stringify(shiftsData));
       renderCalendar();
       renderStandaloneShiftList();
       initOverviewPage();
@@ -1172,7 +1171,6 @@
         e1.value = end;
       }
 
-      // 該当日のシフトデータに休憩時間を紐付け保存
       if (!shiftsData[selectedCalendarDateStr]) shiftsData[selectedCalendarDateStr] = {};
       if (!shiftsData[selectedCalendarDateStr][currentSelectedJobKey]) {
         shiftsData[selectedCalendarDateStr][currentSelectedJobKey] = {};
@@ -1191,17 +1189,19 @@
       const presets = configData[jobKey].presets || [];
       presets.forEach((p, idx) => {
         container.innerHTML += `
-          <div class="flex items-center space-x-1 bg-stone-50 p-1.5 rounded-xl border border-rose-100 text-xs">
-            <span class="text-[10px] text-stone-400 font-bold w-4">${idx+1}.</span>
-            <input type="time" id="preset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-20">
-            <span>〜</span>
-            <input type="time" id="preset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-20">
-            <div class="flex items-center space-x-0.5 ml-1">
-              <span class="text-[10px] text-stone-500">休</span>
-              <input type="text" inputmode="numeric" id="preset_break_${idx}" value="${p.breakMins ? p.breakMins : ''}" oninput="formatInputNumber(this)" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-10 text-center" placeholder="0">
-              <span class="text-[10px] text-stone-500">分</span>
+          <div class="flex items-center justify-between bg-stone-50 p-1.5 rounded-xl border border-rose-100 text-xs">
+            <div class="flex items-center space-x-1">
+              <span class="text-[10px] text-stone-400 font-bold w-4">${idx+1}.</span>
+              <input type="time" id="preset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-20">
+              <span>〜</span>
+              <input type="time" id="preset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-20">
+              <div class="flex items-center space-x-0.5 ml-1">
+                <span class="text-[10px] text-stone-500">休憩</span>
+                <input type="text" inputmode="numeric" id="preset_break_${idx}" value="${p.breakMins ? p.breakMins : ''}" oninput="formatInputNumber(this)" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-10 text-center" placeholder="0">
+                <span class="text-[10px] text-stone-500">分</span>
+              </div>
             </div>
-            <button type="button" onclick="removePresetRow(${idx})" class="bg-rose-100 text-rose-800 hover:bg-rose-200 font-bold px-2 py-0.5 rounded-lg text-xs transition ml-auto">✕</button>
+            <button type="button" onclick="clearPresetRow(${idx})" class="text-stone-400 hover:text-stone-700 font-bold px-2 py-0.5 rounded text-[11px] transition">クリア</button>
           </div>
         `;
       });
@@ -1213,10 +1213,11 @@
       renderPresetInputs(currentSettingsJobKey);
     }
 
-    function removePresetRow(idx) {
+    function clearPresetRow(idx) {
       syncPresetInputsToConfig(currentSettingsJobKey);
-      configData[currentSettingsJobKey].presets.splice(idx, 1);
+      configData[currentSettingsJobKey].presets[idx] = { start: '', end: '', breakMins: 0 };
       renderPresetInputs(currentSettingsJobKey);
+      showToast("クリアしました");
     }
 
     function syncPresetInputsToConfig(jobKey) {
@@ -1802,10 +1803,6 @@
       if (listMonthLabelEl) {
         listMonthLabelEl.innerText = `${start.getFullYear()}年${start.getMonth()+1}月`;
       }
-      const titleLabel = document.getElementById('standaloneListTitleLabel');
-      if (titleLabel) {
-        titleLabel.innerText = `${start.getMonth()+1}月の予定表`;
-      }
 
       const container = document.getElementById('standaloneShiftListContainer');
       if (!container) return;
@@ -2171,7 +2168,7 @@
       syncUIFormToConfig(currentSettingsJobKey);
       let payload = JSON.parse(JSON.stringify(configData));
       payload.monthlyGoal = monthlyGoal;
-      localStorage.setItem('mybasket_wages_v71', JSON.stringify(payload));
+      localStorage.setItem('mybasket_wages_v74', JSON.stringify(payload));
     }
 
     function saveSettings() {
