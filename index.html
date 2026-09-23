@@ -67,14 +67,14 @@
 
   <!-- 給料見込の内訳モーダル -->
   <div id="breakdownModal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden">
-    <div class="bg-white rounded-3xl p-4 w-full max-w-sm shadow-2xl border border-rose-100 space-y-3 max-h-[92vh] flex flex-col overflow-hidden">
-      <div class="flex justify-between items-center border-b border-rose-100 pb-2">
-        <h3 class="text-sm font-bold text-rose-950 tracking-wide">📋 給料見込の内訳</h3>
-        <button type="button" onclick="closeBreakdownModal()" class="text-stone-600 hover:text-stone-900 font-bold text-sm px-2">✕</button>
+    <div class="bg-white rounded-3xl p-3 w-full max-w-sm shadow-2xl border border-rose-100 space-y-2 max-h-[92vh] flex flex-col overflow-hidden">
+      <div class="flex justify-between items-center border-b border-rose-100 pb-1.5 shrink-0">
+        <h3 class="text-xs font-bold text-rose-950 tracking-wide">📋 給料見込の内訳</h3>
+        <button type="button" onclick="closeBreakdownModal()" class="text-stone-600 hover:text-stone-900 font-bold text-xs px-2">✕</button>
       </div>
       <div id="breakdownJobTabs" class="flex space-x-1 shrink-0"></div>
-      <div id="breakdownContentArea" class="space-y-2 overflow-y-auto pr-2 text-xs text-stone-800 flex-1 divide-y divide-rose-100"></div>
-      <div class="pt-2 border-t border-rose-100 shrink-0">
+      <div id="breakdownContentArea" class="space-y-1 overflow-y-auto pr-1 text-xs text-stone-800 flex-1 divide-y divide-rose-100"></div>
+      <div class="pt-1 border-t border-rose-100 shrink-0">
         <button type="button" onclick="closeBreakdownModal()" class="w-full py-2 rounded-xl text-xs font-bold bg-stone-900 text-rose-50 hover:bg-stone-800 transition shadow-sm">閉じる</button>
       </div>
     </div>
@@ -264,7 +264,7 @@
 
         <div class="bg-white p-2.5 rounded-2xl border border-rose-200 space-y-1.5 shadow-sm">
           <div class="text-xs font-bold text-stone-900 border-b border-rose-200 pb-1.5 flex justify-end items-center tracking-wide">
-            <span class="text-xs text-stone-900 font-bold">※日付の🗓️をクリックするとGoogleカレンダーに登録できます</span>
+            <span class="text-xs text-stone-900 font-bold">※日付の🗓️をタップするとGoogleカレンダーに登録できます</span>
           </div>
           <div id="standaloneShiftListContainer" class="space-y-1 max-h-[480px] overflow-y-auto pr-1 text-xs"></div>
         </div>
@@ -272,19 +272,19 @@
 
       <!-- タブ4: 設定 -->
       <div id="tab-settings" class="tab-content hidden space-y-2">
-        <div class="bg-white p-2.5 rounded-2xl border border-rose-200 shadow-sm space-y-2">
+        <div class="bg-white p-2.5 rounded-2xl border border-stone-200 shadow-sm space-y-2">
           <div class="flex justify-between items-center">
             <label class="text-xs font-bold text-stone-900">バイトの登録数</label>
-            <select id="settingJobCount" onchange="onJobCountChange(this.value)" class="w-32 p-1 border rounded-xl border-rose-300 bg-white text-xs font-bold text-rose-950 text-center">
+            <select id="settingJobCount" onchange="onJobCountChange(this.value)" class="w-32 p-1 border rounded-xl border-stone-300 bg-white text-xs font-bold text-rose-950 text-center">
               <option value="1">単独</option>
               <option value="2">ダブル</option>
               <option value="3">トリプル</option>
             </select>
           </div>
 
-          <div class="pt-1 border-t border-rose-200 space-y-1">
+          <div class="pt-1 border-t border-stone-200 space-y-1">
             <div class="flex justify-between items-center mb-1">
-              <span class="text-xs font-bold text-stone-700">バイト先名（名前の変更は ✏️ をクリックしてください）</span>
+              <span class="text-xs font-bold text-stone-700">バイト先名（名前の変更は ✏️ をタップしてください）</span>
             </div>
             <div id="settingsJobNameInputs" class="grid grid-cols-3 gap-1.5"></div>
           </div>
@@ -295,147 +295,147 @@
             </button>
           </div>
 
-          <div id="settingSubPaneWage" class="space-y-2 pt-1 border-t border-rose-200">
+          <div id="settingSubPaneWage" class="space-y-2 pt-1 border-t border-stone-200">
             <div class="space-y-1.5 text-xs">
               <div class="grid grid-cols-2 gap-1.5 pt-1">
-                <div class="bg-stone-50 p-1.5 rounded-xl border border-rose-300 flex items-center justify-between px-2">
+                <div class="bg-stone-50 p-1.5 rounded-xl border border-stone-300 flex items-center justify-between px-2">
                   <span class="font-bold text-stone-800 text-xs">給与 締め日</span>
                   <div class="flex items-center space-x-1">
-                    <input type="text" inputmode="numeric" id="settingCloseDay" class="w-10 p-1 border rounded-lg text-center font-bold text-xs bg-white border-rose-300 text-stone-900" placeholder="20">
+                    <input type="text" inputmode="numeric" id="settingCloseDay" class="w-10 p-1 border rounded-lg text-center font-bold text-xs bg-white border-stone-300 text-stone-900" placeholder="20">
                     <span class="text-xs font-bold text-stone-800">日</span>
                   </div>
                 </div>
-                <div class="bg-stone-50 p-1.5 rounded-xl border border-rose-300 flex items-center justify-between px-2">
+                <div class="bg-stone-50 p-1.5 rounded-xl border border-stone-300 flex items-center justify-between px-2">
                   <span class="font-bold text-stone-800 text-xs">給与 支払日</span>
                   <div class="flex items-center space-x-1">
-                    <input type="text" inputmode="numeric" id="settingPayDay" class="w-10 p-1 border rounded-lg text-center font-bold text-xs bg-white border-rose-300 text-stone-900" placeholder="5">
+                    <input type="text" inputmode="numeric" id="settingPayDay" class="w-10 p-1 border rounded-lg text-center font-bold text-xs bg-white border-stone-300 text-stone-900" placeholder="5">
                     <span class="text-xs font-bold text-stone-800">日</span>
                   </div>
                 </div>
               </div>
 
-              <div class="pt-1.5 border-t border-rose-200 space-y-1.5">
+              <div class="pt-1.5 border-t border-stone-200 space-y-1.5">
                 <div class="text-xs font-bold text-stone-900">【時給入力＆その他手当】</div>
                 <div class="grid grid-cols-2 gap-1.5">
-                  <div class="p-2 rounded-xl border border-rose-300 space-y-1.5 bg-stone-50/50">
+                  <div class="p-2 rounded-xl border border-stone-300 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-800 text-xs">早朝</span>
-                      <input type="text" id="settingTimeMorning" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-rose-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="〜09:00">
+                      <input type="text" id="settingTimeMorning" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-stone-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="〜09:00">
                     </div>
                     <div class="flex items-center justify-end space-x-0.5">
-                      <input type="text" inputmode="numeric" id="settingWageMorning" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-rose-300 text-right pr-1 text-stone-900" placeholder="0">
+                      <input type="text" inputmode="numeric" id="settingWageMorning" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-stone-300 text-right pr-1 text-stone-900" placeholder="0">
                       <span class="text-xs font-bold text-stone-800">円</span>
                     </div>
                   </div>
-                  <div class="p-2 rounded-xl border border-rose-300 space-y-1.5 bg-stone-50/50">
+                  <div class="p-2 rounded-xl border border-stone-300 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-800 text-xs">日中</span>
-                      <input type="text" id="settingTimeDay" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-rose-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="09:00〜17:00">
+                      <input type="text" id="settingTimeDay" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-stone-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="09:00〜17:00">
                     </div>
                     <div class="flex items-center justify-end space-x-0.5">
-                      <input type="text" inputmode="numeric" id="settingWageDay" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-rose-300 text-right pr-1 text-stone-900" placeholder="0">
+                      <input type="text" inputmode="numeric" id="settingWageDay" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-stone-300 text-right pr-1 text-stone-900" placeholder="0">
                       <span class="text-xs font-bold text-stone-800">円</span>
                     </div>
                   </div>
-                  <div class="p-2 rounded-xl border border-rose-300 space-y-1.5 bg-stone-50/50">
+                  <div class="p-2 rounded-xl border border-stone-300 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-800 text-xs">夕方</span>
-                      <input type="text" id="settingTimeEvening" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-rose-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="17:00〜22:00">
+                      <input type="text" id="settingTimeEvening" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-stone-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="17:00〜22:00">
                     </div>
                     <div class="flex items-center justify-end space-x-0.5">
-                      <input type="text" inputmode="numeric" id="settingWageEvening" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-rose-300 text-right pr-1 text-stone-900" placeholder="0">
+                      <input type="text" inputmode="numeric" id="settingWageEvening" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-stone-300 text-right pr-1 text-stone-900" placeholder="0">
                       <span class="text-xs font-bold text-stone-800">円</span>
                     </div>
                   </div>
-                  <div class="p-2 rounded-xl border border-rose-300 space-y-1.5 bg-stone-50/50">
+                  <div class="p-2 rounded-xl border border-stone-300 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-800 text-xs">夜</span>
-                      <input type="text" id="settingTimeNight" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-rose-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="22:00〜24:00">
+                      <input type="text" id="settingTimeNight" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-stone-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="22:00〜24:00">
                     </div>
                     <div class="flex items-center justify-end space-x-0.5">
-                      <input type="text" inputmode="numeric" id="settingWageNight" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-rose-300 text-right pr-1 text-stone-900" placeholder="0">
+                      <input type="text" inputmode="numeric" id="settingWageNight" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-stone-300 text-right pr-1 text-stone-900" placeholder="0">
                       <span class="text-xs font-bold text-stone-800">円</span>
                     </div>
                   </div>
-                  <div class="p-2 rounded-xl border border-rose-300 space-y-1.5 bg-stone-50/50">
+                  <div class="p-2 rounded-xl border border-stone-300 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-800 text-xs">深夜</span>
-                      <input type="text" id="settingTimeMidnight" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-rose-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="22:00〜05:00">
+                      <input type="text" id="settingTimeMidnight" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-stone-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="22:00〜05:00">
                     </div>
                     <div class="flex items-center justify-end space-x-0.5">
-                      <input type="text" inputmode="numeric" id="settingWageMidnight" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-rose-300 text-right pr-1 text-stone-900" placeholder="0">
+                      <input type="text" inputmode="numeric" id="settingWageMidnight" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-stone-300 text-right pr-1 text-stone-900" placeholder="0">
                       <span class="text-xs font-bold text-stone-800">円</span>
                     </div>
                   </div>
-                  <div class="p-2 rounded-xl border border-rose-300 space-y-1.5 bg-stone-50/50">
+                  <div class="p-2 rounded-xl border border-stone-300 space-y-1.5 bg-stone-50/50">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-800 text-xs">追加</span>
-                      <input type="text" id="settingTimeExtra" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-rose-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="00:00〜00:00">
+                      <input type="text" id="settingTimeExtra" class="text-[10px] text-stone-800 font-bold text-left bg-white border border-stone-300 rounded px-1.5 py-0.5 w-[105px]" placeholder="00:00〜00:00">
                     </div>
                     <div class="flex items-center justify-end space-x-0.5">
-                      <input type="text" inputmode="numeric" id="settingWageExtra" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-rose-300 text-right pr-1 text-stone-900" placeholder="0">
+                      <input type="text" inputmode="numeric" id="settingWageExtra" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-stone-300 text-right pr-1 text-stone-900" placeholder="0">
                       <span class="text-xs font-bold text-stone-800">円</span>
                     </div>
                   </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-1.5 pt-1 items-stretch">
-                  <div class="p-2 rounded-xl border border-rose-300 space-y-1.5 bg-stone-50/50 flex flex-col justify-between">
+                  <div class="p-2 rounded-xl border border-stone-300 space-y-1.5 bg-stone-50/50 flex flex-col justify-between">
                     <div class="flex justify-between items-center">
                       <span class="font-bold text-stone-800 text-xs">有給休暇</span>
                       <span class="text-[10px] font-bold text-stone-700">1日</span>
                     </div>
                     <div class="flex items-center justify-end space-x-0.5">
-                      <input type="text" inputmode="numeric" id="settingWagePaid" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-rose-300 text-right pr-1 text-stone-900" placeholder="0">
+                      <input type="text" inputmode="numeric" id="settingWagePaid" oninput="formatInputNumber(this)" class="w-16 p-1 border rounded-lg font-bold text-xs bg-white border-stone-300 text-right pr-1 text-stone-900" placeholder="0">
                       <span class="text-xs font-bold text-stone-800">円</span>
                     </div>
                   </div>
                   
-                  <div class="p-2 rounded-xl border border-rose-300 space-y-1.5 bg-stone-50/50 flex flex-col justify-between">
+                  <div class="p-2 rounded-xl border border-stone-300 space-y-1.5 bg-stone-50/50 flex flex-col justify-between">
                     <span class="font-bold text-stone-800 text-xs">交通費</span>
-                    <div class="flex items-center justify-between text-xs px-1">
+                    <div class="grid grid-cols-2 gap-1 text-xs">
                       <div class="flex items-center space-x-0.5">
-                        <span class="text-[10px] font-bold text-stone-700">月</span>
-                        <input type="text" inputmode="numeric" id="settingTransMonth" oninput="formatInputNumber(this)" class="w-9 p-0.5 border rounded text-center font-bold text-xs bg-white border-rose-300 text-stone-900" placeholder="0">
-                        <span class="text-xs font-bold">円</span>
+                        <span class="text-[10px] font-bold text-stone-700 shrink-0">月</span>
+                        <input type="text" inputmode="numeric" id="settingTransMonth" oninput="formatInputNumber(this)" class="w-10 p-0.5 border rounded text-center font-bold text-xs bg-white border-stone-300 text-stone-900" placeholder="0">
+                        <span class="text-[10px] font-bold text-stone-800 shrink-0">円</span>
                       </div>
                       <div class="flex items-center space-x-0.5">
-                        <span class="text-[10px] font-bold text-stone-700">1日</span>
-                        <input type="text" inputmode="numeric" id="settingTransDay" oninput="formatInputNumber(this)" class="w-9 p-0.5 border rounded text-center font-bold text-xs bg-white border-rose-300 text-stone-900" placeholder="0">
-                        <span class="text-xs font-bold">円</span>
+                        <span class="text-[10px] font-bold text-stone-700 shrink-0">1日</span>
+                        <input type="text" inputmode="numeric" id="settingTransDay" oninput="formatInputNumber(this)" class="w-10 p-0.5 border rounded text-center font-bold text-xs bg-white border-stone-300 text-stone-900" placeholder="0">
+                        <span class="text-[10px] font-bold text-stone-800 shrink-0">円</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 
-                <div class="pt-1.5 border-t border-rose-200 grid grid-cols-12 gap-1.5 items-stretch">
-                  <div class="col-span-8 p-2 rounded-xl border border-rose-300 space-y-1.5 px-2 bg-stone-50/50 flex flex-col justify-between">
+                <div class="pt-1.5 border-t border-stone-200 grid grid-cols-12 gap-1.5 items-stretch">
+                  <div class="col-span-8 p-2 rounded-xl border border-stone-300 space-y-1.5 px-2 bg-stone-50/50 flex flex-col justify-between">
                     <span class="font-bold text-stone-800 text-xs block">時給アップ</span>
                     <div class="grid grid-cols-3 gap-1 text-center">
                       <div class="flex items-center justify-center space-x-0.5">
                         <span class="text-[10px] font-bold text-stone-700 shrink-0">土曜</span>
-                        <input type="text" inputmode="numeric" id="settingSatBonus" oninput="formatInputNumber(this)" class="w-8 p-0.5 border rounded text-center font-bold text-xs bg-white border-rose-300 text-stone-900" placeholder="0">
+                        <input type="text" inputmode="numeric" id="settingSatBonus" oninput="formatInputNumber(this)" class="w-8 p-0.5 border rounded text-center font-bold text-xs bg-white border-stone-300 text-stone-900" placeholder="0">
                         <span class="text-xs font-bold shrink-0">円</span>
                       </div>
                       <div class="flex items-center justify-center space-x-0.5">
                         <span class="text-[10px] font-bold text-stone-700 shrink-0">日曜</span>
-                        <input type="text" inputmode="numeric" id="settingSunBonus" oninput="formatInputNumber(this)" class="w-8 p-0.5 border rounded text-center font-bold text-xs bg-white border-rose-300 text-stone-900" placeholder="0">
+                        <input type="text" inputmode="numeric" id="settingSunBonus" oninput="formatInputNumber(this)" class="w-8 p-0.5 border rounded text-center font-bold text-xs bg-white border-stone-300 text-stone-900" placeholder="0">
                         <span class="text-xs font-bold shrink-0">円</span>
                       </div>
                       <div class="flex items-center justify-center space-x-0.5">
                         <span class="text-[10px] font-bold text-stone-700 shrink-0">祝日</span>
-                        <input type="text" inputmode="numeric" id="settingHolBonus" oninput="formatInputNumber(this)" class="w-8 p-0.5 border rounded text-center font-bold text-xs bg-white border-rose-300 text-stone-900" placeholder="0">
+                        <input type="text" inputmode="numeric" id="settingHolBonus" oninput="formatInputNumber(this)" class="w-8 p-0.5 border rounded text-center font-bold text-xs bg-white border-stone-300 text-stone-900" placeholder="0">
                         <span class="text-xs font-bold shrink-0">円</span>
                       </div>
                     </div>
                   </div>
 
-                  <div class="col-span-4 p-2 rounded-xl border border-rose-300 space-y-1.5 px-2 bg-stone-50/50 flex flex-col justify-between">
+                  <div class="col-span-4 p-2 rounded-xl border border-stone-300 space-y-1.5 px-2 bg-stone-50/50 flex flex-col justify-between">
                     <span class="font-bold text-stone-800 text-xs block">その他手当</span>
                     <div class="flex items-center justify-between">
                       <span class="text-[10px] font-bold text-stone-700">月額</span>
                       <div class="flex items-center space-x-0.5">
-                        <input type="text" inputmode="numeric" id="settingAllowanceMonth" oninput="formatInputNumber(this)" class="w-9 p-0.5 border rounded text-right font-bold text-xs bg-white border-rose-300 pr-1 text-stone-900" placeholder="0">
+                        <input type="text" inputmode="numeric" id="settingAllowanceMonth" oninput="formatInputNumber(this)" class="w-9 p-0.5 border rounded text-right font-bold text-xs bg-white border-stone-300 pr-1 text-stone-900" placeholder="0">
                         <span class="text-xs font-bold text-stone-800">円</span>
                       </div>
                     </div>
@@ -443,10 +443,19 @@
                 </div>
               </div>
 
-              <div class="pt-2 border-t border-rose-200 space-y-1.5">
+              <div class="pt-2 border-t border-stone-200 space-y-1.5">
                 <div class="flex justify-between items-center">
-                  <span id="presetSettingsTitleLabel" class="text-xs font-bold text-stone-900">ワンタッチ時間の登録</span>
-                  <button type="button" onclick="addPresetRow()" class="bg-rose-900 text-rose-50 text-[10px] font-bold px-2.5 py-1 rounded-lg hover:bg-rose-800 transition shadow-sm">+ 時間を追加</button>
+                  <div class="flex items-center space-x-2">
+                    <span id="presetSettingsTitleLabel" class="text-xs font-bold text-stone-900">ワンタッチ時間の登録</span>
+                    <div class="flex items-center space-x-1">
+                      <span class="text-[10px] font-bold text-stone-700">休憩:</span>
+                      <select id="settingGlobalHasBreak" onchange="onGlobalHasBreakChange(this.value)" class="p-0.5 border rounded border-stone-300 bg-white text-xs font-bold text-stone-900">
+                        <option value="no">なし</option>
+                        <option value="yes">あり</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button type="button" onclick="addPresetRow()" class="bg-stone-900 text-rose-50 text-[10px] font-bold px-2.5 py-1 rounded-lg hover:bg-stone-800 transition shadow-sm">+ 時間を追加</button>
                 </div>
                 <div id="jobPresetSettingsList" class="space-y-1.5"></div>
               </div>
@@ -518,6 +527,8 @@
         breakMins: Number(p.breakMins) || 0
       })) : JSON.parse(JSON.stringify(defPresets));
 
+      let hasBreakGlobal = savedJob?.hasBreakGlobal !== undefined ? savedJob.hasBreakGlobal : loadedPresets.some(p => Number(p.breakMins) > 0);
+
       return {
         name: savedJob?.name !== undefined ? savedJob.name : defName,
         closeDay: savedJob?.closeDay || '20',
@@ -541,6 +552,7 @@
         transMonth: Number(savedJob?.transMonth) || 0,
         transDay: Number(savedJob?.transDay) || 0,
         allowanceMonth: Number(savedJob?.allowanceMonth) || 0,
+        hasBreakGlobal: hasBreakGlobal,
         presets: loadedPresets
       };
     }
@@ -879,16 +891,16 @@
       function renderRow(label, rate, mins, subtotal) {
         if (mins === 0 && subtotal === 0) {
           return `
-            <div class="py-1.5 flex justify-between items-center text-xs">
-              <span class="font-bold text-stone-700 w-28">${label}</span>
+            <div class="py-1 flex justify-between items-center text-xs">
+              <span class="font-bold text-stone-700 w-24">${label}</span>
               <span class="text-stone-500 text-center flex-1 font-medium">なし</span>
               <span class="text-stone-500 w-20 text-right pr-1"></span>
             </div>
           `;
         }
         return `
-          <div class="py-1.5 flex justify-between items-center text-xs">
-            <span class="font-bold text-stone-900 w-28">${label}</span>
+          <div class="py-1 flex justify-between items-center text-xs">
+            <span class="font-bold text-stone-900 w-24">${label}</span>
             <span class="text-stone-900 text-center flex-1 font-bold">¥${rate.toLocaleString()} × ${formatHoursMin(mins)}</span>
             <span class="font-bold text-stone-950 w-20 text-right pr-1">= ¥${Math.floor(subtotal).toLocaleString()}</span>
           </div>
@@ -900,18 +912,17 @@
       let grandTotal = mornPay + dayPay + evePay + nightPay + midnightPay + paidPay + totalTrans + totalAllowance;
 
       contentArea.innerHTML = `
-        <div class="bg-stone-50 p-2.5 rounded-xl border border-stone-300 space-y-1 mb-2">
-          <div class="text-center font-bold text-stone-900 text-[11px] pb-0.5 border-b border-stone-300">給料計算の対象期間</div>
-          <div class="text-center font-bold text-sky-900 text-sm py-0.5">${startStr} - ${endStr}</div>
-          <div class="flex justify-around text-[11px] font-bold text-stone-700 pt-1">
+        <div class="bg-stone-50 p-2 rounded-xl border border-stone-300 space-y-0.5 mb-1">
+          <div class="text-center font-bold text-stone-900 text-[11px]">給料計算の対象期間：<span class="text-sky-900">${startStr} - ${endStr}</span></div>
+          <div class="flex justify-around text-[10px] font-bold text-stone-600">
             <span>締め日: 毎月${job.closeDay}日</span>
             <span>給料日: 翌月${job.payDay}日</span>
           </div>
         </div>
 
-        <div class="grid grid-cols-3 text-[10px] font-bold text-stone-600 border-b border-rose-200 pb-1 text-center">
+        <div class="grid grid-cols-3 text-[10px] font-bold text-stone-600 border-b border-rose-200 pb-1 text-center whitespace-nowrap">
           <span>項目</span>
-          <span>時給/金額 × 時間/日数</span>
+          <span class="tracking-tighter">時給/金額 × 時間/日数</span>
           <span class="text-right pr-1">給料見込</span>
         </div>
 
@@ -922,21 +933,21 @@
         ${renderRow('夜時給', job.night || 1900, nightMins, nightPay)}
         ${renderRow('深夜時給', job.midnight || 1900, midnightMins, midnightPay)}
 
-        <div class="py-1.5 flex justify-between items-center text-xs">
-          <span class="font-bold text-stone-900 w-28">交通費</span>
+        <div class="py-1 flex justify-between items-center text-xs">
+          <span class="font-bold text-stone-900 w-24">交通費</span>
           <span class="text-stone-900 text-center flex-1 font-bold">${totalTrans > 0 ? `¥${(job.transDay || 0).toLocaleString()} × ${workDaysCount}日` : 'なし'}</span>
           <span class="font-bold text-stone-950 w-20 text-right pr-1">${totalTrans > 0 ? `= ¥${Math.floor(totalTrans).toLocaleString()}` : '¥0'}</span>
         </div>
 
-        <div class="py-1.5 flex justify-between items-center text-xs">
-          <span class="font-bold text-stone-900 w-28">手当</span>
+        <div class="py-1 flex justify-between items-center text-xs">
+          <span class="font-bold text-stone-900 w-24">手当</span>
           <span class="text-stone-500 text-center flex-1 font-medium">${totalAllowance > 0 ? '' : 'なし'}</span>
           <span class="font-bold text-stone-950 w-20 text-right pr-1">${totalAllowance > 0 ? `= ¥${Math.floor(totalAllowance).toLocaleString()}` : '¥0'}</span>
         </div>
 
-        <div class="pt-2 mt-1 border-t-2 border-stone-300 flex justify-between items-center bg-stone-900 text-rose-50 p-2.5 rounded-xl">
+        <div class="pt-1 mt-0.5 border-t-2 border-stone-300 flex justify-between items-center bg-stone-900 text-rose-50 p-2 rounded-xl">
           <span class="font-bold text-xs">合計</span>
-          <span class="text-base font-bold font-serif-title tracking-tight pr-1">¥${Math.floor(grandTotal).toLocaleString()}</span>
+          <span class="text-sm font-bold font-serif-title tracking-tight pr-1">¥${Math.floor(grandTotal).toLocaleString()}</span>
         </div>
       `;
     }
@@ -1039,10 +1050,10 @@
       if (paidBtn && workBtn) {
         if (isPaid) {
           paidBtn.className = "flex-1 py-1.5 rounded-xl text-xs font-bold border transition bg-sky-200 text-sky-950 border-sky-500 shadow-sm";
-          workBtn.className = "flex-1 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-stone-800 border-rose-300 hover:bg-rose-50";
+          workBtn.className = "flex-1 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-stone-800 border-stone-300 hover:bg-stone-50";
         } else {
           updateJobTabUI();
-          paidBtn.className = "flex-1 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-rose-900 border-rose-300 hover:bg-rose-50";
+          paidBtn.className = "flex-1 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-stone-800 border-stone-300 hover:bg-stone-50";
         }
       }
     }
@@ -1130,14 +1141,15 @@
 
       const currentJob = configData[currentSelectedJobKey] || configData.job1;
       const presets = currentJob.presets || [];
+      const hasBreakGlobal = currentJob.hasBreakGlobal;
       label.innerText = `ワンタッチ時間選択（${currentJob.name || 'バイト'}）`;
 
       presets.forEach(p => {
         if (p.start && p.end) {
-          let breakText = p.breakMins > 0 ? ` (休${p.breakMins}分)` : '';
+          let breakText = (hasBreakGlobal && Number(p.breakMins) > 0) ? ` (休${p.breakMins}min)` : '';
           container.innerHTML += `
-            <button type="button" onclick="setPresetTime('${p.start}', '${p.end}', ${p.breakMins || 0})" 
-                    class="bg-white border border-rose-300 hover:bg-rose-50 text-stone-900 py-2 px-1 rounded-xl text-center shadow-sm active:scale-95 transition flex items-center justify-center font-bold">
+            <button type="button" onclick="setPresetTime('${p.start}', '${p.end}', ${hasBreakGlobal ? (Number(p.breakMins) || 0) : 0})" 
+                    class="bg-white border border-stone-300 hover:bg-stone-50 text-stone-900 py-2 px-1 rounded-xl text-center shadow-sm active:scale-95 transition flex items-center justify-center font-bold">
               <span class="text-[10px] tracking-tighter text-stone-900 whitespace-nowrap">${p.start}-${p.end}${breakText}</span>
             </button>
           `;
@@ -1160,14 +1172,14 @@
       if (!s1.value || !e1.value) {
         s1.value = start;
         e1.value = end;
-        if (breakMins > 0) b1.value = breakMins;
+        b1.value = breakMins > 0 ? breakMins : '';
       } else if (!s2.value || !e2.value) {
         s2.value = start;
         e2.value = end;
       } else {
         s1.value = start;
         e1.value = end;
-        if (breakMins > 0) b1.value = breakMins;
+        b1.value = breakMins > 0 ? breakMins : '';
       }
 
       if (!shiftsData[selectedCalendarDateStr]) shiftsData[selectedCalendarDateStr] = {};
@@ -1180,27 +1192,45 @@
       showToast(breakMins > 0 ? `時間を入力しました (休憩${breakMins}分)` : "時間を入力しました");
     }
 
+    function onGlobalHasBreakChange(val) {
+      syncPresetInputsToConfig(currentSettingsJobKey);
+      configData[currentSettingsJobKey].hasBreakGlobal = (val === 'yes');
+      renderPresetInputs(currentSettingsJobKey);
+    }
+
     function renderPresetInputs(jobKey) {
       const container = document.getElementById('jobPresetSettingsList');
+      const globalSelect = document.getElementById('settingGlobalHasBreak');
       if (!container) return;
       container.innerHTML = '';
 
-      const presets = configData[jobKey].presets || [];
+      const job = configData[jobKey];
+      const hasBreakGlobal = job.hasBreakGlobal !== undefined ? job.hasBreakGlobal : true;
+      if (globalSelect) {
+        globalSelect.value = hasBreakGlobal ? 'yes' : 'no';
+      }
+
+      const presets = job.presets || [];
       presets.forEach((p, idx) => {
-        container.innerHTML += `
-          <div class="flex items-center justify-between bg-stone-50 p-1.5 rounded-xl border border-rose-200 text-xs">
-            <div class="flex items-center space-x-1 overflow-x-auto py-0.5">
-              <span class="text-[11px] text-stone-700 font-bold w-4 shrink-0">${idx+1}.</span>
-              <input type="time" id="preset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-rose-300 bg-white text-xs font-bold text-stone-900 w-[78px] shrink-0">
-              <span class="shrink-0 font-bold text-stone-700">〜</span>
-              <input type="time" id="preset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-rose-300 bg-white text-xs font-bold text-stone-900 w-[78px] shrink-0">
-              <div class="flex items-center space-x-0.5 ml-1 shrink-0">
-                <span class="text-[11px] font-bold text-stone-700">休憩</span>
-                <input type="text" inputmode="numeric" id="preset_break_${idx}" value="${p.breakMins ? p.breakMins : ''}" oninput="formatInputNumber(this)" class="p-1 border rounded border-rose-300 bg-white text-xs font-bold text-stone-900 w-9 text-center" placeholder="0">
-                <span class="text-[11px] font-bold text-stone-700">分</span>
-              </div>
+        let breakInputHtml = '';
+        if (hasBreakGlobal) {
+          breakInputHtml = `
+            <div class="flex items-center space-x-0.5 shrink-0">
+              <span class="text-[10px] font-bold text-stone-700">休</span>
+              <input type="text" inputmode="numeric" id="preset_break_${idx}" value="${p.breakMins ? p.breakMins : ''}" oninput="formatInputNumber(this)" class="p-1 border rounded border-stone-300 bg-white text-xs font-bold text-stone-900 w-9 text-center" placeholder="0">
+              <span class="text-[10px] font-bold text-stone-700">分</span>
             </div>
-            <button type="button" onclick="clearPresetRow(${idx})" class="text-stone-700 hover:text-stone-950 font-bold px-2.5 py-0.5 rounded text-xs transition shrink-0 ml-1 bg-stone-200">クリア</button>
+          `;
+        }
+
+        container.innerHTML += `
+          <div class="flex items-center justify-between bg-stone-50 p-1.5 rounded-xl border border-stone-200 text-xs gap-1">
+            <span class="text-[11px] text-stone-700 font-bold w-4 shrink-0 text-center">${idx+1}.</span>
+            <input type="time" id="preset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-stone-300 bg-white text-xs font-bold text-stone-900 w-[72px] shrink-0 text-center">
+            <span class="shrink-0 font-bold text-stone-700">〜</span>
+            <input type="time" id="preset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-stone-300 bg-white text-xs font-bold text-stone-900 w-[72px] shrink-0 text-center">
+            ${breakInputHtml}
+            <button type="button" onclick="clearPresetRow(${idx})" class="text-stone-700 hover:text-stone-950 font-bold px-2 py-0.5 rounded text-xs transition shrink-0 bg-stone-200 ml-auto">クリア</button>
           </div>
         `;
       });
@@ -1221,6 +1251,11 @@
 
     function syncPresetInputsToConfig(jobKey) {
       const presets = configData[jobKey].presets;
+      const globalSelect = document.getElementById('settingGlobalHasBreak');
+      if (globalSelect) {
+        configData[jobKey].hasBreakGlobal = (globalSelect.value === 'yes');
+      }
+
       if (presets) {
         presets.forEach((p, idx) => {
           const s = document.getElementById(`preset_start_${idx}`);
@@ -1228,7 +1263,11 @@
           const b = document.getElementById(`preset_break_${idx}`);
           if (s) p.start = s.value;
           if (e) p.end = e.value;
-          if (b) p.breakMins = parseFormattedNumber(b.value);
+          if (b && configData[jobKey].hasBreakGlobal) {
+            p.breakMins = parseFormattedNumber(b.value);
+          } else {
+            p.breakMins = 0;
+          }
         });
       }
     }
@@ -1286,11 +1325,11 @@
         }
 
         if (jobMins > 0 || (jobShift && jobShift.isPaidLeave)) {
-          let timeDisplay = timeStrs.length > 0 ? timeStrs.join(' / ') : '';
+          let timeDisplay = timeStrs.length > 0 ? `(${timeStrs.join(' / ')})` : '';
           breakdownHtml += `
-            <div class="flex justify-between items-center py-0.5 border-b border-rose-100 last:border-b-0 font-bold">
-              <span class="text-stone-900">・${jobConf.name || 'バイト先'} <span class="text-[11px] text-stone-600 font-bold">(${timeDisplay})</span></span>
-              <span class="text-stone-950">${(jobMins / 60).toFixed(2)}時間 / <span class="font-bold text-stone-950">${formatCurrency(jobPay)}</span></span>
+            <div class="py-1 border-b border-rose-100 last:border-b-0">
+              <div class="font-bold text-stone-900">・${jobConf.name || 'バイト先'} <span class="text-[11px] text-stone-600 font-normal">${timeDisplay}</span></div>
+              <div class="text-right font-bold text-stone-950">${(jobMins / 60).toFixed(2)}時間 / ${formatCurrency(jobPay)}</div>
             </div>
           `;
           todayTotalMins += jobMins;
@@ -1867,7 +1906,7 @@
         if (isSunday || isHol) dayColor = "text-rose-700 font-extrabold";
         if (isSaturday) dayColor = "text-sky-800 font-extrabold";
 
-        let bgStyle = "bg-stone-50 hover:bg-rose-50";
+        let bgStyle = "bg-stone-50 hover:bg-stone-100";
         if (isSelected) {
           bgStyle = "bg-white text-rose-950 font-bold border-2 border-rose-900 shadow-sm";
         } else if (hasShift) {
@@ -2171,7 +2210,7 @@
 
     function saveSettings() {
       saveAllDataStorage();
-      showToast("設定を保存しました");
+      showToast("設定しました");
       ensureValidSelectedJob();
       loadSettingsToUI(currentSettingsJobKey);
       updateJobSelectUI();
