@@ -209,16 +209,28 @@
           <div class="space-y-1.5 border-t border-rose-100 pt-2">
             <div class="flex justify-between items-center">
               <span class="text-[11px] font-bold text-stone-600">【 1回目の時間 】</span>
-              <button type="button" onclick="clearSlot(1)" class="text-[10px] text-rose-800 hover:text-rose-950 font-bold px-2 py-0.5 rounded bg-rose-100/60 hover:bg-rose-200/60 transition">クリア</button>
+              <button type="button" onclick="clearSlot(1)" class="text-[10px] text-stone-500 hover:text-stone-800 font-bold px-2 py-0.5 rounded bg-stone-100/80 hover:bg-stone-200 transition">クリア</button>
             </div>
-            <div class="grid grid-cols-2 gap-2 text-xs px-1">
-              <div>
+            <div class="flex items-center space-x-1 text-xs px-1">
+              <div class="flex-1">
                 <label class="text-stone-400 text-[10px] block mb-0.5">開始時間</label>
                 <input type="time" id="shiftStart1" onchange="autoSaveShift()" class="w-full p-2 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
               </div>
-              <div>
+              <div class="flex-1">
                 <label class="text-stone-400 text-[10px] block mb-0.5">終了時間</label>
                 <input type="time" id="shiftEnd1" onchange="autoSaveShift()" class="w-full p-2 border rounded-xl border-rose-200/80 bg-white text-stone-700 focus:outline-none focus:border-rose-400">
+              </div>
+              <div class="w-12 text-center pt-4">
+                <span class="text-[11px] font-bold text-stone-500">休憩</span>
+              </div>
+              <div class="w-12 pt-4">
+                <input type="text" inputmode="numeric" id="shiftBreak1" oninput="formatInputNumber(this); autoSaveShift();" class="w-full p-2 border rounded-xl border-rose-200/80 bg-white text-center font-bold text-stone-700 text-xs focus:outline-none focus:border-rose-400" placeholder="0">
+              </div>
+              <div class="w-6 pt-4 text-center">
+                <span class="text-[10px] text-stone-500">分</span>
+              </div>
+              <div class="w-14 pt-4 text-right">
+                <button type="button" onclick="clearSlot(1)" class="text-[11px] text-stone-500 hover:text-stone-800 font-bold px-1.5 py-1 rounded bg-stone-100 hover:bg-stone-200 transition">クリア</button>
               </div>
             </div>
           </div>
@@ -226,7 +238,7 @@
           <div class="space-y-1.5 pt-1 border-t border-rose-100">
             <div class="flex justify-between items-center">
               <span class="text-[11px] font-bold text-stone-600">【 2回目の時間（任意） 】</span>
-              <button type="button" onclick="clearSlot(2)" class="text-[10px] text-rose-800 hover:text-rose-950 font-bold px-2 py-0.5 rounded bg-rose-100/60 hover:bg-rose-200/60 transition">クリア</button>
+              <button type="button" onclick="clearSlot(2)" class="text-[10px] text-stone-500 hover:text-stone-800 font-bold px-2 py-0.5 rounded bg-stone-100/80 hover:bg-stone-200 transition">クリア</button>
             </div>
             <div class="grid grid-cols-2 gap-2 text-xs px-1">
               <div>
@@ -251,15 +263,8 @@
         </div>
 
         <div class="bg-white p-2.5 rounded-2xl border border-rose-100 space-y-1.5 shadow-sm">
-          <div class="text-xs font-bold text-stone-700 border-b border-rose-100 pb-1 flex justify-between items-center tracking-wide">
-            <div class="flex items-center space-x-1 shrink-0">
-              <span class="text-[10px] text-stone-800 font-bold flex items-center space-x-0.5 shrink-0"><span>🗓️</span><span>Googleカレンダー</span></span>
-              <select id="calendarFeatureSelect" onchange="onCalendarFeatureChange(this.value)" class="text-[10px] font-medium text-stone-700 bg-stone-50 border border-stone-200 rounded-lg px-1.5 py-0.5 focus:outline-none shadow-xs shrink-0">
-                <option value="use">利用する</option>
-                <option value="none">利用しない</option>
-              </select>
-            </div>
-            <span class="text-[9px] text-stone-400 font-normal">（※日付の🗓️をクリックして登録）</span>
+          <div class="text-xs font-bold text-stone-700 border-b border-rose-100 pb-1 flex justify-end items-center tracking-wide">
+            <span class="text-[9px] text-stone-400 font-normal">※日付の🗓️をクリックするとGoogleカレンダーに登録できます</span>
           </div>
           <div id="standaloneShiftListContainer" class="space-y-1 max-h-[480px] overflow-y-auto pr-1 text-xs"></div>
         </div>
@@ -443,7 +448,7 @@
                   <span id="presetSettingsTitleLabel" class="text-xs font-bold text-stone-700">ワンタッチ時間の登録</span>
                   <button type="button" onclick="addPresetRow()" class="bg-rose-900 text-rose-50 text-[10px] font-bold px-2 py-0.5 rounded-lg hover:bg-rose-800 transition shadow-sm">+ 時間を追加</button>
                 </div>
-                <div id="jobPresetSettingsList" class="space-y-1"></div>
+                <div id="jobPresetSettingsList" class="space-y-1.5"></div>
               </div>
             </div>
           </div>
@@ -489,16 +494,15 @@
 
     let shiftsData = {};
     try {
-      shiftsData = JSON.parse(localStorage.getItem('mybasket_shifts_v19') || localStorage.getItem('mybasket_shifts_v18') || '{}');
+      shiftsData = JSON.parse(localStorage.getItem('mybasket_shifts_v20') || localStorage.getItem('mybasket_shifts_v19') || '{}');
     } catch (e) { shiftsData = {}; }
 
     let savedWages = {};
     try {
-      savedWages = JSON.parse(localStorage.getItem('mybasket_wages_v74') || localStorage.getItem('mybasket_wages_v73') || '{}');
+      savedWages = JSON.parse(localStorage.getItem('mybasket_wages_v75') || localStorage.getItem('mybasket_wages_v74') || '{}');
     } catch (e) { savedWages = {}; }
 
     let monthlyGoal = Number(savedWages.monthlyGoal) || 0;
-    let calendarFeaturePref = localStorage.getItem('mybasket_calendar_pref') || 'use';
 
     let configData = {
       jobCount: savedWages.jobCount !== undefined ? Number(savedWages.jobCount) : 3,
@@ -546,8 +550,6 @@
       if (yearEl) yearEl.innerText = new Date().getFullYear();
 
       document.getElementById('settingJobCount').value = configData.jobCount;
-      const calSelects = document.querySelectorAll('#calendarFeatureSelect');
-      calSelects.forEach(sel => sel.value = calendarFeaturePref);
 
       renderSettingsJobNameInputs();
       loadSettingsToUI(currentSettingsJobKey);
@@ -573,18 +575,10 @@
       setShiftTypeUIOnly(!!jobShift.isPaidLeave);
       document.getElementById('shiftStart1').value = jobShift.start1 || '';
       document.getElementById('shiftEnd1').value = jobShift.end1 || '';
+      document.getElementById('shiftBreak1').value = (jobShift.breakMins !== undefined && jobShift.breakMins > 0) ? jobShift.breakMins : '';
       document.getElementById('shiftStart2').value = jobShift.start2 || '';
       document.getElementById('shiftEnd2').value = jobShift.end2 || '';
       renderPresetButtons();
-    }
-
-    function onCalendarFeatureChange(val) {
-      calendarFeaturePref = val;
-      localStorage.setItem('mybasket_calendar_pref', val);
-      const calSelects = document.querySelectorAll('#calendarFeatureSelect');
-      calSelects.forEach(sel => sel.value = val);
-      renderCalendar();
-      renderStandaloneShiftList();
     }
 
     function getActiveJobKeys() {
@@ -1062,6 +1056,7 @@
       if (slotNum === 1) {
         document.getElementById('shiftStart1').value = '';
         document.getElementById('shiftEnd1').value = '';
+        document.getElementById('shiftBreak1').value = '';
       } else if (slotNum === 2) {
         document.getElementById('shiftStart2').value = '';
         document.getElementById('shiftEnd2').value = '';
@@ -1092,6 +1087,7 @@
 
       const s1 = document.getElementById('shiftStart1').value;
       const e1 = document.getElementById('shiftEnd1').value;
+      const b1 = document.getElementById('shiftBreak1').value;
       const s2 = document.getElementById('shiftStart2').value;
       const e2 = document.getElementById('shiftEnd2').value;
       const jobKey = currentSelectedJobKey;
@@ -1113,13 +1109,14 @@
         shiftsData[selectedCalendarDateStr][jobKey] = {
           start1: s1,
           end1: e1,
+          breakMins: parseFormattedNumber(b1),
           start2: s2,
           end2: e2,
           isPaidLeave: isPaidLeaveMode
         };
       }
 
-      localStorage.setItem('mybasket_shifts_v19', JSON.stringify(shiftsData));
+      localStorage.setItem('mybasket_shifts_v20', JSON.stringify(shiftsData));
       renderCalendar();
       renderStandaloneShiftList();
       initOverviewPage();
@@ -1157,18 +1154,21 @@
 
       let s1 = document.getElementById('shiftStart1');
       let e1 = document.getElementById('shiftEnd1');
+      let b1 = document.getElementById('shiftBreak1');
       let s2 = document.getElementById('shiftStart2');
       let e2 = document.getElementById('shiftEnd2');
 
       if (!s1.value || !e1.value) {
         s1.value = start;
         e1.value = end;
+        if (breakMins > 0) b1.value = breakMins;
       } else if (!s2.value || !e2.value) {
         s2.value = start;
         e2.value = end;
       } else {
         s1.value = start;
         e1.value = end;
+        if (breakMins > 0) b1.value = breakMins;
       }
 
       if (!shiftsData[selectedCalendarDateStr]) shiftsData[selectedCalendarDateStr] = {};
@@ -1190,18 +1190,18 @@
       presets.forEach((p, idx) => {
         container.innerHTML += `
           <div class="flex items-center justify-between bg-stone-50 p-1.5 rounded-xl border border-rose-100 text-xs">
-            <div class="flex items-center space-x-1">
-              <span class="text-[10px] text-stone-400 font-bold w-4">${idx+1}.</span>
-              <input type="time" id="preset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-20">
-              <span>〜</span>
-              <input type="time" id="preset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-20">
-              <div class="flex items-center space-x-0.5 ml-1">
+            <div class="flex items-center space-x-1 overflow-x-auto py-0.5">
+              <span class="text-[10px] text-stone-400 font-bold w-4 shrink-0">${idx+1}.</span>
+              <input type="time" id="preset_start_${idx}" value="${p.start || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-[76px] shrink-0">
+              <span class="shrink-0">〜</span>
+              <input type="time" id="preset_end_${idx}" value="${p.end || ''}" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-[76px] shrink-0">
+              <div class="flex items-center space-x-0.5 ml-1 shrink-0">
                 <span class="text-[10px] text-stone-500">休憩</span>
-                <input type="text" inputmode="numeric" id="preset_break_${idx}" value="${p.breakMins ? p.breakMins : ''}" oninput="formatInputNumber(this)" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-10 text-center" placeholder="0">
+                <input type="text" inputmode="numeric" id="preset_break_${idx}" value="${p.breakMins ? p.breakMins : ''}" oninput="formatInputNumber(this)" class="p-1 border rounded border-rose-200/80 bg-white text-xs w-9 text-center" placeholder="0">
                 <span class="text-[10px] text-stone-500">分</span>
               </div>
             </div>
-            <button type="button" onclick="clearPresetRow(${idx})" class="text-stone-400 hover:text-stone-700 font-bold px-2 py-0.5 rounded text-[11px] transition">クリア</button>
+            <button type="button" onclick="clearPresetRow(${idx})" class="text-stone-400 hover:text-stone-700 font-bold px-2 py-0.5 rounded text-[11px] transition shrink-0 ml-1">クリア</button>
           </div>
         `;
       });
@@ -1810,7 +1810,6 @@
 
       const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
       const activeKeys = getActiveJobKeys();
-      const isCalendarUse = (calendarFeaturePref === 'use');
 
       for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
         const dateStr = formatDateKey(d);
@@ -1853,7 +1852,7 @@
 
         const hasShift = (linesHtml !== '');
         let batchCalendarIcon = '';
-        if (hasShift && isCalendarUse) {
+        if (hasShift) {
           let batchUrl = generateBatchGoogleCalendarUrl(dateStr, dayData);
           batchCalendarIcon = `<a href="${batchUrl}" target="_blank" onclick="event.stopPropagation();" class="text-sm hover:scale-110 transition inline-block ml-1" title="Googleカレンダーに登録">🗓️</a>`;
         }
@@ -2168,7 +2167,7 @@
       syncUIFormToConfig(currentSettingsJobKey);
       let payload = JSON.parse(JSON.stringify(configData));
       payload.monthlyGoal = monthlyGoal;
-      localStorage.setItem('mybasket_wages_v74', JSON.stringify(payload));
+      localStorage.setItem('mybasket_wages_v75', JSON.stringify(payload));
     }
 
     function saveSettings() {
