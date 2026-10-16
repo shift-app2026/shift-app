@@ -1166,6 +1166,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
     }
 
     window.onload = function() {
+      // 新しく起動したときは「お給料」画面を表示
+      switchTab('clock');
       renderSettingsJobTabs();
       renderSettingsJobContent(currentSettingsJobKey);
       initOverviewPage();
@@ -1185,6 +1187,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
       renderCalendar();
       renderStandaloneShiftList();
     };
+
+    // 履歴キャッシュからページが復元された場合もお給料画面へ
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) switchTab('clock');
+    });
 
     function getDayShifts(dateStr, jobKey) {
       const dayData = shiftsData[dateStr] || {};
