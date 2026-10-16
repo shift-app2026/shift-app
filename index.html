@@ -418,7 +418,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #customTimePickerModal .hclock-card{width:min(100%,390px);max-height:96dvh;overflow-y:auto;background:#fff;border-radius:22px;padding:13px 13px 18px;box-shadow:0 12px 45px #0005;text-align:center;color:#382a24}
 #customTimePickerModal .hclock-heading{font-size:17px;font-weight:800;margin:0 0 10px}
 #customTimePickerModal .hclock-calendar{border-radius:19px 19px 9px 9px;background:linear-gradient(145deg,#f27384,#9f163a 75%);padding:15px 11px 10px;position:relative;border:2px solid #bb3451}
-#customTimePickerModal .hclock-calendar:before,#customTimePickerModal .hclock-calendar:after{content:'';position:absolute;top:-13px;width:19px;height:37px;border-radius:12px;background:linear-gradient(90deg,#a66e50,#f4d6bd,#b37a58);border:2px solid #9e674c;z-index:1}
+#customTimePickerModal .hclock-calendar:before,#customTimePickerModal .hclock-calendar:after{content:'';position:absolute;top:-13px;width:19px;height:37px;border-radius:12px;background:linear-gradient(90deg,#ad5d55,#f8d5b1,#ae6058);border:2px solid #9e514b;z-index:1}
 #customTimePickerModal .hclock-calendar:before{left:18%}#customTimePickerModal .hclock-calendar:after{right:18%}
 #customTimePickerModal .hclock-identity{display:flex;align-items:center;justify-content:center;gap:9px;background:#fffdf8;border-radius:9px;padding:10px 6px;font-weight:750;font-size:clamp(11px,3.5vw,14px);white-space:nowrap;min-width:0}
 #customTimePickerModal .hclock-job{overflow:hidden;text-overflow:ellipsis;min-width:0}#customTimePickerModal .hclock-dot{color:var(--hclock-job-color,#2563eb)}#customTimePickerModal .hclock-date{font-size:.92em;border-left:1px solid #e4a0a8;padding-left:9px;flex-shrink:0}
@@ -478,6 +478,21 @@ html, body { max-width: 100%; overflow-x: hidden; }
   #standaloneShiftListContainer .standalone-shift-line,#standaloneShiftListContainer .standalone-shift-line .job-time {font-size:15px !important;}
   #calendarJobLegend .calendar-legend-first-row {gap:3px;}
   #calendarJobLegend .calendar-legend-first-row .calendar-legend-label {padding:4px 3px !important;}
+}
+</style>
+
+<style id="metallic-rose-finish-20261016">
+/* Metallic rose-champagne: visual treatment only; existing sizes and calculations unchanged. */
+#goalRing svg > circle:first-of-type {
+  filter: drop-shadow(0 2px 2px rgba(103, 38, 37, .18));
+}
+#customTimePickerModal #customClockFace {
+  filter: drop-shadow(0 2px 3px rgba(103, 38, 37, .16));
+}
+#customTimePickerModal .hclock-calendar::before,
+#customTimePickerModal .hclock-calendar::after {
+  background: linear-gradient(90deg,#8c342f 0%,#dc8869 22%,#fff0b9 44%,#b65c41 72%,#8d3835 100%);
+  border-color:#a25b3d;
 }
 </style>
 </head>
@@ -710,15 +725,21 @@ html, body { max-width: 100%; overflow-x: hidden; }
                 <defs>
                   <!-- 時計と共通のシャンパンゴールド5色 -->
                   <linearGradient id="goalGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#f6dcc7" />
-                    <stop offset="25%" stop-color="#b77b58" />
-                    <stop offset="49%" stop-color="#edc3a2" />
-                    <stop offset="80%" stop-color="#a56b50" />
-                    <stop offset="100%" stop-color="#f3d3bd" />
+                    <stop offset="0%" stop-color="#8e292b" />
+                    <stop offset="12%" stop-color="#c65b56" />
+                    <stop offset="23%" stop-color="#fff1d4" />
+                    <stop offset="31%" stop-color="#e98f82" />
+                    <stop offset="42%" stop-color="#a73336" />
+                    <stop offset="55%" stop-color="#8f282c" />
+                    <stop offset="66%" stop-color="#df7770" />
+                    <stop offset="76%" stop-color="#ffe9c5" />
+                    <stop offset="85%" stop-color="#c4504d" />
+                    <stop offset="94%" stop-color="#922b30" />
+                    <stop offset="100%" stop-color="#e6a18b" />
                   </linearGradient>
                   <linearGradient id="goalGoldSoft" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#e5c6b1" />
-                    <stop offset="100%" stop-color="#efdbc9" />
+                    <stop offset="0%" stop-color="#eac0ae" />
+                    <stop offset="100%" stop-color="#f4d7c6" />
                   </linearGradient>
                 </defs>
                 <!-- 外側の太い金色リング、内側のベージュ、エンジの達成率 -->
@@ -2078,10 +2099,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
       svg.replaceChildren();
       const defs=dialElement('defs');
       const gold=dialElement('linearGradient',{id:'hclockGold',x1:'0%',y1:'0%',x2:'100%',y2:'100%'});
-      [['0%','#f6dcc7'],['25%','#b77b58'],['49%','#edc3a2'],['80%','#a56b50'],['100%','#f3d3bd']].forEach(([offset,color])=>gold.appendChild(dialElement('stop',{offset,'stop-color':color})));
+      [['0%','#8e292b'],['12%','#c65b56'],['23%','#fff1d4'],['31%','#e98f82'],['42%','#a73336'],['55%','#8f282c'],['66%','#df7770'],['76%','#ffe9c5'],['85%','#c4504d'],['94%','#922b30'],['100%','#e6a18b']].forEach(([offset,color])=>gold.appendChild(dialElement('stop',{offset,'stop-color':color})));
       defs.appendChild(gold);svg.appendChild(defs);
-      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:137,fill:'url(#hclockGold)',stroke:'#a56e51','stroke-width':3}));
-      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:120,fill:'#fffaf8',stroke:'#d3ab91','stroke-width':2}));
+      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:137,fill:'url(#hclockGold)',stroke:'#9e3b39','stroke-width':3}));
+      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:120,fill:'#fffaf8',stroke:'#d2a08c','stroke-width':2}));
       const isHour=dialMode==='hour';
       const selected=isHour?dialHour:dialMinute;
       const inner=isHour&&(selected===0||selected>=13);
