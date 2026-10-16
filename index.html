@@ -2657,7 +2657,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       const rawPercent = monthlyGoal > 0 ? (totalPay / monthlyGoal) * 100 : 0;
       if (goalPercentText) goalPercentText.innerText = `目標達成率 ${Math.round(rawPercent)}%`;
       const remEl = document.getElementById('goalRemainText');
-      if (remEl) remEl.innerText = monthlyGoal <= 0 ? '' : (totalPay >= monthlyGoal ? '目標達成♡' : `目標まであと${formatCurrency(monthlyGoal - totalPay)}`);
+      if (remEl) remEl.innerText = ''; // 目標までの残額は表示しない
       if (goalProgressCircle) {
         const visiblePercent = Math.max(0, Math.min(rawPercent, 100));
         goalProgressCircle.style.display = visiblePercent > 0 ? '' : 'none';
