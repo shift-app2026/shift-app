@@ -418,7 +418,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #customTimePickerModal .hclock-card{width:min(100%,390px);max-height:96dvh;overflow-y:auto;background:#fff;border-radius:22px;padding:13px 13px 18px;box-shadow:0 12px 45px #0005;text-align:center;color:#382a24}
 #customTimePickerModal .hclock-heading{font-size:17px;font-weight:800;margin:0 0 10px}
 #customTimePickerModal .hclock-calendar{border-radius:19px 19px 9px 9px;background:linear-gradient(145deg,#f27384,#9f163a 75%);padding:15px 11px 10px;position:relative;border:2px solid #bb3451}
-#customTimePickerModal .hclock-calendar:before,#customTimePickerModal .hclock-calendar:after{content:'';position:absolute;top:-13px;width:19px;height:37px;border-radius:12px;background:linear-gradient(90deg,#9c631e,#ffe5a0,#b87824);border:2px solid #a76c24;z-index:1}
+#customTimePickerModal .hclock-calendar:before,#customTimePickerModal .hclock-calendar:after{content:'';position:absolute;top:-13px;width:19px;height:37px;border-radius:12px;background:linear-gradient(90deg,#a77763,#f7e0d3,#b98b76);border:2px solid #a77b67;z-index:1}
 #customTimePickerModal .hclock-calendar:before{left:18%}#customTimePickerModal .hclock-calendar:after{right:18%}
 #customTimePickerModal .hclock-identity{display:flex;align-items:center;justify-content:center;gap:9px;background:#fffdf8;border-radius:9px;padding:10px 6px;font-weight:750;font-size:clamp(11px,3.5vw,14px);white-space:nowrap;min-width:0}
 #customTimePickerModal .hclock-job{overflow:hidden;text-overflow:ellipsis;min-width:0}#customTimePickerModal .hclock-dot{color:var(--hclock-job-color,#2563eb)}#customTimePickerModal .hclock-date{font-size:.92em;border-left:1px solid #e4a0a8;padding-left:9px;flex-shrink:0}
@@ -431,6 +431,54 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #customTimePickerModal .hclock-save{left:0;background:#96143c;border:1px solid #7f1030;color:white}#customTimePickerModal .hclock-cancel{right:0;background:#f7f7f7;border:1px solid #d5d1cf;color:#34302f}
 @media(max-width:360px){#customTimePickerModal #customClockFace{width:73%}#customTimePickerModal .hclock-action{font-size:11px;min-width:59px;padding:8px 5px}#customTimePickerModal .hclock-digital{font-size:27px}}
 @media(max-height:620px){#customTimePickerModal .hclock-card{max-height:95dvh}#customTimePickerModal #customClockFace{width:min(72%,225px)}}
+</style>
+
+<style id="oct16-legibility-patch">
+/* 2026-10-16: readability refinements only; pay and save logic unchanged */
+/* ワンタッチ時間登録：時刻は中央、時計は右。休憩と閉じるは同じ行 */
+#presetRegisterModal .preset-time-row .time-field-wrap > .wage-time[readonly] {
+  text-align:center !important; font-size:18px !important;
+  padding-left:4px !important; padding-right:31px !important;
+  text-indent:12px;
+}
+#presetRegisterModal .preset-time-row .time-clock-button {right:1px !important;}
+#presetRegisterModal button[onclick="closePresetRegisterModal()"] {min-width:110px; padding-left:20px !important; padding-right:20px !important;}
+#presetRegisterModal button[onclick="openBreakSelectModal('preset')"] {min-width:0;}
+/* 独自時計：取消を左、登録を右 */
+#customTimePickerModal .hclock-cancel {left:0;right:auto;}
+#customTimePickerModal .hclock-save {right:0;left:auto;}
+/* 給与画面：日付と金額の間隔を確保 */
+#monthlyReceiveBreakdown .receive-breakdown-row {gap:10px !important;}
+#monthlyReceiveBreakdown .receive-job-name .job-label-pill {font-size:clamp(12px,3.3vw,14px) !important;}
+#monthlyReceiveBreakdown .payday-label {font-size:clamp(11px,3vw,13px) !important;}
+#monthlyReceiveBreakdown .receive-job-amount {font-size:clamp(13px,3.6vw,15px) !important;margin-left:10px !important;}
+/* 設定画面：入力値の読みやすさ */
+#tab-settings input:not([type="checkbox"]),#tab-settings select {font-size:16px !important;}
+#tab-settings .wage-base-input,#tab-settings .wage-bonus-input {font-size:16px !important;}
+#tab-settings .wage-bonus-select {font-size:14px !important;}
+#tab-settings #set_closeDay,#tab-settings #set_payDay {font-size:15px !important;}
+/* 予定表とカレンダー */
+#standaloneShiftListContainer .standalone-date {font-size:16px !important; width:86px;}
+#standaloneShiftListContainer .standalone-shift-line {font-size:16px !important;}
+#standaloneShiftListContainer .standalone-shift-line .job-time {font-size:16px !important;}
+#standaloneShiftListContainer .standalone-empty {font-size:15px !important;}
+#calendarDays > div > span,#calendarDays > div > div > span {font-size:18px !important;}
+/* 凡例：2件+給料日を1段目に。3件目だけ2段目 */
+#calendarJobLegend .calendar-legend-first-row {display:flex;align-items:center;justify-content:space-between;gap:5px;min-width:0;}
+#calendarJobLegend .calendar-legend-first-row > div {min-width:0;flex:0 1 auto;}
+#calendarJobLegend .calendar-legend-first-row .calendar-legend-label {font-size:clamp(10px,2.8vw,13px) !important;padding:4px 5px !important;white-space:nowrap;}
+#calendarJobLegend .calendar-legend-first-row .calendar-payday-legend {flex-shrink:0;font-size:clamp(10px,2.8vw,13px);}
+#calendarJobLegend .calendar-legend-second-row {display:flex;align-items:center;}
+#standaloneJobLegend .legend-job-label {font-size:clamp(13px,3.5vw,15px) !important;padding:5px 9px !important;}
+#standaloneJobLegend .job-color-dot,#standaloneJobLegend .glass-orb {min-width:10px;}
+@media(max-width:380px) {
+  #monthlyReceiveBreakdown .receive-breakdown-row {gap:5px !important;}
+  #monthlyReceiveBreakdown .receive-job-amount {margin-left:7px !important;}
+  #standaloneShiftListContainer .standalone-date {font-size:15px !important;width:79px;}
+  #standaloneShiftListContainer .standalone-shift-line,#standaloneShiftListContainer .standalone-shift-line .job-time {font-size:15px !important;}
+  #calendarJobLegend .calendar-legend-first-row {gap:3px;}
+  #calendarJobLegend .calendar-legend-first-row .calendar-legend-label {padding:4px 3px !important;}
+}
 </style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
@@ -662,15 +710,15 @@ html, body { max-width: 100%; overflow-x: hidden; }
                 <defs>
                   <!-- 時計と共通のシャンパンゴールド5色 -->
                   <linearGradient id="goalGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#fff1a6" />
-                    <stop offset="25%" stop-color="#bb7c23" />
-                    <stop offset="49%" stop-color="#f9df8a" />
-                    <stop offset="80%" stop-color="#a36a1d" />
-                    <stop offset="100%" stop-color="#ffeb9b" />
+                    <stop offset="0%" stop-color="#f9e9df" />
+                    <stop offset="25%" stop-color="#bd8b76" />
+                    <stop offset="49%" stop-color="#f5d8c6" />
+                    <stop offset="80%" stop-color="#a97661" />
+                    <stop offset="100%" stop-color="#f6e4d9" />
                   </linearGradient>
                   <linearGradient id="goalGoldSoft" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#e8d6b6" />
-                    <stop offset="100%" stop-color="#f0e3cc" />
+                    <stop offset="0%" stop-color="#e9d4c9" />
+                    <stop offset="100%" stop-color="#f4e4dc" />
                   </linearGradient>
                 </defs>
                 <!-- 外側の太い金色リング、内側のベージュ、エンジの達成率 -->
@@ -2030,10 +2078,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
       svg.replaceChildren();
       const defs=dialElement('defs');
       const gold=dialElement('linearGradient',{id:'hclockGold',x1:'0%',y1:'0%',x2:'100%',y2:'100%'});
-      [['0%','#fff1a6'],['25%','#bb7c23'],['49%','#f9df8a'],['80%','#a36a1d'],['100%','#ffeb9b']].forEach(([offset,color])=>gold.appendChild(dialElement('stop',{offset,'stop-color':color})));
+      [['0%','#f9e9df'],['25%','#bd8b76'],['49%','#f5d8c6'],['80%','#a97661'],['100%','#f6e4d9']].forEach(([offset,color])=>gold.appendChild(dialElement('stop',{offset,'stop-color':color})));
       defs.appendChild(gold);svg.appendChild(defs);
-      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:137,fill:'url(#hclockGold)',stroke:'#a9742b','stroke-width':3}));
-      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:120,fill:'#fffaf0',stroke:'#d9b86e','stroke-width':2}));
+      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:137,fill:'url(#hclockGold)',stroke:'#ad806b','stroke-width':3}));
+      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:120,fill:'#fffaf8',stroke:'#d8b7a7','stroke-width':2}));
       const isHour=dialMode==='hour';
       const selected=isHour?dialHour:dialMinute;
       const inner=isHour&&(selected===0||selected>=13);
@@ -2051,7 +2099,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         svg.appendChild(dialElement('text',{x:140+103*Math.cos(a),y:140+103*Math.sin(a),'text-anchor':'middle','dominant-baseline':'central','font-size':19,'font-weight':700,fill:outerSelected?'#fff':'#543622','pointer-events':'none'},String(outerValue)));
         if(isHour)svg.appendChild(dialElement('text',{x:140+75*Math.cos(a),y:140+75*Math.sin(a),'text-anchor':'middle','dominant-baseline':'central','font-size':18,'font-weight':700,fill:dialHour===innerHour?'#fff':'#654638','pointer-events':'none'},String(innerHour)));
       }
-      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:10,fill:'#b97828',stroke:'#f5d88a','stroke-width':3}));
+      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:10,fill:'#ba8a75',stroke:'#f0d4c5','stroke-width':3}));
       svg.appendChild(dialElement('circle',{cx:140,cy:140,r:5,fill:'#a21c45'}));
       document.getElementById('clockHourDisplay').textContent=String(dialHour).padStart(2,'0');
       document.getElementById('clockMinuteDisplay').textContent=String(dialMinute).padStart(2,'0');
@@ -2965,9 +3013,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
       const item = jk => jk
         ? `<div class="flex min-w-0 items-center justify-start">${getJobLabelHtml(jk, 'calendar-legend-label')}</div>`
         : `<div aria-hidden="true"></div>`;
-      const firstRow = `<div class="grid grid-cols-2 items-center gap-2">${item(keys[0])}${item(keys[1])}</div>`;
       const paydayDot = '<span aria-hidden="true" style="color:#ec4899;font-size:16px;line-height:1;">♥</span>';
-      const secondRow = `<div class="grid grid-cols-2 items-center gap-2">${item(keys[2])}<div class="flex justify-end"><span class="calendar-payday-legend inline-flex items-center gap-1 whitespace-nowrap font-bold text-stone-900">${paydayDot}<span>お給料日</span></span></div></div>`;
+      const payday = `<span class="calendar-payday-legend inline-flex items-center gap-1 whitespace-nowrap font-bold text-stone-900">${paydayDot}<span>お給料日</span></span>`;
+      // 1行目はバイト先1・2と給料日。3つ目のバイト先だけ2行目へ。
+      const firstRow = `<div class="calendar-legend-first-row">${keys.slice(0,2).map(item).join('')}${payday}</div>`;
+      const secondRow = keys[2] ? `<div class="calendar-legend-second-row">${item(keys[2])}</div>` : '';
       return `<div class="flex w-full flex-col gap-1.5">${firstRow}${secondRow}</div>`;
     }
 
