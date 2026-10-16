@@ -392,6 +392,25 @@ html, body { max-width: 100%; overflow-x: hidden; }
 </style>
 
 <style>#clockHourDisplay[aria-pressed="true"],#clockMinuteDisplay[aria-pressed="true"]{background:#ffe4e6} .wage-time[readonly]{caret-color:transparent;cursor:pointer}</style>
+<style id="approved-gold-clock">
+/* 2026-10-16: approved gold clock, scoped to the time picker only */
+#customTimePickerModal .hclock-card{width:min(100%,390px);max-height:96dvh;overflow-y:auto;background:#fff;border-radius:22px;padding:13px 13px 18px;box-shadow:0 12px 45px #0005;text-align:center;color:#382a24}
+#customTimePickerModal .hclock-heading{font-size:17px;font-weight:800;margin:0 0 10px}
+#customTimePickerModal .hclock-calendar{border-radius:19px 19px 9px 9px;background:linear-gradient(145deg,#f27384,#9f163a 75%);padding:15px 11px 10px;position:relative;border:2px solid #bb3451}
+#customTimePickerModal .hclock-calendar:before,#customTimePickerModal .hclock-calendar:after{content:'';position:absolute;top:-13px;width:19px;height:37px;border-radius:12px;background:linear-gradient(90deg,#9c631e,#ffe5a0,#b87824);border:2px solid #a76c24;z-index:1}
+#customTimePickerModal .hclock-calendar:before{left:18%}#customTimePickerModal .hclock-calendar:after{right:18%}
+#customTimePickerModal .hclock-identity{display:flex;align-items:center;justify-content:center;gap:9px;background:#fffdf8;border-radius:9px;padding:10px 6px;font-weight:750;font-size:clamp(11px,3.5vw,14px);white-space:nowrap;min-width:0}
+#customTimePickerModal .hclock-job{overflow:hidden;text-overflow:ellipsis;min-width:0}#customTimePickerModal .hclock-dot{color:var(--hclock-job-color,#2563eb)}#customTimePickerModal .hclock-date{font-size:.92em;border-left:1px solid #e4a0a8;padding-left:9px;flex-shrink:0}
+#customTimePickerModal .hclock-panel{position:relative;overflow:hidden;background:#fffdfb;border:2px solid #a90e3c;border-radius:18px;margin-top:8px;padding:15px 7px 10px}
+#customTimePickerModal .hclock-digital{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(#fff7de,#f2dfb1);border:1px solid #d9b66d;border-radius:10px;padding:6px 17px;color:#68431c;font-weight:850;font-size:30px;letter-spacing:1px;box-shadow:0 3px 7px #7b55252b;margin-bottom:14px}
+#customTimePickerModal .hclock-digital button{border:0;background:none;color:inherit;font:inherit;padding:0 3px;cursor:pointer}#customTimePickerModal .hclock-digital button[aria-pressed=true]{box-shadow:inset 0 -3px #9b1640}
+#customTimePickerModal .hclock-area{position:relative;width:100%;max-width:340px;margin:auto;aspect-ratio:1.26}
+#customTimePickerModal #customClockFace{display:block;position:absolute;left:50%;top:0;transform:translateX(-50%);width:min(76%,255px);height:auto;aspect-ratio:1;touch-action:none;user-select:none;filter:drop-shadow(0 4px 4px #74502c40)}
+#customTimePickerModal .hclock-action{position:absolute;bottom:7px;padding:9px 10px;border-radius:9px;font-weight:750;font-size:12px;cursor:pointer;min-width:65px;min-height:36px}
+#customTimePickerModal .hclock-save{left:0;background:#96143c;border:1px solid #7f1030;color:white}#customTimePickerModal .hclock-cancel{right:0;background:#f7f7f7;border:1px solid #d5d1cf;color:#34302f}
+@media(max-width:360px){#customTimePickerModal #customClockFace{width:73%}#customTimePickerModal .hclock-action{font-size:11px;min-width:59px;padding:8px 5px}#customTimePickerModal .hclock-digital{font-size:27px}}
+@media(max-height:620px){#customTimePickerModal .hclock-card{max-height:95dvh}#customTimePickerModal #customClockFace{width:min(72%,225px)}}
+</style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
 
@@ -1976,30 +1995,31 @@ html, body { max-width: 100%; overflow-x: hidden; }
       const svg = document.getElementById('customClockFace');
       if (!svg) return;
       svg.replaceChildren();
-      svg.appendChild(dialElement('circle', {cx:140,cy:140,r:134,fill:'#fff1f2'}));
-      const isHour = dialMode === 'hour';
-      const selected = isHour ? dialHour : dialMinute;
-      const inner = isHour && (selected === 0 || selected >= 13);
-      const radius = inner ? 78 : 111;
-      const angle = ((isHour ? selected % 12 : selected / 5) * Math.PI / 6) - Math.PI / 2;
-      const px = 140 + radius * Math.cos(angle), py = 140 + radius * Math.sin(angle);
+      const defs=dialElement('defs');
+      const gold=dialElement('linearGradient',{id:'hclockGold',x1:'0%',y1:'0%',x2:'100%',y2:'100%'});
+      [['0%','#fff1a6'],['25%','#bb7c23'],['49%','#f9df8a'],['80%','#a36a1d'],['100%','#ffeb9b']].forEach(([offset,color])=>gold.appendChild(dialElement('stop',{offset,'stop-color':color})));
+      defs.appendChild(gold);svg.appendChild(defs);
+      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:137,fill:'url(#hclockGold)',stroke:'#a9742b','stroke-width':3}));
+      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:120,fill:'#fffaf0',stroke:'#d9b86e','stroke-width':2}));
+      const isHour=dialMode==='hour';
+      const selected=isHour?dialHour:dialMinute;
+      const inner=isHour&&(selected===0||selected>=13);
+      const radius=inner?75:103;
+      const angle=((isHour?selected%12:selected/5)*Math.PI/6)-Math.PI/2;
+      const px=140+radius*Math.cos(angle),py=140+radius*Math.sin(angle);
       svg.appendChild(dialElement('line',{x1:140,y1:140,x2:px,y2:py,stroke:'#881337','stroke-width':3,'stroke-linecap':'round'}));
-      svg.appendChild(dialElement('circle',{cx:px,cy:py,r:19,fill:'#881337'}));
-      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:5,fill:'#881337'}));
-      if (isHour) {
-        for(let h=1;h<=12;h++) {
-          const a=h*Math.PI/6-Math.PI/2;
-          const outer = dialElement('text',{x:140+111*Math.cos(a),y:140+111*Math.sin(a),'text-anchor':'middle','dominant-baseline':'central','font-size':20,'font-weight':700,fill:dialHour===h?'#fff':'#292524','pointer-events':'none'},String(h));
-          svg.appendChild(outer);
-          const innerHour=h===12?0:h+12;
-          svg.appendChild(dialElement('text',{x:140+78*Math.cos(a),y:140+78*Math.sin(a),'text-anchor':'middle','dominant-baseline':'central','font-size':15,'font-weight':700,fill:dialHour===innerHour?'#fff':'#57534e','pointer-events':'none'},String(innerHour).padStart(2,'0')));
-        }
-      } else {
-        for(let m=0;m<60;m+=5) {
-          const a=m*Math.PI/30-Math.PI/2;
-          svg.appendChild(dialElement('text',{x:140+111*Math.cos(a),y:140+111*Math.sin(a),'text-anchor':'middle','dominant-baseline':'central','font-size':19,'font-weight':700,fill:dialMinute===m?'#fff':'#292524','pointer-events':'none'},String(m).padStart(2,'0')));
-        }
+      svg.appendChild(dialElement('circle',{cx:px,cy:py,r:14,fill:'#9b1740'}));
+      for(let i=0;i<12;i++) {
+        const a=i*Math.PI/6-Math.PI/2;
+        const outerHour=i===0?12:i;
+        const innerHour=i===0?0:i+12;
+        const outerValue=isHour?outerHour:String(i*5).padStart(2,'0');
+        const outerSelected=isHour?dialHour===outerHour:dialMinute===i*5;
+        svg.appendChild(dialElement('text',{x:140+103*Math.cos(a),y:140+103*Math.sin(a),'text-anchor':'middle','dominant-baseline':'central','font-size':19,'font-weight':700,fill:outerSelected?'#fff':'#543622','pointer-events':'none'},String(outerValue)));
+        if(isHour)svg.appendChild(dialElement('text',{x:140+75*Math.cos(a),y:140+75*Math.sin(a),'text-anchor':'middle','dominant-baseline':'central','font-size':18,'font-weight':700,fill:dialHour===innerHour?'#fff':'#654638','pointer-events':'none'},String(innerHour)));
       }
+      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:10,fill:'#b97828',stroke:'#f5d88a','stroke-width':3}));
+      svg.appendChild(dialElement('circle',{cx:140,cy:140,r:5,fill:'#a21c45'}));
       document.getElementById('clockHourDisplay').textContent=String(dialHour).padStart(2,'0');
       document.getElementById('clockMinuteDisplay').textContent=String(dialMinute).padStart(2,'0');
       document.getElementById('clockHourDisplay').setAttribute('aria-pressed',String(isHour));
@@ -2015,7 +2035,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       if(dialMode==='hour') {
         const h=Math.round(degrees/30)%12;
         const distance=Math.hypot(x,y);
-        dialHour=distance<94?(h===0?0:h+12):(h===0?12:h);
+        dialHour=distance<89?(h===0?0:h+12):(h===0?12:h);
       } else {
         dialMinute=Math.round(degrees/6)%60;
       }
@@ -2048,6 +2068,21 @@ html, body { max-width: 100%; overflow-x: hidden; }
       dialHour=match?Number(match[1]):9;
       dialMinute=match?Number(match[2]):0;
       dialMode='hour';
+      // シフト入力中の職場と日付を表示。設定画面の時給欄では職場だけ表示する。
+      const inShiftModal = !!el.closest('#shiftInputModal');
+      const jobKey = inShiftModal ? currentSelectedJobKey : currentSettingsJobKey;
+      const jobNameEl=document.getElementById('hclockJobName');
+      const dotEl=document.getElementById('hclockJobDot');
+      const dateEl=document.getElementById('hclockDate');
+      if(jobNameEl)jobNameEl.textContent=getJobDisplayName(jobKey||'job1');
+      if(dotEl)dotEl.style.color=getJobPalette(jobKey||'job1').dot;
+      if(dateEl){
+        if(inShiftModal && selectedCalendarDateStr){
+          const parts=selectedCalendarDateStr.split('-').map(Number);
+          const dt=new Date(parts[0],parts[1]-1,parts[2]);
+          dateEl.textContent=`${parts[1]}月${parts[2]}日（${'日月火水木金土'[dt.getDay()]}）`;
+        } else { dateEl.textContent='時給設定'; }
+      }
       renderClockDial();
       modal.classList.remove('hidden');modal.classList.add('flex');
     }
@@ -3277,19 +3312,21 @@ html, body { max-width: 100%; overflow-x: hidden; }
     }
   </script>
 
-  <!-- アプリ専用の針で選ぶ時計（Android標準のキーボード切替なし） -->
-  <div id="customTimePickerModal" style="z-index: 9999; background: rgba(28,25,23,.62);" class="fixed inset-0 backdrop-blur-sm hidden items-center justify-center p-3" role="dialog" aria-modal="true" aria-labelledby="customTimePickerTitle" onclick="if(event.target===this) closeCustomTimePicker()">
-    <div class="w-full rounded-3xl border border-rose-100 bg-white shadow-2xl" style="max-width:340px;max-height:95dvh;overflow-y:auto;padding:14px;">
-      <h3 id="customTimePickerTitle" class="text-center text-base font-bold text-stone-900">時間を選択</h3>
-      <div class="flex justify-center items-center gap-1 font-bold" style="font-size:32px;color:#881337;margin:5px 0;">
-        <button type="button" id="clockHourDisplay" aria-label="時を選ぶ" onclick="setClockMode('hour')" style="padding:3px 9px;border-radius:9px;">09</button><span>:</span>
-        <button type="button" id="clockMinuteDisplay" aria-label="分を選ぶ" onclick="setClockMode('minute')" style="padding:3px 9px;border-radius:9px;">00</button>
-      </div>
-      <p class="text-center text-xs text-stone-600" style="margin-bottom:7px;">上の「時」「分」を押して<br>文字盤を切り替えてね（24時間表示）</p>
-      <svg id="customClockFace" viewBox="0 0 280 280" role="group" aria-label="時間を選ぶ文字盤" onpointerdown="clockPointerDown(event)" onpointermove="clockPointerMove(event)" onpointerup="clockPointerUp(event)" onpointercancel="clockPointerUp(event)" style="display:block;width:min(100%,280px,42dvh);height:auto;aspect-ratio:1;margin:0 auto;touch-action:none;user-select:none;"></svg>
-      <div class="grid grid-cols-2 gap-2" style="margin-top:10px;">
-        <button type="button" onclick="closeCustomTimePicker()" class="rounded-xl border border-stone-300 bg-stone-100 px-3 py-3 text-sm font-bold text-stone-700">キャンセル</button>
-        <button type="button" onclick="applyCustomTimePicker()" class="rounded-xl bg-rose-900 px-3 py-3 text-sm font-bold text-white">設定する</button>
+  <!-- アプリ専用の24時間時計：完成した第4弾デザイン -->
+  <div id="customTimePickerModal" style="z-index:9999;background:rgba(28,25,23,.75)" class="fixed inset-0 backdrop-blur-sm hidden items-center justify-center p-3" role="dialog" aria-modal="true" aria-labelledby="customTimePickerTitle" onclick="if(event.target===this)closeCustomTimePicker()">
+    <div class="hclock-card">
+      <h3 id="customTimePickerTitle" class="hclock-heading">時間を選択</h3>
+      <div class="hclock-calendar"><div class="hclock-identity">
+        <span class="hclock-job"><span class="hclock-dot" id="hclockJobDot">●</span> <span id="hclockJobName">バイト先</span></span>
+        <span class="hclock-date" id="hclockDate">日付</span>
+      </div></div>
+      <div class="hclock-panel">
+        <div class="hclock-digital"><button type="button" id="clockHourDisplay" aria-label="時を選ぶ" aria-pressed="true" onclick="setClockMode('hour')">09</button><span>:</span><button type="button" id="clockMinuteDisplay" aria-label="分を選ぶ" aria-pressed="false" onclick="setClockMode('minute')">00</button></div>
+        <div class="hclock-area">
+          <svg id="customClockFace" viewBox="0 0 280 280" role="group" aria-label="24時間表示の時計文字盤" onpointerdown="clockPointerDown(event)" onpointermove="clockPointerMove(event)" onpointerup="clockPointerUp(event)" onpointercancel="clockPointerUp(event)"></svg>
+          <button type="button" class="hclock-action hclock-save" onclick="applyCustomTimePicker()">登録</button>
+          <button type="button" class="hclock-action hclock-cancel" onclick="closeCustomTimePicker()">取消</button>
+        </div>
       </div>
     </div>
   </div>
