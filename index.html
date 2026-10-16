@@ -605,62 +605,50 @@ html, body { max-width: 100%; overflow-x: hidden; }
       </div>
 
       <div id="shiftInputScrollArea" class="space-y-3 overflow-y-auto pr-1 flex-1 no-scrollbar" onscroll="updateShiftScrollHint()">
-        <!-- 【シフト登録】 -->
-        <div class="space-y-1.5">
-          <span class="text-sm font-bold text-stone-800">【シフト登録】</span>
-          <p class="text-xs font-bold text-stone-600">※バイト先を選択して、勤務時間を登録します。</p>
+        <section class="space-y-2">
+          <div class="text-sm font-bold text-stone-800">【シフト登録】</div>
+          <p class="text-xs font-medium text-stone-600">※バイト先を選択して、勤務時間を登録します。</p>
           <div id="modalJobSelectContainer" class="flex space-x-1.5"></div>
+        </section>
 
-          <div class="flex space-x-2 pt-1">
-            <button type="button" id="modalTypeWorkBtn" onclick="setModalShiftType(false)" class="flex-1 py-2.5 rounded-xl text-sm font-bold border transition bg-stone-100 text-stone-900 border-stone-300 shadow-sm">通常勤務</button>
-            <button type="button" id="modalTypePaidBtn" onclick="setModalShiftType(true)" class="flex-1 py-2.5 rounded-xl text-sm font-bold border transition bg-white text-stone-700 border-stone-200 hover:bg-stone-50">☆ 有給休暇</button>
-          </div>
-        </div>
-
-        <!-- 【ワンタッチ時間登録】 -->
-        <div class="space-y-1.5 pt-1 border-t border-stone-100">
-          <div class="flex items-center gap-2 flex-wrap">
-            <button type="button" onclick="openPresetRegisterModal()" class="flex-1 min-w-0 py-2.5 px-2 bg-rose-50 text-rose-900 border border-rose-200 hover:bg-rose-100 rounded-xl font-bold text-sm transition shadow-sm">【ワンタッチ時間登録】</button>
-            <button type="button" onclick="openPresetHelpModal()" aria-haspopup="dialog" aria-controls="presetHelpModal" class="shrink-0 px-3 py-2 bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200 rounded-full font-bold text-xs transition shadow-sm">※見てね♡</button>
-          </div>
-        </div>
-
-        <!-- 【ワンタッチ時間登録一覧】 -->
-        <div class="space-y-1.5 pt-1 border-t border-stone-100">
-          <span class="text-sm font-bold text-stone-800">【ワンタッチ時間登録一覧】</span>
-          <p class="text-xs font-bold text-stone-600">※ここでは時間の修正はできません。</p>
-          <div id="modalPresetContainer" class="space-y-2 text-xs"></div>
-        </div>
-
-        <!-- 【新規シフト入力】 -->
-        <div class="space-y-2 pt-1 border-t border-stone-100">
-          <div class="flex justify-between items-center">
-            <span class="text-sm font-bold text-stone-800">【新規シフト入力】</span>
-          </div>
-          <div id="modalCustomPresetContainer" class="space-y-2"></div>
-          <div class="flex items-center justify-between gap-2 pt-1">
-            <p class="text-xs font-bold text-stone-600 whitespace-nowrap">※時間登録を直接できます。</p>
-            <button type="button" onclick="registerNewPresetAndRegister()" class="shrink-0 px-5 py-2.5 bg-rose-900 text-rose-50 hover:bg-rose-800 rounded-xl font-bold text-sm transition shadow-sm">登録</button>
-          </div>
-        </div>
-
-        <!-- 【この日のシフト一覧】 -->
-        <div class="space-y-1.5 pt-1 border-t border-stone-100">
-          <div class="flex justify-between items-center">
-            <span class="text-sm font-bold text-stone-800">【この日のシフト一覧】</span>
-          </div>
-          <p class="text-xs font-bold text-stone-600">選択した日付に登録したシフトが表示されます。</p>
-          <div id="modalSelectedDateSummaryContent" class="space-y-2 text-xs text-stone-700 pt-1">
+        <section class="space-y-2 pt-2 border-t border-stone-100">
+          <div class="text-sm font-bold text-stone-800">【この日のシフト一覧】</div>
+          <div id="modalSelectedDateSummaryContent" class="space-y-2 text-xs text-stone-700">
             <span class="text-stone-400">シフトは登録されていません</span>
           </div>
-        </div>
+        </section>
+
+        <section class="space-y-2 pt-2 border-t border-stone-100">
+          <div class="flex space-x-2">
+            <button type="button" id="modalTypeWorkBtn" onclick="setModalShiftType(false)" class="flex-1 py-1.5 rounded-xl text-sm font-bold border transition bg-stone-100 text-stone-900 border-stone-300 shadow-sm">通常勤務</button>
+            <button type="button" id="modalTypePaidBtn" onclick="setModalShiftType(true)" class="flex-1 py-1.5 rounded-xl text-sm font-bold border transition bg-white text-stone-700 border-stone-200 hover:bg-stone-50">☆ 有給休暇</button>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <div class="text-sm font-bold text-stone-800">【シフト入力】</div>
+            <button type="button" onclick="registerNewPresetAndRegister()" class="shrink-0 px-5 py-2.5 bg-rose-900 text-rose-50 hover:bg-rose-800 rounded-xl font-bold text-sm transition shadow-sm">登録</button>
+          </div>
+          <div id="modalCustomPresetContainer" class="space-y-2"></div>
+          <p class="text-xs font-medium text-stone-600">※時間を直接入力できます。</p>
+        </section>
+
+        <section class="space-y-2 pt-2 border-t border-stone-100">
+          <div class="text-sm font-bold text-stone-800">【ワンタッチ時間登録一覧】</div>
+          <p class="text-xs font-medium text-stone-600">※下の「＋ワンタッチ時間登録」から登録した時間が表示されます。</p>
+          <div id="modalPresetContainer" class="space-y-2 text-xs"></div>
+        </section>
+
+        <section id="shiftPresetSettingsSection" class="space-y-2 pt-2 border-t border-stone-100">
+          <button type="button" onclick="openPresetRegisterModal()" class="text-center text-sm font-bold text-stone-900" style="display:block;width:100%;min-height:38px;padding:6px 8px;border:1px solid #e9b6c5;border-radius:12px;background:#fce7ed;color:#171717;cursor:pointer;">
+            ＋ワンタッチ時間登録しましょ～♡
+          </button>
+          <p class="text-sm font-medium text-stone-700" style="line-height:1.5;font-size:clamp(11px,3.2vw,14px);white-space:nowrap;">※登録すると、シフトの入力が楽になります。</p>
+        </section>
       </div>
 
       <div id="shiftScrollHint" class="shrink-0 text-center text-[11px] font-bold text-stone-400 py-1 hidden" aria-hidden="true">↓ 下に続きがあります</div>
       <div class="pt-2 border-t border-stone-200 shrink-0">
-        <button type="button" onclick="closeShiftInputModal()" class="w-full py-2.5 px-3 rounded-xl bg-rose-900 text-rose-50 hover:bg-rose-800 transition shadow-sm flex flex-col items-center justify-center">
-          <span class="text-sm font-bold tracking-wide">閉じる</span>
-          <span class="text-[11px] font-bold text-rose-100 tracking-tight">※登録したシフトは自動で保存されます♡</span>
+        <button type="button" onclick="closeShiftInputModal()" class="w-full py-3 px-1 rounded-xl bg-rose-900 text-rose-50 hover:bg-rose-800 transition shadow-sm font-bold whitespace-nowrap" style="font-size:clamp(10px,3.2vw,14px);line-height:1.4;">
+          閉じる（シフトは自動保存されます♡）
         </button>
       </div>
     </div>
@@ -669,7 +657,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   <!-- ワンタッチ時間登録画面 -->
   <div id="presetRegisterModal" style="z-index:60" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-3 hidden">
     <div class="bg-white rounded-3xl p-4 sm:p-5 w-full max-w-sm shadow-2xl border border-stone-200 space-y-3">
-      <h3 class="text-base font-bold text-stone-900 tracking-wide border-b border-stone-200 pb-2.5">ワンタッチ時間登録</h3>
+      <div class="flex items-center justify-between gap-2 border-b border-stone-200 pb-2.5"><h3 class="text-base font-bold text-stone-900 tracking-wide">ワンタッチ時間登録</h3><span id="presetRegisterJobName" class="text-sm font-bold text-stone-900" style="text-align:right;overflow-wrap:anywhere;"></span></div>
       <div class="flex items-center justify-between gap-2">
         <p class="preset-hint font-bold text-rose-900 whitespace-nowrap">※入力後は必ず「登録」を押してね</p>
         <button type="button" onclick="submitPresetRegister()" class="px-4 py-2 bg-rose-900 text-white hover:bg-rose-800 rounded-xl font-bold text-sm transition shadow-sm whitespace-nowrap shrink-0">登録</button>
@@ -1357,7 +1345,9 @@ html, body { max-width: 100%; overflow-x: hidden; }
       hint.classList.toggle('hidden', !canScroll || atBottom);
     }
 
-    function openShiftInputModal(dateStr) {
+    let shiftOpenedFromCalendar = false;
+    function openShiftInputModal(dateStr, fromCalendar = false) {
+      shiftOpenedFromCalendar = fromCalendar;
       selectedCalendarDateStr = dateStr;
       editingShift = null;
       ensureValidSelectedJob();
@@ -1367,6 +1357,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       if (titleEl) { const weekday = ['日','月','火','水','木','金','土'][new Date(Number(y), Number(m) - 1, Number(d)).getDay()]; titleEl.innerText = `${y}年${m}月${d}日（${weekday}）`; }
 
       renderModalJobTabs();
+      updateShiftEntryLayout();
       renderModalPresetButtons();
       newPresetForm = { start: '00:00', end: '00:00', breakMins: 0 };
       renderModalCustomPresets();
@@ -1559,8 +1550,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
     function switchModalJobTab(jobKey) {
       currentSelectedJobKey = jobKey;
       renderModalJobTabs();
+      updateShiftEntryLayout();
       renderModalPresetButtons();
       updateModalSelectedDateSummary();
+    }
+
+    function updateShiftEntryLayout() {
+      const settings = document.getElementById('shiftPresetSettingsSection');
+      if (settings) settings.classList.toggle('hidden', !shiftOpenedFromCalendar);
     }
 
     function updateModalSelectedDateSummary() {
@@ -2186,11 +2183,12 @@ html, body { max-width: 100%; overflow-x: hidden; }
       if(jobNameEl)jobNameEl.textContent=getJobDisplayName(jobKey||'job1');
       if(dotEl)dotEl.style.color=getJobPalette(jobKey||'job1').dot;
       if(dateEl){
+        dateEl.style.display = inShiftModal ? '' : 'none';
         if(inShiftModal && selectedCalendarDateStr){
           const parts=selectedCalendarDateStr.split('-').map(Number);
           const dt=new Date(parts[0],parts[1]-1,parts[2]);
           dateEl.textContent=`${parts[1]}月${parts[2]}日（${'日月火水木金土'[dt.getDay()]}）`;
-        } else { dateEl.textContent='時給設定'; }
+        } else { dateEl.textContent=''; }
       }
       renderClockDial();
       modal.classList.remove('hidden');modal.classList.add('flex');
@@ -2419,7 +2417,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
               <div class="flex items-center gap-1.5 shrink-0">
                 <button type="button" onclick="registerModalPresetTime('${p.start}', '${p.end}', ${breakMins})"
                         class="bg-rose-50 text-rose-900 border border-rose-200 hover:bg-rose-100 py-1.5 px-3 rounded-lg font-bold transition text-xs">登録</button>
-                <button type="button" onclick="deleteModalPresetRow(${idx})"
+                <button type="button" ${!shiftOpenedFromCalendar ? 'style="display:none"' : ''} onclick="deleteModalPresetRow(${idx})"
                         class="bg-stone-200 text-stone-700 hover:bg-stone-300 py-1.5 px-2.5 rounded-lg font-bold transition text-xs">削除</button>
               </div>
             </div>
@@ -2522,6 +2520,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
     function openPresetRegisterModal() {
       clearPresetRegisterForm();
+      const label = document.getElementById('presetRegisterJobName');
+      if (label) label.textContent = '● ' + getJobDisplayName(currentSelectedJobKey);
       document.getElementById('presetRegisterModal').classList.remove('hidden');
     }
     function closePresetRegisterModal() {
@@ -3052,7 +3052,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
     function selectCalendarDate(key) {
       calSelectedDateStr = key;
       renderCalendar();
-      openShiftInputModal(key);
+      openShiftInputModal(key, true);
     }
 
     function renderCalendarTodayTomorrowSummary() {
