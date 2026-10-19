@@ -518,6 +518,49 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #firstUseConsentOverlay button:disabled{background:#d6d3d1;color:#78716c;cursor:not-allowed}
 @media(max-width:380px){#tab-settings .wage-head-sub,#tab-settings .wage-head-btn{font-size:13px!important}#modalPresetContainer .job-time{font-size:15px!important}}
 </style>
+<style id="friend-oct19-final-ui">
+/* お給料の文字：数値やカレンダーを変えず、説明と項目名を読みやすく */
+#tab-clock .text-xs:not(button):not(input){font-size:14px!important;line-height:1.55!important}
+#tab-clock .text-sm:not(button):not(input){font-size:15px!important}
+#tab-clock h2,#tab-clock h3{font-size:17px!important;line-height:1.45!important}
+#tab-clock .job-label-pill{font-size:15px!important;font-weight:800!important}
+/* バイト先カード：淡い背景と落ち着いた濃色の操作ボタン */
+#tab-settings .settings-job-card{box-shadow:none!important}
+#tab-settings .settings-job-action{color:#fff!important;border-color:transparent!important;min-height:32px;box-shadow:0 1px 2px rgba(0,0,0,.13)}
+/* 日付枠はコンパクトにし、バイト先欄と距離を確保 */
+#shiftInputModal .shift-date-nav{min-height:42px;padding:3px 7px!important;margin-bottom:10px!important}
+#shiftInputModal .shift-date-nav button{font-size:12px!important;padding:5px 2px!important}
+#shiftInputModal #modalDateTitle{font-size:clamp(15px,4vw,17px)!important;font-weight:800!important}
+/* 保存ボタン：下部の5タブより上に固定し、設定画面だけ表示 */
+#settingsFixedSave:not([hidden]){display:block;position:fixed;z-index:41;bottom:calc(65px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:min(100%,448px);padding:7px 14px;background:rgba(255,255,255,.96);border-top:1px solid #eadfe3;box-shadow:0 -2px 10px rgba(0,0,0,.06)}
+#settingsFixedSave button{width:100%;border-radius:12px;background:#881337;color:#fff;font-weight:800;font-size:15px;padding:10px 8px;box-shadow:0 2px 4px rgba(0,0,0,.1)}
+#tab-settings{padding-bottom:94px!important}
+#tab-settings .note-fit{font-size:clamp(11px,3vw,13px)!important;line-height:1.65!important;letter-spacing:-.025em}
+/* はじめに：段落を短くまとめて読みやすく */
+#tab-guide .guide-steps{display:grid;gap:9px}
+#tab-guide .guide-steps p{display:flex;align-items:flex-start;gap:9px;margin:0!important}
+#tab-guide .guide-steps b{flex:none;border-radius:8px;background:#fce8ef;color:#881337;padding:2px 7px}
+#tab-guide .guide-steps span{flex:1;min-width:0}
+#tab-guide .guide-extra{background:#fff5f8;border-radius:10px;padding:10px;display:grid;gap:8px}
+#tab-guide .guide-extra p{margin:0!important;font-size:13px!important}
+@media(max-width:365px){#shiftInputModal #modalDateTitle{font-size:14px!important}#shiftInputModal .shift-date-nav button{font-size:11px!important}#tab-settings .settings-job-action{padding-left:6px!important;padding-right:6px!important}}
+</style>
+<style id="friend-oct19-extra-09-10">
+/* 修正⑨：バイト名の登録と説明を横一列で読みやすく */
+#tab-settings .friend-job-register-row{flex-wrap:nowrap;align-items:center}
+#tab-settings .friend-job-limit{font-size:clamp(12px,3.5vw,15px);line-height:1.35;white-space:nowrap}
+#tab-settings .friend-job-hint{font-size:clamp(13px,3.6vw,15px);line-height:1.5}
+/* 修正⑩：選択中をバイト名の隣に。選択中の枠は控えめな発光で強調 */
+#tab-settings .settings-job-card{position:relative;min-height:48px}
+#tab-settings .settings-job-card.friend-job-glow{outline:2px solid var(--selected-job-accent,#508ac2);outline-offset:-2px;box-shadow:0 0 0 2px rgba(255,255,255,.8) inset,0 0 11px rgba(85,135,185,.35)!important}
+#tab-settings .friend-job-name-inline{display:flex;align-items:center;gap:4px;min-width:0;white-space:nowrap}
+#tab-settings .friend-job-name-inline .settings-job-label{display:inline-flex;align-items:center;min-width:0;padding:2px 0!important;border:0!important;background:transparent!important;gap:3px!important}
+#tab-settings .friend-job-name-inline .settings-job-label>span:last-child{display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+#tab-settings .friend-job-selected-tag{font-size:clamp(10px,2.9vw,12px);font-weight:800;white-space:nowrap;color:#164e83;flex-shrink:0}
+#tab-settings .settings-job-action{color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;font-weight:800!important;text-shadow:none!important;filter:none!important}
+#tab-settings .settings-job-action:focus-visible{outline:2px solid #1f2937;outline-offset:2px}
+@media(max-width:375px){#tab-settings .settings-job-card{gap:3px!important;padding-left:5px!important;padding-right:5px!important}#tab-settings .settings-job-name{padding-left:2px!important;padding-right:1px!important;font-size:13px!important}#tab-settings .settings-job-action{font-size:11px!important;padding-left:5px!important;padding-right:5px!important}#tab-settings .friend-job-selected-tag{font-size:10px!important}}
+</style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
 
@@ -623,7 +666,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   <!-- シフト入力・編集専用モーダル -->
   <div id="shiftInputModal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden">
     <div class="bg-white rounded-3xl p-5 w-full max-w-sm shadow-2xl border border-stone-200 space-y-3.5 max-h-[92vh] flex flex-col overflow-hidden">
-      <div class="flex justify-between items-center gap-2 border-b border-stone-200 pb-2 shrink-0"><span class="font-bold text-stone-900">📅 シフト登録画面</span><button type="button" onclick="showShiftHelp()" class="px-2 py-1.5 rounded-xl bg-pink-50 text-rose-900 border border-rose-200 font-bold text-xs">❓はじめに見てね♡</button></div><div class="shift-date-nav shrink-0"><button onclick="shiftModalChangeDay(-1)">◀ 前日</button><h3 id="modalDateTitle">日付</h3><button onclick="shiftModalChangeDay(1)">翌日 ▶</button></div>
+      <div class="flex justify-between items-center gap-2 border-b border-stone-200 pb-2 shrink-0"><span class="font-bold text-stone-900">📅 シフト登録画面</span><button type="button" onclick="showShiftHelp()" class="px-2 py-1.5 rounded-xl bg-pink-50 text-rose-900 border border-rose-200 font-bold text-xs">はじめに見てね♡</button></div><div class="shift-date-nav shrink-0"><button onclick="shiftModalChangeDay(-1)">◀ 前日</button><h3 id="modalDateTitle">日付</h3><button onclick="shiftModalChangeDay(1)">翌日 ▶</button></div>
 
       <div id="shiftInputScrollArea" class="space-y-3 overflow-y-auto pr-1 flex-1 no-scrollbar" onscroll="updateShiftScrollHint()">
         <div class="space-y-2"><div class="flex items-center justify-between"><span class="shift-section-title">【バイト先を選択】</span><div id="modalJobSelectContainer" class="flex-1 ml-2 min-w-0"></div></div><div class="flex space-x-2 pt-1"><button type="button" id="modalTypeWorkBtn" onclick="setModalShiftType(false)" class="flex-1 py-1.5 rounded-xl text-sm font-bold border bg-stone-100 border-stone-300">通常勤務</button><button type="button" id="modalTypePaidBtn" onclick="setModalShiftType(true)" class="flex-1 py-1.5 rounded-xl text-sm font-bold border bg-white border-stone-200">☆ 有給休暇</button></div></div>
@@ -767,7 +810,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
           </div>
 
           <div id="incomeWallBox" class="mt-3 bg-stone-50/70 border border-stone-200 rounded-xl px-3 py-2.5 transition-colors duration-300">
-            <div class="text-sm font-bold text-stone-700 mb-1 flex flex-wrap items-center gap-2">【年収の壁】 <button type="button" onclick="document.getElementById('incomeWallHelp').classList.remove('hidden')" class="text-xs font-bold text-rose-900 bg-rose-50 border border-rose-200 rounded-lg px-2 py-1">❓見てね♡</button></div>
+            <div class="text-sm font-bold text-stone-700 mb-1 flex flex-wrap items-center gap-2">【年収の壁】 <button type="button" onclick="document.getElementById('incomeWallHelp').classList.remove('hidden')" class="text-xs font-bold text-rose-900 bg-rose-50 border border-rose-200 rounded-lg px-2 py-1">見てね♡</button></div>
             <div class="space-y-1.5 text-xs">
               <div class="flex justify-between items-baseline gap-2">
                 <span class="text-base text-stone-700 font-bold">103万円まで</span>
@@ -842,37 +885,27 @@ html, body { max-width: 100%; overflow-x: hidden; }
       <div id="tab-settings" class="tab-content hidden space-y-3">
         <div class="bg-gradient-to-br from-rose-950 via-rose-900 to-rose-950 text-rose-100 px-3 py-2 rounded-2xl text-center shadow-md border border-rose-800/40 relative overflow-hidden">
           <div class="absolute -top-6 -left-6 w-16 h-16 bg-rose-500/10 rounded-full blur-xl pointer-events-none"></div>
-          <div class="flex justify-between items-center px-1">
-            <span class="text-xs text-rose-300 tracking-widest text-lg">🕒</span>
-            <div>
-              <p class="text-base sm:text-lg font-bold tracking-wider text-white">お仕事設定</p>
-              <p class="head-sub text-xs sm:text-sm font-bold text-rose-200">タブを切り替えて時給や給料日を設定しよう</p>
-            </div>
-            <span class="text-xs text-rose-300 tracking-widest text-lg">🕒</span>
+          <div class="text-center">
+            <p class="text-base sm:text-lg font-bold tracking-wider text-white">お給料の設定</p>
+            <p class="head-sub text-xs sm:text-sm font-bold text-rose-100">時給や手当、給料日を設定しよう♪</p>
           </div>
         </div>
 
         <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-sm space-y-3">
           <div class="space-y-2">
-            <div class="flex items-center justify-between gap-2">
-              <button type="button" onclick="registerNewJob()" class="bg-rose-900 text-rose-50 hover:bg-rose-800 font-bold px-4 py-2.5 rounded-xl text-xs sm:text-sm transition shadow-sm whitespace-nowrap">バイト名の登録</button>
-              <span class="text-xs sm:text-sm font-bold text-stone-800">3件まで登録できます♡</span>
+            <div class="friend-job-register-row flex items-center gap-2">
+              <button type="button" onclick="registerNewJob()" class="bg-rose-900 text-rose-50 hover:bg-rose-800 font-bold px-3 py-2.5 rounded-xl text-sm transition shadow-sm whitespace-nowrap">バイト名の登録</button>
+              <span class="friend-job-limit font-bold text-stone-800">3件まで登録できます♡</span>
             </div>
-            <div class="text-xs font-bold text-stone-800">※登録すると、時給関係の登録ができます。</div>
+            <div class="friend-job-hint font-bold text-stone-800">※登録すると、時給関係の登録ができます。</div>
             <div id="settingsJobTabs" class="space-y-1.5"></div>
           </div>
 
           <div id="settingsJobContentArea" class="pt-2 border-t border-stone-200 space-y-3"></div>
 
-          <div class="pt-3 border-t border-stone-200">
-            <button type="button" onclick="saveSettings()" class="w-full bg-rose-900 text-rose-50 font-bold py-3 rounded-xl text-xs sm:text-sm hover:bg-rose-800 transition shadow-sm flex items-center justify-center space-x-1">
-              <span>💾 設定を保存する</span>
-            </button>
-          </div>
-
           <div class="pt-2.5 border-t border-stone-200 space-y-2">
             <div class="text-xs sm:text-sm font-bold text-stone-800">【データのバックアップ】</div>
-            <p class="note-fit text-xs text-stone-500 font-bold leading-relaxed">※機種変更やアプリの再インストールに備えて、<br>時々書き出しておくと安心です♡</p>
+            <p class="note-fit text-xs text-stone-500 font-bold leading-relaxed">※機種変更や再インストールに備えて、<br>定期的に書き出しておくと安心です♡</p>
             <div class="flex space-x-2">
               <button type="button" onclick="exportAppData(event)" class="flex-1 bg-rose-50 hover:bg-rose-100 text-rose-900 font-bold py-3 rounded-xl text-xs sm:text-sm transition border border-rose-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">⬇️ 書き出す</button>
               <button type="button" onclick="document.getElementById('importFileInput').click()" class="flex-1 bg-rose-50 hover:bg-rose-100 text-rose-900 font-bold py-3 rounded-xl text-xs sm:text-sm transition border border-rose-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">⬆ 読み込む</button>
@@ -891,10 +924,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
           <p>このアプリは、毎日のバイトやお仕事で忙しい方でも、シフト登録やお給料の計算を簡単にできるように作ったアプリです♪</p>
           <p>複数のバイトを掛け持ちしている方も、シフトやお給料の目安をまとめて確認できます。</p>
           <section class="space-y-2"><h3 class="font-bold text-rose-900 text-base">🌸 この順番で進めてね♪</h3>
-            <p>①「設定」画面から、バイト先を登録します。</p>
-            <p>②「設定」画面で、時間帯ごとの時給を登録します。</p>
-            <p>③「シフト登録」で勤務日・勤務時間を登録します。<span class="block text-xs text-stone-600">※「予定表」の日付からもシフト登録ができます。</span></p>
-            <p class="text-stone-700">💡 詳しい使い方は、各画面の「※見てね♡」「※確認してね💡」から確認できます。</p>
+            <div class="guide-steps"><p><b>①</b><span>「設定」画面で、バイト先名を登録します。</span></p>
+            <p><b>②</b><span>時間帯ごとの時給や手当を設定します。</span></p>
+            <p><b>③</b><span>「シフト登録」で勤務日・勤務時間を登録します。</span></p></div>
+            <div class="guide-extra"><p>※「予定表」の日付からもシフト登録ができます。</p>
+            <p>💡 詳しい使い方は、各画面の「見てね♡」「確認してね💡」から確認できます。</p></div>
           </section>
           <section class="space-y-3 border-t border-stone-200 pt-3"><h3 class="font-bold text-rose-900 text-base">🌷 その他のご案内</h3>
             <div><h4 class="font-bold">📱 ホーム画面に追加すると便利です♪</h4><p>ホーム画面に追加すると、次回からすぐに開けます♪ ブラウザのメニューから「ホーム画面に追加」を選んでね。操作方法は端末によって異なります。</p></div>
@@ -912,6 +946,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
     </div>
 
+    <!-- 設定タブ専用の固定保存ボタン：下部ナビの直上 -->
+    <div id="settingsFixedSave" hidden>
+      <button type="button" onclick="saveSettings()">💾 設定を保存する</button>
+    </div>
     <!-- 下部タブバー -->
     <div class="fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto bg-stone-100/95 border-t border-stone-200 p-1.5 shadow-lg" style="padding-bottom: calc(0.625rem + env(safe-area-inset-bottom, 0px));">
       <div class="grid grid-cols-5 gap-1">
@@ -1528,6 +1566,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
       const targetTab = document.getElementById(`tab-${tabName}`);
       if (targetTab) targetTab.classList.remove('hidden');
+      const fixedSave = document.getElementById('settingsFixedSave');
+      if (fixedSave) fixedSave.hidden = tabName !== 'settings';
       const activeBtn = document.getElementById(`btn-${tabName}`);
       if (activeBtn) {
         activeBtn.classList.add('active');
@@ -1611,7 +1651,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         let jobInlineStyle = getJobInlineStyle(jk, isSelected);
 
         container.innerHTML += `
-          <button type="button" onclick="switchBreakdownJob('${jk}')" class="job-chip flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition truncate px-1.5 ${styleClass}" style="${jobInlineStyle}">
+          <button type="button" onclick="switchBreakdownJob('${jk}')" class="job-chip flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition truncate px-1.5 ${styleClass}" style="${jobInlineStyle};--selected-job-accent:${getJobPalette(jk).dot};">
             ${getJobLabelHtml(jk)}
           </button>
         `;
@@ -1733,14 +1773,13 @@ html, body { max-width: 100%; overflow-x: hidden; }
       const rowsHtml = activeKeys.map((jk) => {
         const isSelected = (jk === currentSettingsJobKey);
         const jobInlineStyle = getJobInlineStyle(jk, isSelected);
-        const actionBorderColor = getJobPalette(jk).dot;
-        const actionBg = getJobPalette(jk).bg;
-        const actionStyle = `background:${actionBg};border-color:${actionBorderColor};color:#111827;`;
+        const actionBg = jk === 'job1' ? '#5B83B3' : jk === 'job2' ? '#608C58' : '#B97461';
+        const actionStyle = `background:${actionBg};border:1px solid ${actionBg};color:#fff;`;
         return `
-          <div class="settings-job-card ${isSelected ? 'is-selected' : ''} flex items-center gap-1.5 w-full min-w-0 rounded-xl px-2 py-2" style="${jobInlineStyle}">
+          <div class="settings-job-card ${isSelected ? 'is-selected friend-job-glow' : ''} flex items-center gap-1.5 w-full min-w-0 rounded-xl px-2 py-2" style="${jobInlineStyle}">
             <button type="button" onclick="switchSettingsJobTab('${jk}')" aria-pressed="${isSelected}"
-              class="settings-job-name flex-1 min-w-0 px-1 py-1 text-sm font-bold text-left transition truncate">
-              ${getJobLabelHtml(jk, 'settings-job-label')}
+              class="settings-job-name flex-1 min-w-0 px-1 py-1 text-sm font-bold text-left transition" title="このバイト先を選択">
+              <span class="friend-job-name-inline">${getJobLabelHtml(jk, 'settings-job-label')}${isSelected ? `<span class="friend-job-selected-tag" aria-label="選択中">✨選択中</span>` : ''}</span>
             </button>
             <button type="button" onclick="renameJobPrompt('${jk}')" title="バイト先名を修正"
               class="settings-job-action shrink-0 px-2 py-1.5 rounded-lg border text-xs font-bold whitespace-nowrap" style="${actionStyle}">✏️ 修正</button>
