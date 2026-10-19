@@ -594,6 +594,15 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #modalJobSelectContainer select{flex:1;min-width:0;width:100%;padding:6px 1px!important;border:0!important;background:transparent!important;color:#242424!important;font-size:clamp(13px,3.6vw,15px)!important;box-shadow:none!important}
 #modalJobSelectContainer .friend-modal-selected-tag{font-size:clamp(11px,3.1vw,13px);font-weight:800;color:#781334;white-space:nowrap;flex-shrink:0;pointer-events:none}
 </style>
+<style id="friend-final-two-adjustments">
+/* はじめに：①〜③の背景をなくし、案内文をコンパクトに */
+#tab-guide .guide-steps p{background:transparent!important;box-shadow:none!important}
+#tab-guide .guide-steps b{background:transparent!important;padding:2px 3px!important;border-radius:0!important}
+#tab-guide .guide-extra{background:transparent!important;padding:2px 0!important;border-radius:0!important;gap:5px!important}
+#tab-guide .guide-extra p{font-size:13px!important;line-height:1.65!important}
+/* バックアップの説明を読みやすく。改行と全角1字下げを維持 */
+#tab-settings .note-fit{font-size:clamp(13px,3.6vw,15px)!important;line-height:1.65!important;letter-spacing:normal!important;text-wrap:normal!important}
+</style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
 
@@ -938,7 +947,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
           <div class="pt-2.5 border-t border-stone-200 space-y-2">
             <div class="text-xs sm:text-sm font-bold text-stone-800">【データのバックアップ】</div>
-            <p class="note-fit text-xs text-stone-500 font-bold leading-relaxed">※機種変更や再インストールに備えて、<br>定期的に書き出しておくと安心です♡</p>
+            <p class="note-fit text-xs text-stone-500 font-bold leading-relaxed">※機種変更や再インストールに備えて、<br>　定期的に書き出しておくと安心です♡</p>
             <div class="flex space-x-2">
               <button type="button" onclick="exportAppData(event)" class="flex-1 bg-rose-50 hover:bg-rose-100 text-rose-900 font-bold py-3 rounded-xl text-xs sm:text-sm transition border border-rose-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">⬇️ 書き出す</button>
               <button type="button" onclick="document.getElementById('importFileInput').click()" class="flex-1 bg-rose-50 hover:bg-rose-100 text-rose-900 font-bold py-3 rounded-xl text-xs sm:text-sm transition border border-rose-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">⬆ 読み込む</button>
@@ -960,8 +969,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
             <div class="guide-steps"><p><b>①</b><span>「設定」でバイト先名を登録します。</span></p>
             <p><b>②</b><span>時間帯ごとの時給や手当を設定します。</span></p>
             <p><b>③</b><span>「シフト登録」で勤務日時を登録します。</span></p></div>
-            <div class="guide-extra"><p>※「予定表」の日付からもシフト登録できます。</p>
-            <p>💡 詳しい使い方は、各画面の「見てね♡」「確認してね💡」をご覧ください。</p></div>
+            <div class="guide-extra"><p>※「予定表」からもシフト登録できます。</p>
+            <p>💡 詳しい使い方は、各画面の<br>　「見てね♡」「確認してね💡」をご覧ください。</p></div>
           </section>
           <section class="space-y-3 border-t border-stone-200 pt-3"><h3 class="font-bold text-rose-900 text-base">🌷 その他のご案内</h3>
             <div><h4 class="font-bold">📱 ホーム画面に追加すると便利です♪</h4><p>ホーム画面に追加すると、次回からすぐに開けます♪ ブラウザのメニューから「ホーム画面に追加」を選んでね。操作方法は端末によって異なります。</p></div>
