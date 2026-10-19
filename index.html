@@ -658,6 +658,26 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #shiftInputModal #modalDateTitle{font-size:clamp(16px,4.5vw,19px)!important}
 @media(max-width:370px){.ito-job-register-row{gap:4px}.ito-job-register-button{padding:0 8px}.ito-settings-job-row{gap:4px}.ito-settings-job-action{padding:8px 5px;font-size:11px}}
 </style>
+<style id="ito-20261019-final-size-adjustments">
+/* 見出しは16px、入力欄と横一列を維持 */
+#tab-settings .ito-job-register-label{font-size:16px!important;line-height:1.3;letter-spacing:-.045em}
+#tab-settings .ito-job-register-row{gap:5px}
+#tab-settings #newJobNameInput{min-width:0;padding-left:6px;padding-right:6px}
+#tab-settings .ito-job-register-button{padding-left:8px;padding-right:8px}
+/* 選択欄を修正・削除ボタンと同じ高さに */
+#tab-settings .ito-settings-job-select{height:36px;min-height:36px;padding-top:0;padding-bottom:0;box-sizing:border-box}
+#tab-settings .ito-settings-job-select select{height:34px;min-height:0!important;padding-top:0!important;padding-bottom:0!important;line-height:1.2}
+#tab-settings .ito-settings-job-action{height:36px;min-height:36px;padding-top:0;padding-bottom:0;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+/* シフト登録の見出しも16px */
+#shiftInputModal .ito-modal-job-row>.shift-section-title{font-size:16px!important;line-height:1.3;letter-spacing:-.045em}
+@media(max-width:360px){
+ #tab-settings .ito-job-register-row{gap:3px}
+ #tab-settings .ito-job-register-label{font-size:15px!important}
+ #tab-settings .ito-job-register-button{padding-left:6px;padding-right:6px}
+ #shiftInputModal .ito-modal-job-row{gap:4px}
+ #shiftInputModal .ito-modal-job-row>.shift-section-title{font-size:15px!important}
+}
+</style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
 
