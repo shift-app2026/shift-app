@@ -579,6 +579,21 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #toastMessage.settings-save-toast{position:fixed!important;top:auto!important;bottom:calc(137px + env(safe-area-inset-bottom,0px))!important;max-width:min(90vw,410px);width:max-content;z-index:72!important}
 @media(max-width:375px){#tab-settings .friend-job-selected-tag{font-size:12px!important}#shiftInputModal #modalDateTitle{font-size:17px!important}}
 </style>
+<style id="friend-final-adjustments">
+/* 給与画面：目標金額は控えめに、バイト別の支払情報は読みやすく */
+#goalAmountHeader{font-size:12px!important;font-weight:600!important;width:85px!important}
+#monthlyReceiveBreakdown .receive-breakdown-row{gap:5px!important;padding-left:3px!important;padding-right:3px!important}
+#monthlyReceiveBreakdown .receive-job-name{flex:1 1 auto!important;min-width:0!important}
+#monthlyReceiveBreakdown .receive-job-name .job-label-pill{font-size:clamp(13px,3.6vw,15px)!important;font-weight:700!important}
+#monthlyReceiveBreakdown .payday-label{font-size:clamp(12px,3.35vw,15px)!important;font-weight:600!important;flex-shrink:0}
+#monthlyReceiveBreakdown .receive-job-amount{font-size:clamp(15px,4.2vw,18px)!important;font-weight:800!important;margin-left:2px!important;flex-shrink:0}
+/* シフト登録：バイト先を一行まるごと使って選択 */
+#modalJobSelectContainer{width:100%!important;position:relative}
+#modalJobSelectContainer .friend-modal-job-choice{display:flex;align-items:center;width:100%;min-width:0;border:1px solid;border-radius:10px;padding:3px 9px 3px 6px;gap:6px}
+#modalJobSelectContainer .modal-job-color-dot{position:static!important;transform:none!important;display:block;flex-shrink:0;width:10px;height:10px;border-radius:50%}
+#modalJobSelectContainer select{flex:1;min-width:0;width:100%;padding:6px 1px!important;border:0!important;background:transparent!important;color:#242424!important;font-size:clamp(13px,3.6vw,15px)!important;box-shadow:none!important}
+#modalJobSelectContainer .friend-modal-selected-tag{font-size:clamp(11px,3.1vw,13px);font-weight:800;color:#781334;white-space:nowrap;flex-shrink:0;pointer-events:none}
+</style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
 
@@ -687,7 +702,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       <div class="flex justify-between items-center gap-2 border-b border-stone-200 pb-2 shrink-0"><span class="font-bold text-stone-900">📅 シフト登録画面</span><button type="button" onclick="showShiftHelp()" class="px-2 py-1.5 rounded-xl bg-pink-50 text-rose-900 border border-rose-200 font-bold text-xs">はじめに見てね♡</button></div><div class="shift-date-nav shrink-0"><button onclick="shiftModalChangeDay(-1)">◀ 前日</button><h3 id="modalDateTitle">日付</h3><button onclick="shiftModalChangeDay(1)">翌日 ▶</button></div>
 
       <div id="shiftInputScrollArea" class="space-y-3 overflow-y-auto pr-1 flex-1 no-scrollbar" onscroll="updateShiftScrollHint()">
-        <div class="space-y-2"><div class="flex items-center justify-between"><span class="shift-section-title">【バイト先を選択】</span><div id="modalJobSelectContainer" class="flex-1 ml-2 min-w-0"></div></div><div class="flex space-x-2 pt-1"><button type="button" id="modalTypeWorkBtn" onclick="setModalShiftType(false)" class="flex-1 py-1.5 rounded-xl text-sm font-bold border bg-stone-100 border-stone-300">通常勤務</button><button type="button" id="modalTypePaidBtn" onclick="setModalShiftType(true)" class="flex-1 py-1.5 rounded-xl text-sm font-bold border bg-white border-stone-200">☆ 有給休暇</button></div></div>
+        <div class="space-y-2"><div class="space-y-1.5"><span class="shift-section-title">【バイト先選択】</span><div id="modalJobSelectContainer" class="w-full min-w-0"></div></div><div class="flex space-x-2 pt-1"><button type="button" id="modalTypeWorkBtn" onclick="setModalShiftType(false)" class="flex-1 py-1.5 rounded-xl text-sm font-bold border bg-stone-100 border-stone-300">通常勤務</button><button type="button" id="modalTypePaidBtn" onclick="setModalShiftType(true)" class="flex-1 py-1.5 rounded-xl text-sm font-bold border bg-white border-stone-200">☆ 有給休暇</button></div></div>
         <div class="space-y-1.5 border-t border-stone-100 pt-2"><span id="modalShiftListHeading" class="shift-section-title">【この日のシフト一覧】</span><div id="modalSelectedDateSummaryContent" class="space-y-2 pt-1"></div></div>
         <div class="space-y-2 border-t border-stone-100 pt-2"><div class="flex items-center justify-between"><span class="shift-section-title">【勤務時間を登録】</span><button type="button" onclick="registerNewPresetAndRegister()" class="px-4 py-1.5 bg-rose-900 text-white rounded-xl text-sm font-bold">登録</button></div><div id="modalCustomPresetContainer" class="space-y-2"></div></div>
         <div class="flex items-center justify-between gap-2 border-t border-stone-100 pt-2"><span class="shift-section-title">【ワンタッチ時間登録】</span><button type="button" onclick="openPresetRegisterModal()" class="px-3 py-1.5 rounded-xl bg-pink-50 text-rose-900 border border-rose-200 font-bold text-sm">＋ 新規登録</button></div>
@@ -966,7 +981,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
     <!-- 設定タブ専用の固定保存ボタン：下部ナビの直上 -->
     <div id="settingsFixedSave" hidden>
-      <button type="button" onclick="saveSettings()">💾 設定を保存する</button>
+      <button type="button" onclick="saveAndCloseSettings()">閉じる（設定を保存します♡）</button>
     </div>
     <!-- 下部タブバー -->
     <div class="fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto bg-stone-100/95 border-t border-stone-200 p-1.5 shadow-lg" style="padding-bottom: calc(0.625rem + env(safe-area-inset-bottom, 0px));">
@@ -1288,7 +1303,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
       const [y, m, d] = dateStr.split('-');
       const titleEl = document.getElementById('modalDateTitle');
-      if (titleEl) { const weekday = ['日','月','火','水','木','金','土'][new Date(Number(y), Number(m) - 1, Number(d)).getDay()]; titleEl.innerText = `✦ ${Number(m)}月${Number(d)}日（${weekday}）✦`; const h=document.getElementById("modalShiftListHeading");if(h)h.textContent=`【${Number(m)}月${Number(d)}日（${weekday}）のシフト一覧】`; }
+      if (titleEl) { const weekday = ['日','月','火','水','木','金','土'][new Date(Number(y), Number(m) - 1, Number(d)).getDay()]; titleEl.innerText = `${Number(m)}月${Number(d)}日（${weekday}）`; const h=document.getElementById("modalShiftListHeading");if(h)h.textContent=`【${Number(m)}月${Number(d)}日（${weekday}）のシフト一覧】`; }
 
       renderModalJobTabs();
       updateShiftEntryLayout();
@@ -1323,7 +1338,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
       const container=document.getElementById('modalJobSelectContainer');if(!container)return;
       const keys=getActiveJobKeys();
       const modalJobDotColor = currentSelectedJobKey === 'job1' ? '#2875E7' : currentSelectedJobKey === 'job2' ? '#488E37' : '#B97461';
-      container.innerHTML=`<span class="modal-job-color-dot" style="background:${modalJobDotColor}" aria-hidden="true"></span><select aria-label="バイト先を選択" onchange="switchModalJobTab(this.value)">${keys.map(jk=>`<option value="${jk}" ${jk===currentSelectedJobKey?'selected':''}>${(configData[jk]?.name||jk).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</option>`).join('')}</select>`;
+      const modalJobTint = currentSelectedJobKey === 'job1' ? '#edf5ff' : currentSelectedJobKey === 'job2' ? '#edf8ed' : '#fff4ee';
+      container.innerHTML=`<div class="friend-modal-job-choice" style="background:${modalJobTint};border-color:${modalJobDotColor}55"><span class="modal-job-color-dot" style="background:${modalJobDotColor}" aria-hidden="true"></span><select aria-label="バイト先を選択" onchange="switchModalJobTab(this.value)">${keys.map(jk=>`<option value="${jk}" ${jk===currentSelectedJobKey?'selected':''}>${(configData[jk]?.name||jk).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</option>`).join('')}</select><span class="friend-modal-selected-tag">✨選択中</span></div>`;
       const warnEl=document.getElementById('modalWageWarn');if(warnEl){const noWage=!jobHasWage(currentSelectedJobKey);warnEl.classList.toggle('hidden',!noWage);if(noWage)warnEl.textContent='⚠️ このバイト先は時給が未設定です。設定タブで時給を入力してね♡';}
     }
 
@@ -3188,6 +3204,16 @@ html, body { max-width: 100%; overflow-x: hidden; }
       renderCalendar();
       renderStandaloneShiftList();
       initOverviewPage();
+    }
+
+    function saveAndCloseSettings() {
+      try {
+        saveSettings();
+        switchTab('clock');
+      } catch (error) {
+        console.error('設定の保存に失敗しました', error);
+        showToast('設定を保存できませんでした。入力内容を確認して、もう一度お試しください。');
+      }
     }
 
     function formatCurrency(val) {
