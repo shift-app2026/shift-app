@@ -3916,5 +3916,37 @@ html, body { max-width: 100%; overflow-x: hidden; }
  #tab-clock .ito-ring-stat strong {font-size:14px!important;}
 }
 </style>
+<style id="ito-20261023-mobile-final-visibility">
+/* The solid sticky mask extends ABOVE the heading as well as beneath it.
+   This prevents the scrolling ring/text from appearing in the gap above the bar. */
+#appScroll { isolation:isolate; }
+#itoStickyHeaderHost {
+  position:sticky!important; top:0!important;
+  z-index:999!important; background:#fff!important;
+  isolation:isolate; overflow:visible!important;
+}
+#itoStickyHeaderHost::before {
+  content:""; position:absolute;
+  top:-160px; bottom:-1px; left:-24px; right:-24px;
+  background:#fff!important; z-index:0;
+  pointer-events:none;
+}
+#itoStickyHeaderHost > .ito-pinned-heading {position:relative!important;z-index:1!important;}
+/* Clear, balanced salary figures around the chart. */
+#tab-clock .ito-ring-stat-label {font-size:clamp(14px,3.9vw,16px)!important;line-height:1.25!important;}
+#tab-clock .ito-ring-stat strong {font-size:clamp(16px,4.45vw,19px)!important;line-height:1.3!important;}
+/* Compact job summary should use similar readable size. */
+#itoReceiveTable .ito-compact-job-heading {font-size:clamp(15px,4.1vw,17px)!important;}
+#itoReceiveTable .ito-compact-job-period {font-size:clamp(13px,3.55vw,15px)!important;}
+#itoReceiveTable .ito-compact-job-values {font-size:clamp(14px,3.9vw,17px)!important;column-gap:clamp(10px,3vw,18px)!important;}
+#tab-clock select#itoWallThreshold {font-size:13px!important;}
+@media(max-width:360px) {
+  #tab-clock .ito-ring-stat-label {font-size:13px!important;}
+  #tab-clock .ito-ring-stat strong {font-size:15px!important;}
+  #itoReceiveTable .ito-compact-job-values {font-size:12.5px!important;column-gap:8px!important;}
+  #itoReceiveTable .ito-compact-job-heading {font-size:14px!important;}
+  #itoReceiveTable .ito-compact-job-period {font-size:12px!important;}
+}
+</style>
 </body>
 </html>
