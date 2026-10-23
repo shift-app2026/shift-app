@@ -2976,6 +2976,31 @@ html, body { max-width: 100%; overflow-x: hidden; }
       return new Date(now.getFullYear(), now.getMonth() + payPeriodOffset, 1);
     }
 
+    // 下のバイト別シフト一覧は、表示月に締め日が来る勤務期間を集計する。
+    // 例：10月表示、20日締めは9/21～10/20、月末締めは10/1～10/31。
+    // 円グラフ・その左右の数字は、従来どおり受取月ベースで変更しない。
+    function calcJobCalendarMonthPay(jk, viewMonth) {
+      const job = configData[jk];
+      const year = viewMonth.getFullYear();
+      const month = viewMonth.getMonth();
+      const closeInput = String(job.closeDay || '20').trim();
+      const closeNum = closeInput === '月末' ? 31 : (Number(closeInput) || 20);
+      const closingDate = (y, m) =>
+        new Date(y, m, Math.min(closeNum, new Date(y, m + 1, 0).getDate()));
+      const end = closingDate(year, month);
+      const prevClose = closingDate(year, month - 1);
+      const start = new Date(prevClose.getFullYear(), prevClose.getMonth(), prevClose.getDate() + 1);
+      let mins = 0, pay = 0, days = 0;
+      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        const r = calcJobDay(formatDateKey(d), jk, new Date(d));
+        mins += r.mins;
+        pay += r.pay;
+        if (r.worked) days++;
+      }
+      if (days > 0) pay += (job.transMonth || 0) + (job.allowanceMonth || 0);
+      return { pay: Math.floor(Math.round(pay * 1000) / 1000), mins, days, start, end };
+    }
+
     function calculateMonthlyReceivePay() {
       const viewMonth = getPayViewMonthDate();
       const title = document.getElementById('monthlyReceiveTitle');
@@ -2986,12 +3011,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
       const hm = mins => `${Math.floor(mins / 60)}時間${String(mins % 60).padStart(2, '0')}分`;
       const md = d => `${d.getMonth() + 1}/${d.getDate()}`;
       const rows = active.map(jk => {
-        const result = calcJobPeriodPay(jk, payPeriodOffset);
-        const range = getJobPayPeriodRangeForReceiveMonth(configData[jk], payPeriodOffset);
+        const result = calcJobCalendarMonthPay(jk, viewMonth);
         const name = esc(getJobDisplayName(jk));
         const dot = getJobPalette(jk).dot;
         return `<div class="ito-compact-job-row">
-          <div class="ito-compact-job-heading"><span class="ito-job-dot" style="background:${dot}"></span><span class="ito-compact-job-name">${name}</span><span class="ito-compact-job-period">${md(range.start)}～${md(range.end)}</span></div>
+          <div class="ito-compact-job-heading"><span class="ito-job-dot" style="background:${dot}"></span><span class="ito-compact-job-name">${name}</span><span class="ito-compact-job-period">${md(result.start)}～${md(result.end)}</span></div>
           <div class="ito-compact-job-values"><span>時間 <strong>${hm(result.mins)}</strong></span><span>見込額 <strong>${formatCurrency(result.pay)}</strong></span></div>
         </div>`;
       }).join('');
