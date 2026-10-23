@@ -3948,5 +3948,65 @@ html, body { max-width: 100%; overflow-x: hidden; }
   #itoReceiveTable .ito-compact-job-period {font-size:12px!important;}
 }
 </style>
+
+<style id="ito-20261023-job-summary-readable-final">
+/* Mobile-first readable job summary. This intentionally comes after earlier
+   responsive rules so the labels do not revert to faint, tiny type. */
+#tab-clock #itoReceiveTable .ito-compact-job-row {
+  padding-top:14px!important;
+  padding-bottom:15px!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-heading {
+  display:flex!important;
+  align-items:baseline!important;
+  flex-wrap:wrap!important;
+  column-gap:7px!important;
+  row-gap:3px!important;
+  font-size:clamp(14px,3.95vw,16px)!important;
+  line-height:1.5!important;
+  color:#292524!important;
+  font-weight:750!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-name,
+#tab-clock #itoReceiveTable .ito-compact-job-period {
+  font-size:inherit!important;
+  line-height:inherit!important;
+  color:#292524!important;
+  font-weight:700!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-values {
+  display:flex!important;
+  align-items:baseline!important;
+  justify-content:flex-start!important;
+  flex-wrap:wrap!important;
+  column-gap:clamp(12px,3.5vw,18px)!important;
+  row-gap:5px!important;
+  margin-top:9px!important;
+  padding:0 2px!important;
+  font-size:clamp(14px,3.95vw,16px)!important;
+  line-height:1.55!important;
+  letter-spacing:0!important;
+  color:#292524!important;
+  font-weight:700!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-values > span,
+#tab-clock #itoReceiveTable .ito-compact-job-values strong {
+  color:#292524!important;
+  font-size:inherit!important;
+  line-height:inherit!important;
+  font-weight:700!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-values strong {font-weight:800!important;}
+#tab-clock #itoReceiveTable .ito-compact-job-values > span {white-space:nowrap!important;}
+@media(max-width:360px) {
+  #tab-clock #itoReceiveTable .ito-compact-job-heading,
+  #tab-clock #itoReceiveTable .ito-compact-job-values {
+    font-size:14px!important;
+  }
+  #tab-clock #itoReceiveTable .ito-compact-job-values {
+    column-gap:10px!important;
+  }
+}
+</style>
 </body>
 </html>
