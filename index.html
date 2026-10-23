@@ -1131,7 +1131,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
           <button type="button" onclick="changeMonth(1)" class="text-rose-100 font-bold px-3 py-1.5 hover:bg-white/10 rounded-xl transition text-sm">翌月 ▶</button>
         </div>
 
-        <div class="bg-rose-50 border border-rose-200 text-rose-900 text-xs sm:text-sm font-bold p-3 rounded-xl text-center">※日付をタップすると「シフト登録画面」に移動します♡</div>
+        
 
 <div class="bg-white border border-stone-100 rounded-3xl p-3 shadow-sm space-y-2">
           <div class="grid grid-cols-7 text-center text-sm sm:text-base font-bold text-stone-500 mb-1">
@@ -3888,5 +3888,33 @@ html, body { max-width: 100%; overflow-x: hidden; }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
 </script>
+
+<style id="ito-oct23-final-visual-polish">
+/* Fixed tab header is a solid surface: scrolling content must not show through. */
+#itoStickyHeaderHost {background:#fff!important;z-index:65!important;isolation:isolate;}
+#itoStickyHeaderHost::before {content:"";position:absolute;inset:0;background:#fff;z-index:0;pointer-events:none;}
+#itoStickyHeaderHost > .ito-pinned-heading {position:relative;z-index:1;}
+/* Increase the chart-side totals to match the nearby goal control. */
+#tab-clock .ito-ring-stat-label {font-size:clamp(13px,3.8vw,16px)!important;}
+#tab-clock .ito-ring-stat strong {font-size:clamp(15px,4.35vw,19px)!important;}
+/* Keep each job on two tidy lines, with values close rather than pushed to edges. */
+#itoReceiveTable .ito-compact-job-heading {font-size:clamp(14px,3.9vw,16px)!important;gap:6px;}
+#itoReceiveTable .ito-compact-job-period {font-size:clamp(12px,3.45vw,14px)!important;}
+#itoReceiveTable .ito-compact-job-values {
+  display:flex!important;align-items:baseline!important;
+  justify-content:flex-start!important;column-gap:clamp(12px,4vw,22px)!important;
+  row-gap:4px!important;white-space:nowrap;
+  font-size:clamp(13px,3.7vw,16px)!important;
+  letter-spacing:-.025em!important;
+  margin-top:10px!important;padding:0 2px!important;
+}
+#itoReceiveTable .ito-compact-job-values > span {flex:0 0 auto;white-space:nowrap;}
+#itoReceiveTable .ito-compact-job-values strong {font-size:inherit!important;font-weight:800;}
+@media(max-width:360px) {
+ #itoReceiveTable .ito-compact-job-values {font-size:clamp(11px,3.45vw,13px)!important;column-gap:10px!important;letter-spacing:-.05em!important;}
+ #tab-clock .ito-ring-stat-label {font-size:12px!important;}
+ #tab-clock .ito-ring-stat strong {font-size:14px!important;}
+}
+</style>
 </body>
 </html>
