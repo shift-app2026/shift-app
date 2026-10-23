@@ -1015,6 +1015,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
     <div id="appScroll" class="p-3 sm:p-4 flex-1 space-y-3 overflow-y-auto pb-28">
       
+      <div id="itoStickyHeaderHost" aria-label="現在の画面の固定見出し"></div>
+
       <!-- タブ1: 給与 -->
       <div id="tab-clock" class="tab-content space-y-3">
         <div class="oct23-sticky-pay">
@@ -1913,6 +1915,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         activeBtn.classList.remove('bg-white', 'text-stone-700');
       }
 
+      if (typeof updateItoStickyHeader === 'function') updateItoStickyHeader(tabName);
       if (tabName === 'list') {
         renderStandaloneShiftList('jump');
       }
@@ -2154,6 +2157,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         return;
       }
       input.value = '';
+      document.querySelector('#tab-settings .ito-job-register-button')?.classList.add('registration-saved');
       renderSettingsJobTabs();
       renderSettingsJobContent(currentSettingsJobKey);
       renderModalJobTabs();
@@ -2530,6 +2534,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       }
       if (!saveAllDataStorage()) return;
       document.getElementById(`set_reg_btn_${i}`)?.classList.remove("unsaved-registration");
+      document.getElementById(`set_reg_btn_${i}`)?.classList.add("registration-saved");
       initOverviewPage();
       showToast("時給設定を登録しました");
     }
@@ -3706,7 +3711,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 <script id="shared-oct22-registration-state">
 (function(){
  const mark=(id,dirty)=>document.getElementById(id)?.classList.toggle('unsaved-registration',dirty);
- window.markRegisterSaved=(id)=>mark(id,false);
+ window.markRegisterSaved=(id)=>{mark(id,false);document.getElementById(id)?.classList.add("registration-saved");};
  document.addEventListener('change',function(e){
    if(e.target.closest('#shiftInputModal') && (e.target.closest('#modalCustomPresetContainer') || e.target.id==='new_preset_start' || e.target.id==='new_preset_end')) mark('registerShiftButton',true);
    if(e.target.closest('#presetRegisterModal') && ['pr_start','pr_end'].includes(e.target.id)) mark('registerPresetButton',true);
@@ -3776,6 +3781,111 @@ html, body { max-width: 100%; overflow-x: hidden; }
      return result;
    };
  }
+})();
+</script>
+<style id="ito-20261023-button-font-final">
+/* All register buttons keep their wine-red background; only text color changes. */
+#registerShiftButton,#registerPresetButton,
+#tab-settings button[id^="set_reg_btn_"],
+#tab-settings .ito-job-register-button{
+ background:#881337!important;background-color:#881337!important;
+ border-color:#881337!important;
+ color:#ffe082!important;-webkit-text-fill-color:#ffe082!important;
+ opacity:1!important;
+}
+#registerShiftButton.registration-saved:not(.unsaved-registration),
+#registerPresetButton.registration-saved:not(.unsaved-registration),
+#tab-settings button[id^="set_reg_btn_"].registration-saved:not(.unsaved-registration),
+#tab-settings .ito-job-register-button.registration-saved:not(.unsaved-registration){
+ color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+/* Bigger but responsive fonts at both lower sides of the large double ring. */
+#tab-clock .ito-ring-stat-label{font-size:clamp(12px,3.45vw,15px)!important;line-height:1.2}
+#tab-clock .ito-ring-stat strong{font-size:clamp(14px,4vw,18px)!important;line-height:1.25;letter-spacing:-.04em}
+#tab-clock .ito-ring-stat{bottom:6px;max-width:48%}
+/* More readable time and amount in each two-line job summary. */
+#tab-clock .ito-compact-job-values{font-size:clamp(13px,3.7vw,16px)!important;letter-spacing:-.035em;gap:3px}
+#tab-clock .ito-compact-job-values strong{font-size:inherit!important}
+@media(max-width:360px){
+ #tab-clock .ito-ring-stat-label{font-size:11px!important}
+ #tab-clock .ito-ring-stat strong{font-size:13px!important}
+ #tab-clock .ito-compact-job-values{font-size:12px!important;letter-spacing:-.055em}
+}
+</style>
+<script id="ito-20261023-registration-color-state">
+(function(){
+ const registerSelector='#registerShiftButton,#registerPresetButton,#tab-settings button[id^="set_reg_btn_"],#tab-settings .ito-job-register-button';
+ document.addEventListener('input',function(e){
+   const el=e.target.closest?.('#shiftInputModal,#presetRegisterModal,#tab-settings');
+   if(!el)return;
+   const btn=el.querySelector?.('#registerShiftButton,#registerPresetButton') ||
+      (e.target.id==='newJobNameInput'?document.querySelector('#tab-settings .ito-job-register-button'):null);
+   if(btn)btn.classList.remove('registration-saved');
+   if(e.target.id && /^set_(time|wage|btype|bval)_/.test(e.target.id)){
+     const m=e.target.id.match(/_(\d+)(?:_(?:start|end))?$/);
+     if(m)document.getElementById('set_reg_btn_'+m[1])?.classList.remove('registration-saved');
+   }
+ },true);
+ document.addEventListener('change',function(e){
+   const t=e.target;
+   if(t.closest?.('#shiftInputModal'))document.getElementById('registerShiftButton')?.classList.remove('registration-saved');
+   if(t.closest?.('#presetRegisterModal'))document.getElementById('registerPresetButton')?.classList.remove('registration-saved');
+   const m=t.id?.match(/^set_(?:time|wage|btype|bval)_(\d+)(?:_(?:start|end))?$/);
+   if(m)document.getElementById('set_reg_btn_'+m[1])?.classList.remove('registration-saved');
+ },true);
+})();
+</script>
+
+<style id="ito-20261023-sticky-all-tabs-fix">
+/* The sticky element belongs directly to the actual scrolling container.
+   Sticky inside each tab ends at that tab's bottom and can overlap the ring. */
+#appScroll { position:relative; }
+#itoStickyHeaderHost {
+ position:sticky; top:0; z-index:45;
+ background:#fff; padding:0 0 7px;
+ isolation:isolate;
+}
+#itoStickyHeaderHost:empty { display:none; }
+#itoStickyHeaderHost > .ito-pinned-heading {
+ display:flex; align-items:center; justify-content:space-between;
+ width:100%; min-height:43px; margin:0;
+ position:relative; z-index:1;
+}
+#itoStickyHeaderHost > .ito-pinned-heading.oct23-sticky-pay { display:block; min-height:43px; padding-bottom:0; }
+#itoStickyHeaderHost > .ito-pinned-heading.oct23-sticky-pay > div { min-height:43px; }
+#itoStickyHeaderHost > .ito-pinned-heading.oct23-sticky-settings { min-height:43px; padding:8px 12px; }
+#itoStickyHeaderHost > .ito-pinned-heading.ito-guide-heading { min-height:43px; padding:8px 12px; }
+#itoStickyHeaderHost .ito-pinned-heading h2 { min-width:0; }
+#tab-clock .ito-goal-chart-area { z-index:0; }
+/* Narrower year-reference dropdown, keeping the selection behavior. */
+#tab-clock select#itoWallThreshold {font-size:12px!important; font-weight:600!important; line-height:1.3;}
+/* Slightly more breathing room in the two-line job summary. */
+#tab-clock .ito-compact-job-row {padding-top:11px; padding-bottom:12px;}
+#tab-clock .ito-compact-job-heading {gap:7px;}
+#tab-clock .ito-compact-job-values {margin-top:10px; padding-left:2px; padding-right:2px;}
+#tab-clock .ito-compact-job-row:last-child {padding-bottom:8px;}
+</style>
+<script id="ito-20261023-sticky-all-tabs-init">
+(function(){
+ const ids={clock:'#tab-clock > .oct23-sticky-pay',calendar:'#tab-calendar > .oct23-sticky-month',list:'#tab-list > div:first-child',settings:'#tab-settings > .oct23-sticky-settings',guide:'#tab-guide > div:first-child'};
+ let pinned={};
+ function setup(){
+   const host=document.getElementById('itoStickyHeaderHost');
+   if(!host)return;
+   for(const [tab,selector] of Object.entries(ids)){
+     const el=document.querySelector(selector);
+     if(el){pinned[tab]=el;el.classList.add('ito-pinned-heading');if(tab==='guide')el.classList.add('ito-guide-heading');}
+   }
+   window.updateItoStickyHeader=function(tab){
+     const bar=pinned[tab];
+     if(!bar)return;
+     if(host.firstElementChild!==bar){host.replaceChildren(bar);}
+   };
+   const active=document.querySelector('#appScroll > .tab-content:not(.hidden)');
+   const tab=active?.id?.replace(/^tab-/,'')||'clock';
+   window.updateItoStickyHeader(tab);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
 </script>
 </body>
