@@ -960,7 +960,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         <div class="space-y-2 border-t border-stone-100 pt-2"><div class="flex items-center justify-between"><span class="shift-section-title">【勤務時間を登録】</span><button type="button" onclick="registerNewPresetAndRegister()" id="registerShiftButton" class="px-4 py-1.5 bg-rose-900 text-white rounded-xl text-sm font-bold">登録</button></div><div id="modalCustomPresetContainer" class="space-y-2"></div></div>
         <section class="shift-preset-section space-y-2 border-t border-stone-100 pt-2">
           <div class="flex items-center justify-between gap-2"><span class="shift-section-title preset-inline-heading">【ワンタッチ登録しましょ～♡】</span><button type="button" onclick="openPresetRegisterModal()" class="px-3 py-1.5 rounded-xl bg-pink-50 text-rose-900 border border-rose-200 font-bold text-sm shrink-0">＋登録</button></div>
-          <p class="ito-preset-desc font-bold text-stone-600">※次回から登録した時間を選択するだけで楽になります♡</p>
+          <p class="ito-preset-desc font-bold text-stone-600">登録して時間を選択するだけなので楽になります。</p>
 
         </section>
       </div>
@@ -1196,7 +1196,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
               <input id="newJobNameInput" type="text" maxlength="8" placeholder="新しいバイト先を入力" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();registerNewJob();}">
               <button type="button" onclick="registerNewJob()" class="ito-job-register-button">登録</button>
             </div>
-            <div class="friend-job-hint font-bold text-stone-800">※3件まで登録できます。選択してから入力してね♡</div>
+            <div class="friend-job-hint font-bold text-stone-800">3件まで登録できます。選択してから入力してね♡</div>
             <div id="settingsJobTabs" class="space-y-1.5"></div>
           </div>
 
@@ -4005,6 +4005,47 @@ html, body { max-width: 100%; overflow-x: hidden; }
   }
   #tab-clock #itoReceiveTable .ito-compact-job-values {
     column-gap:10px!important;
+  }
+}
+</style>
+
+<style id="ito-20261023-final-three-adjustments">
+/* Compact the two-line job summaries while preserving approved font styling. */
+#tab-clock #itoReceiveTable .ito-compact-job-row {
+  padding-top:7px!important;
+  padding-bottom:8px!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-row:last-child {
+  padding-bottom:3px!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-heading {
+  line-height:1.35!important;
+  row-gap:2px!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-values {
+  margin-top:5px!important;
+  line-height:1.35!important;
+  row-gap:3px!important;
+}
+/* The shift input modal is outside #tab-calendar: target the modal directly. */
+#shiftInputModal .shift-preset-section .preset-inline-heading {
+  font-size:clamp(15px,3.85vw,17px)!important;
+  font-weight:800!important;
+  letter-spacing:-.045em!important;
+  line-height:1.3!important;
+  white-space:nowrap!important;
+}
+#shiftInputModal .shift-preset-section .ito-preset-desc {
+  font-size:clamp(10px,2.85vw,12px)!important;
+  line-height:1.45!important;
+  letter-spacing:-.025em!important;
+  white-space:nowrap!important;
+  color:#44403c!important;
+  margin:0!important;
+}
+@media(max-width:360px) {
+  #shiftInputModal .shift-preset-section .preset-inline-heading {
+    font-size:clamp(14px,3.9vw,15px)!important;
   }
 }
 </style>
