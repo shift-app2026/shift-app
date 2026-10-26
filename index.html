@@ -3778,12 +3778,20 @@ async function check(){
  try{
   if(!window.liff)throw Error('LINE SDKを読み込めませんでした。');
   await liff.init({liffId:LIFF_ID});
-  if(!liff.isInClient()&&!liff.isLoggedIn()){
-    show('LINEログインが必要です。LINEからアプリを開いてください。',true,true);
+  // LINE内でもログイン状態を確認する。isInClient()だけでは認証済みとは限らない。
+  if(!liff.isLoggedIn()){
+    if(!liff.isInClient()){
+      // 外部ブラウザから開かれた場合はLINEログインへ進む。
+      // LIFFの正規URLを案内し、GitHub直リンクからの試用開始は許可しない。
+      show('LINEでログインしていません。LINEのトーク画面からテスト用LIFFリンクを開いてください。',true,true);
+    }else{
+      show('LINE内でログイン情報を取得できませんでした。いったん閉じて、テスト用LIFFリンクから開き直してください。',true,true);
+    }
+    console.warn('LIFF auth state', {inClient:liff.isInClient(),loggedIn:liff.isLoggedIn()});
     return;
   }
   const token=liff.getIDToken();
-  if(!token)throw Error('LINEの認証情報を取得できませんでした。');
+  if(!token)throw Error('LINEのIDトークンが取得できませんでした。LIFFのopenidスコープを確認してください。');
   const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({idToken:token}),cache:'no-store'});
   const data=await res.json().catch(()=>({}));
   if(!res.ok)throw Error('利用状況を確認できませんでした（'+res.status+'）。');
@@ -3797,7 +3805,7 @@ async function check(){
   // purchased_at alone is NOT proof of an active subscription: payment verification is pending.
   if(data.trialActive===true){unlock();}
   else show('21日間の無料お試し期間が終了しました。現在は閲覧・バックアップ以外の利用を準備中です。継続利用の確認は決済連携後に対応します。',true,true);
- }catch(e){console.error('Trial connection error:',e);show('利用状況を確認できませんでした。通信状態やLINEからの起動を確認してください。',true,true);}
+ }catch(e){console.error('Trial connection error:',e);show('利用状況を確認できませんでした：'+(e?.message||'不明なエラー')+'。',true,true);}
 }
 // Existing app code contains a local trial banner. Repaint it after app initialization.
 window.addEventListener('load',()=>{check();},{once:true});
