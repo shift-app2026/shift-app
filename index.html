@@ -49,6 +49,10 @@
 #goalRing #goalCurrentPay { color: #4c0519 !important; font-size: clamp(25px, 7vw, 34px) !important; }
 #goalRing #goalPercentText { background: transparent !important; box-shadow: none !important; color: #a73561 !important; font-size: 15px !important; padding: 0 !important; }
 
+#tab-clock .t13-wage-notice{margin-top:9px;font-size:clamp(11px,2.9vw,13px);line-height:1.7;color:#7c2434;font-weight:500;text-align:left;}
+#tab-clock .t13-wage-notice[hidden]{display:none!important;}
+#tab-clock .t13-wage-notice button{color:#8b0e33;font-weight:750;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+#tab-clock #goalCurrentPay:disabled{opacity:1;}
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1037,61 +1041,50 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
         <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)] space-y-3 relative">
           <div class="ito-goal-chart-area flex items-center justify-center py-2 relative">
-            <div id="goalRing" class="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center shrink-0">
-              <svg class="w-full h-full" viewBox="0 0 260 260" aria-hidden="true" style="overflow:visible">
+            <div id="goalRing" class="relative flex items-center justify-center shrink-0">
+              <svg class="w-full h-full" viewBox="0 0 300 300" aria-hidden="true">
                 <defs>
-                  <linearGradient id="test8TubeBase" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#4c061d"/><stop offset=".32" stop-color="#8e2b45"/><stop offset=".63" stop-color="#69142d"/><stop offset="1" stop-color="#42091c"/></linearGradient>
-                  <linearGradient id="test8Gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#aa653a"/><stop offset=".18" stop-color="#e2b478"/><stop offset=".37" stop-color="#fff3cc"/><stop offset=".56" stop-color="#dca665"/><stop offset=".78" stop-color="#ffdfa2"/><stop offset="1" stop-color="#b87845"/></linearGradient>
-                  <radialGradient id="test8Marble" cx="30%" cy="22%" r="78%"><stop offset="0" stop-color="#fffef4"/><stop offset=".25" stop-color="#fff2b8"/><stop offset=".57" stop-color="#e6b36b"/><stop offset=".82" stop-color="#c78a4e"/><stop offset="1" stop-color="#8e4a32"/></radialGradient>
-                  <filter id="test8RingShadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#5b182a" flood-opacity=".27"/></filter>
-                  <filter id="test8MarbleGlow" x="-100%" y="-100%" width="300%" height="300%"><feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#5b1a29" flood-opacity=".75"/></filter>
-                  <mask id="test8TubeMask"><rect width="260" height="260" fill="black"/><circle cx="130" cy="130" r="96" stroke="white" stroke-width="25" fill="none"/></mask>
+                  <linearGradient id="t10Gold" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#b87730"/><stop offset=".18" stop-color="#f8dfa3"/><stop offset=".35" stop-color="#d49a45"/><stop offset=".53" stop-color="#fff2bf"/><stop offset=".75" stop-color="#dfae61"/><stop offset="1" stop-color="#a96c29"/></linearGradient>
+                  <linearGradient id="t10Wine" x1="0" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#f48a9b"/><stop offset=".23" stop-color="#ae2546"/><stop offset=".52" stop-color="#750b2a"/><stop offset=".79" stop-color="#9e1c3e"/><stop offset="1" stop-color="#51051d"/></linearGradient>
+                  <radialGradient id="t10Pearl" cx="29%" cy="24%" r="80%"><stop offset="0" stop-color="#ffffff"/><stop offset=".30" stop-color="#fffaf0"/><stop offset=".63" stop-color="#f0d9ce"/><stop offset=".85" stop-color="#d4a5a1"/><stop offset="1" stop-color="#ad737b"/></radialGradient>
+                  <filter id="t10Shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#7b3b28" flood-opacity=".24"/></filter>
+                  <filter id="t10PearlShadow" x="-100%" y="-100%" width="300%" height="300%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#672238" flood-opacity=".5"/></filter>
                 </defs>
-                <circle cx="130" cy="130" r="113" stroke="#e9d0b8" stroke-width="1.5" fill="none" opacity=".75"/>
-                <circle cx="130" cy="130" r="96" stroke="#5d102a" stroke-width="31" fill="none" filter="url(#test8RingShadow)"/>
-                <circle cx="130" cy="130" r="96" stroke="url(#test8TubeBase)" stroke-width="26" fill="none"/>
-                <circle cx="130" cy="130" r="96" stroke="#b45c70" stroke-width="1.6" fill="none" opacity=".52"/>
-                <circle id="goalProgressCircle" cx="130" cy="130" r="96" pathLength="100" fill="none" stroke="url(#test8Gold)" stroke-width="25" stroke-linecap="butt" stroke-dasharray="0 100" transform="rotate(-90 130 130)"/>
-                <circle cx="130" cy="130" r="108.5" stroke="#ffe8c3" stroke-width="1.6" fill="none" opacity=".78"/>
-                <circle cx="130" cy="130" r="83.5" stroke="#f5d5b0" stroke-width="1.8" fill="none" opacity=".9"/>
-                <g mask="url(#test8TubeMask)">
-                  <g id="test7Marble" style="display:none" filter="url(#test8MarbleGlow)"><circle r="7.5" fill="url(#test8Marble)" stroke="#fff4d5" stroke-width="0.9"/><circle cx="-2.4" cy="-2.8" r="2" fill="#fff" opacity=".92"/></g>
-                </g>
+                <circle cx="150" cy="150" r="115" fill="none" stroke="#ad7133" stroke-width="29" opacity=".26" filter="url(#t10Shadow)"/>
+                <circle cx="150" cy="150" r="115" fill="none" stroke="url(#t10Gold)" stroke-width="26"/>
+                <circle cx="150" cy="150" r="115" fill="none" stroke="#fff5d4" stroke-width="2" opacity=".85" transform="translate(0 -11)"/>
+                <circle cx="150" cy="150" r="115" fill="none" stroke="#a56c2e" stroke-width="1.5" opacity=".55" transform="translate(0 12)"/>
+                <circle id="goalProgressCircle" cx="150" cy="150" r="115" pathLength="100" fill="none" stroke="url(#t10Wine)" stroke-width="25" stroke-linecap="round" stroke-dasharray="0 100" transform="rotate(-90 150 150)"/>
+                <g id="test7Marble" style="display:none" filter="url(#t10PearlShadow)"><circle r="10.8" fill="url(#t10Pearl)" stroke="#fff9ee" stroke-width=".8"/><ellipse cx="-3.2" cy="-4.1" rx="3.3" ry="2.2" fill="white" opacity=".9"/></g>
               </svg>
-              
-              <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                <span class="goal-label-text font-bold text-stone-500 tracking-wider">今月のお給料見込額</span>
-                <span id="goalCurrentPay" class="text-3xl sm:text-4xl font-bold font-serif-title text-stone-900 tracking-tight">¥0</span>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center t10-center">
+                <span class="goal-label-text">今月のお給料見込額</span>
+                <button type="button" id="goalCurrentPay" onclick="switchTab('settings')" aria-label="時給設定画面へ移動" disabled>0円</button>
                 <div class="test7-divider"></div>
-                <span class="test7-hours-label">勤務時間</span>
-                <strong id="test7HoursInside">0時間00分</strong>
-                <span id="goalPercentText" class="text-sm font-bold mt-1" hidden aria-hidden="true"></span>
-                <span id="goalRemainText" class="text-xs font-bold text-stone-500 mt-1"></span>
+                <span class="t10-remaining-label">目標まで</span>
+                <strong id="goalRemainText">あと 0円</strong>
+                <span id="goalPercentText" hidden aria-hidden="true"></span>
               </div>
             </div>
-            <div class="ito-ring-stat ito-ring-stat-left" aria-label="今月の勤務時間">
-              <span class="ito-ring-stat-label">勤務時間</span>
-              <strong id="itoRingTotalHours">0時間00分</strong>
-            </div>
-            <div class="ito-ring-stat ito-ring-stat-right" aria-label="今月のお給料見込額">
-              <span class="ito-ring-stat-label">お給料見込額</span>
-              <strong id="itoRingTotalPay">¥0</strong>
-            </div>
           </div>
 
-          <p id="test5RingWarning" class="test5-wage-warning" hidden>⚠️ 時給が登録されていない時間帯があります。<br>設定画面で確認してね♡</p>
 
-          <div class="flex items-center justify-end pt-1 gap-2">
-            <button type="button" id="breakdownPill" onclick="openBreakdownModal()"><span>📋</span><span>給料内訳</span></button>
-          </div>
+
         </div>
 
         <div class="bg-gradient-to-br from-rose-50/60 via-rose-50/30 to-amber-50/40 text-stone-900 p-4 rounded-2xl border border-rose-100 shadow-[0_1px_2px_rgba(0,0,0,0.05)] space-y-2.5">
           <div class="text-sm font-bold text-rose-950 border-b border-rose-200/60 pb-2 flex justify-between items-center tracking-wide">
-            <span id="monthlyReceiveTitle">【シフト入力済み時間＆見込額】</span>
+            <span id="monthlyReceiveTitle">【円グラフの詳細】</span>
           </div>
-          <div id="itoReceiveTable" class="ito-receive-table" aria-label="バイト先別の勤務時間とお給料見込額"></div>
+          <div id="itoReceiveTable" class="ito-receive-table" aria-label="今月の締め分の勤務時間とお給料見込額"></div>
+          <div id="test5RingWarning" class="t13-wage-notice" hidden>⚠️ 時給が設定されていない時間帯があります。<br>設定を確認してね♡ <button type="button" onclick="switchTab('settings')">［⚙ 設定する］</button></div>
         </div>
+        <section class="t10-prev-card">
+          <button type="button" class="t10-prev-toggle" id="t10PrevToggle" aria-expanded="true" aria-controls="t10PrevTable" onclick="t10TogglePrevious()">
+            <span>【先月分の詳細】</span><span id="t10PrevChevron">⌃</span>
+          </button>
+          <div id="t10PrevTable" class="ito-receive-table" aria-label="先月分の勤務時間とお給料見込額"></div>
+        </section>
 
         <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)] space-y-2">
           <div class="text-sm font-bold text-stone-800 border-b border-stone-200 pb-2 flex justify-between items-center tracking-wide"><span id="yearlyTitleLabel">年間収入合計</span></div>
@@ -2898,7 +2891,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       let totalPay = 0;
       let totalMins = 0;
       getActiveJobKeys().forEach(jk => {
-        const result = calcJobPeriodPay(jk, payPeriodOffset);
+        const result = calcJobCalendarMonthPay(jk, getPayViewMonthDate());
         totalPay += result.pay;
         totalMins += result.mins;
       });
@@ -2908,8 +2901,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
       const hoursInside = document.getElementById('test7HoursInside');
       if (hoursInside) hoursInside.textContent = `${Math.floor(totalMins / 60)}時間${String(totalMins % 60).padStart(2, '0')}分`;
       const missingWage = getActiveJobKeys().some(jk => {
-        const range = getJobPayPeriodRangeForReceiveMonth(configData[jk], payPeriodOffset);
-        return test5HasMissingWage(jk, range.start, range.end);
+        const range = calcJobCalendarMonthPay(jk, getPayViewMonthDate());
+        return range.wageMissing;
       });
       if (ringPay) ringPay.textContent = missingWage ? '計算できません' : formatCurrency(totalPay);
       const warningEl = document.getElementById('test5RingWarning');
@@ -2917,11 +2910,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
       const goalCurrentPay = document.getElementById('goalCurrentPay');
       const goalPercentText = document.getElementById('goalPercentText');
       const goalProgressCircle = document.getElementById('goalProgressCircle');
-      if (goalCurrentPay) { goalCurrentPay.innerText = missingWage ? '計算できません' : formatCurrency(totalPay); goalCurrentPay.classList.toggle('test5-missing-ring', missingWage); }
+      if (goalCurrentPay) { goalCurrentPay.innerText = missingWage ? '—' : `${totalPay.toLocaleString('ja-JP')}円`; goalCurrentPay.disabled = true; goalCurrentPay.classList.toggle('test5-missing-ring', missingWage); }
       const rawPercent = !missingWage && monthlyGoal > 0 ? (totalPay / monthlyGoal) * 100 : 0;
       
       const remEl = document.getElementById('goalRemainText');
-      if (remEl) remEl.innerText = ''; // 目標までの残額は表示しない
+      if (remEl) remEl.innerText = missingWage ? '—'  : monthlyGoal > 0 ? (totalPay >= monthlyGoal ? '目標達成♡' : `あと ${(monthlyGoal - totalPay).toLocaleString('ja-JP')}円`) : '目標を設定してね♡';
       // 達成率は円のシャンパンゴールドの進み具合で示し、中央に数値は出さない。
       if (goalPercentText) { goalPercentText.textContent = ''; goalPercentText.hidden = true; }
       test7AnimateMarble(Math.max(0, Math.min(rawPercent, 100)), !missingWage && monthlyGoal > 0);
@@ -2957,8 +2950,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
         progress.setAttribute('stroke-dasharray', `${value} 100`);
         // 上を0%として時計回り。玉の中心は太いリングの中心線上（半径95）。
         const angle = (-90 + value * 3.6) * Math.PI / 180;
-        const x = 130 + 96 * Math.cos(angle);
-        const y = 130 + 96 * Math.sin(angle);
+        const x = 150 + 115 * Math.cos(angle);
+        const y = 150 + 115 * Math.sin(angle);
         marble.setAttribute('transform', `translate(${x.toFixed(3)} ${y.toFixed(3)})`);
         test7MarblePercent = value;
       }
@@ -3075,28 +3068,47 @@ html, body { max-width: 100%; overflow-x: hidden; }
       return { pay: Math.floor(Math.round(pay * 1000) / 1000), mins, days, start, end, wageMissing: test5HasMissingWage(jk, start, end) };
     }
 
-    function calculateMonthlyReceivePay() {
-      const viewMonth = getPayViewMonthDate();
-      const title = document.getElementById('monthlyReceiveTitle');
-      if (title) title.textContent = '【シフト入力済み時間＆見込額】';
-      const container = document.getElementById('itoReceiveTable');
-      if (!container) return;
-      const active = getActiveJobKeys();
-      const hm = mins => `${Math.floor(mins / 60)}時間${String(mins % 60).padStart(2, '0')}分`;
-      const md = d => `${d.getMonth() + 1}/${d.getDate()}`;
-      const rows = active.map(jk => {
-        const result = calcJobCalendarMonthPay(jk, viewMonth);
+    function t10TogglePrevious() {
+      const table = document.getElementById('t10PrevTable');
+      const button = document.getElementById('t10PrevToggle');
+      const arrow = document.getElementById('t10PrevChevron');
+      if (!table || !button) return;
+      const opening = table.hidden;
+      table.hidden = !opening;
+      button.setAttribute('aria-expanded', String(opening));
+      if (arrow) arrow.textContent = opening ? '⌃' : '⌄';
+    }
+
+    function t10PayTable(monthDate) {
+      const jobs = getActiveJobKeys();
+      const hm = mins => `${Math.floor(mins / 60)}時間${mins % 60 ? String(mins % 60).padStart(2,'0') + '分' : ''}`;
+      const md = d => `${d.getMonth()+1}/${d.getDate()}`;
+      let totalMins = 0, totalPay = 0, missing = false;
+      const rows = jobs.map(jk => {
+        const r = calcJobCalendarMonthPay(jk, monthDate);
+        totalMins += r.mins; totalPay += r.pay;
+        missing = missing || r.wageMissing;
         const name = esc(getJobDisplayName(jk));
         const dot = getJobPalette(jk).dot;
-        const payDisplay = result.wageMissing ? '<strong class="test5-unconfigured">計算できません</strong>' : `<strong>${formatCurrency(result.pay)}</strong>`;
-        const warning = result.wageMissing ? '<p class="test5-wage-warning">⚠️ 時給が登録されていない時間帯があります。<br>設定画面で確認してね♡</p>' : '';
-        return `<div class="ito-compact-job-row">
-          <div class="ito-compact-job-heading"><span class="ito-job-dot" style="background:${dot}"></span><span class="ito-compact-job-name">${name}</span><span class="ito-compact-job-period">${md(result.start)}～${md(result.end)}</span></div>
-          <div class="ito-compact-job-values"><span>時間 <strong>${hm(result.mins)}</strong></span><span>見込額 ${payDisplay}</span></div>
-          ${warning}
-        </div>`;
+        const money = r.wageMissing ? '<span title="時給を設定してください" aria-label="時給未設定">⚠️</span>' : `${r.pay.toLocaleString('ja-JP')}円`;
+        return `<tr><td><span class="t10-job"><i style="background:${dot}"></i>${name}</span></td><td>${md(r.start)}～${md(r.end)}</td><td>${hm(r.mins)}</td><td>${money}</td></tr>`;
       }).join('');
-      container.innerHTML = rows || '<p class="ito-compact-empty">バイト先が登録されていません</p>';
+      if (!jobs.length) return '<p class="ito-compact-empty">バイト先が登録されていません</p>';
+      return `<div class="t10-table-scroll"><table class="t10-pay-table"><thead><tr><th>バイト先</th><th>集計期間</th><th>勤務時間</th><th>お給料見込額</th></tr></thead><tbody>${rows}<tr class="t10-total"><th>合計</th><td></td><td>${hm(totalMins)}</td><td>${missing ? '⚠️' : totalPay.toLocaleString('ja-JP') + '円'}</td></tr></tbody></table></div>`;
+    }
+
+    function calculateMonthlyReceivePay() {
+      const month = getPayViewMonthDate();
+      const title = document.getElementById('monthlyReceiveTitle');
+      if (title) title.innerHTML = '【円グラフの詳細】';
+      const current = document.getElementById('itoReceiveTable');
+      if (current) current.innerHTML = t10PayTable(month);
+      // 注意文は今月の表の下にだけ表示。
+      const currentMissing = getActiveJobKeys().some(jk => calcJobCalendarMonthPay(jk, month).wageMissing);
+      const notice = document.getElementById('test5RingWarning');
+      if (notice) notice.hidden = !currentMissing;
+      const previous = document.getElementById('t10PrevTable');
+      if (previous) previous.innerHTML = t10PayTable(new Date(month.getFullYear(), month.getMonth()-1, 1));
     }
 
     function updateItoWallSelection() {
@@ -4242,6 +4254,77 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #tab-clock #goalRing svg{overflow:visible;}
 #tab-clock #breakdownPill{font-size:clamp(16px,4.3vw,19px)!important;}
 @media(max-width:360px){#tab-clock .test8-goal-row{gap:2px!important;}#tab-clock #test8GoalLabel{font-size:10px!important;}#tab-clock #goalAmountHeader{width:75px!important;}}
+</style>
+<style id="test10-final-ui">
+#tab-clock .ito-goal-chart-area #goalRing{width:min(23rem,92vw)!important;height:min(23rem,92vw)!important;transform:none!important;margin:0 auto!important;}
+#tab-clock #goalRing svg{overflow:visible!important;filter:none!important;}
+#tab-clock #goalRing .absolute.inset-0{padding:0 42px!important;pointer-events:none;}
+#tab-clock #goalRing .goal-label-text{font-size:clamp(14px,4.0vw,19px)!important;color:#64122c!important;font-weight:800;letter-spacing:0!important;white-space:nowrap;}
+#tab-clock #goalRing #goalCurrentPay{font-size:clamp(29px,9vw,49px)!important;font-weight:900!important;color:#800b2c!important;line-height:1.4!important;white-space:nowrap;}
+#tab-clock #goalRing .test7-divider{width:77%;height:1px;background:#ead3c9;margin:9px auto 11px!important;}
+#tab-clock #goalRing .t10-remaining-label{font-size:clamp(15px,4.3vw,21px);font-weight:800;color:#67112b;}
+#tab-clock #goalRing #goalRemainText{font-size:clamp(19px,5.7vw,28px)!important;color:#85112f;font-weight:900;line-height:1.45;white-space:nowrap;}
+#tab-clock .ito-ring-stat{display:none!important;}
+#tab-clock .ito-goal-chart-area{min-height:0!important;padding:0!important;}
+#tab-clock .test8-goal-row{margin:0 auto 3px!important;justify-content:center!important;}
+#tab-clock #test8GoalLabel{font-size:clamp(13px,3.65vw,17px)!important;}
+#tab-clock .test8-yen{font-size:clamp(15px,4vw,19px)!important;}
+#tab-clock #goalAmountHeader{font-size:clamp(15px,4.1vw,19px)!important;width:clamp(84px,24vw,120px)!important;}
+#tab-clock .ito-receive-table{margin-top:8px;}
+.t10-prev-card{padding:12px;border-radius:18px;border:1px solid #f1dfe0;background:#fff;box-shadow:0 2px 10px #6a12300a;}
+.t10-prev-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:6px;text-align:left;color:#820e30;font-weight:850;font-size:clamp(12px,3.65vw,17px);padding:4px 0;}
+.t10-prev-toggle small,#monthlyReceiveTitle small{font-size:.78em;font-weight:750;}
+#t10PrevChevron{font-size:25px;line-height:1;flex-shrink:0;}
+.t10-table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.t10-pay-table{border-collapse:collapse;width:100%;min-width:325px;font-size:clamp(10px,2.75vw,14px);line-height:1.45;color:#2b2022;table-layout:auto;}
+.t10-pay-table th,.t10-pay-table td{border:1px solid #eadcdd;padding:9px 4px;text-align:center;white-space:nowrap;}
+.t10-pay-table thead th{background:#fff0f1;color:#66132a;font-weight:800;}
+.t10-pay-table .t10-total th,.t10-pay-table .t10-total td{background:#fbe5ea;color:#86102f;font-weight:850;}
+.t10-job{display:inline-flex;align-items:center;gap:4px;font-weight:750;}
+.t10-job i{display:inline-block;flex:0 0 9px;width:9px;height:9px;border-radius:50%;}
+@media(max-width:360px){#tab-clock .ito-goal-chart-area #goalRing{width:min(20.5rem,91vw)!important;height:min(20.5rem,91vw)!important;}#tab-clock #goalRing .absolute.inset-0{padding:0 32px!important;}}
+</style>
+
+<style id="test11-pc-readability">
+/* ⑪: 両方の集計表で、色の丸とバイト名を同じ左位置に揃える。 */
+#tab-clock .t10-pay-table th:first-child,
+#tab-clock .t10-pay-table td:first-child {
+  text-align:left!important; padding-left:10px!important;
+  min-width:108px; white-space:normal!important;
+}
+#tab-clock .t10-pay-table .t10-total th:first-child {text-align:left!important;}
+#tab-clock .t10-job {display:flex!important;justify-content:flex-start!important;align-items:center!important;text-align:left!important;gap:6px!important;white-space:normal!important;overflow-wrap:anywhere;line-height:1.45;}
+#tab-clock .t10-job i {flex-shrink:0!important;}
+/* 見出しの先月分が単独で改行しないよう余裕を確保。 */
+#tab-clock .t10-prev-toggle {align-items:flex-start;gap:5px;}
+#tab-clock .t10-prev-toggle > span:first-child {min-width:0;line-height:1.6;}
+#tab-clock .t10-prev-toggle small {white-space:nowrap;display:inline-block;}
+/* 目標金額の入力を読みやすく。 */
+#tab-clock .test8-goal-row {flex-wrap:nowrap;}
+#tab-clock #test8GoalLabel {font-size:clamp(13px,3.8vw,17px)!important;}
+@media(max-width:380px) {
+ #tab-clock .t10-pay-table th:first-child,#tab-clock .t10-pay-table td:first-child {min-width:100px;padding-left:7px!important;}
+ #tab-clock .t10-pay-table {font-size:11px;}
+ #tab-clock #test8GoalLabel {font-size:clamp(11px,3.3vw,14px)!important;}
+}
+</style>
+
+<style id="test12-refinements">
+/* テスト⑫：集計表を読みやすく、横幅が不足する端末では横スクロール可能に */
+#tab-clock .t10-pay-table{font-size:clamp(12px,3.1vw,15px)!important;min-width:355px;}
+#tab-clock .t10-pay-table th,#tab-clock .t10-pay-table td{padding:10px 6px!important;}
+#tab-clock .t10-pay-table th:first-child,#tab-clock .t10-pay-table td:first-child{min-width:112px!important;}
+#tab-clock #monthlyReceiveTitle{font-size:clamp(15px,4.1vw,19px);line-height:1.5;}
+#tab-clock .t10-prev-toggle{font-size:clamp(16px,4.2vw,19px)!important;}
+#tab-clock .test8-goal-row #test8GoalLabel{font-size:clamp(14px,3.8vw,18px)!important;}
+#tab-clock #goalRing .absolute.inset-0{pointer-events:none!important;}
+#tab-clock #goalCurrentPay:not(:disabled){pointer-events:auto!important;cursor:pointer;text-decoration:underline;text-underline-offset:4px;color:#8b0e33!important;border:0;background:transparent;}
+#tab-clock #goalCurrentPay:disabled{pointer-events:none!important;border:0;background:transparent;}
+#tab-clock .t12-settings-link{font-size:inherit;font-weight:800;color:#8b0e33;text-decoration:underline;white-space:nowrap;}
+/* 立体リング：金の輝きとワインレッドのハイライトを明確にする */
+#tab-clock #goalRing svg{filter:drop-shadow(0 4px 3px rgba(99,43,28,.13))!important;}
+#tab-clock #goalRing #goalProgressCircle{filter:drop-shadow(0 1px 1px rgba(93,10,37,.38));}
+@media(max-width:390px){#tab-clock .t10-pay-table{font-size:12px!important;}}
 </style>
 </body>
 </html>
