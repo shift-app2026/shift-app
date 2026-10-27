@@ -2031,6 +2031,11 @@ background:#881337!important;background-color:#881337!important;border-color:#88
       if (tabName === 'list') {
         renderStandaloneShiftList('jump');
       }
+      // テスト㊱：お給料画面へ戻るたび、現在の時給設定で表示を再計算する。
+      // 登録済みシフトには触れず、時給未設定時の警告・勤務時間も再描画する。
+      if (tabName === 'clock') {
+        initOverviewPage();
+      }
     }
 
     function test8UpdateGoalLabel() {
