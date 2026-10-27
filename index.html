@@ -54,6 +54,21 @@
 #tab-clock .t13-wage-notice button{color:#8b0e33;font-weight:750;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
 #tab-clock #goalCurrentPay:disabled{opacity:1;}
 </style>
+  <style id="test37-pc-guide-scroll-fix">
+  /* PC: prevent the app's flex scroll area from expanding past the card.
+     The bottom tab bar remains unchanged, and mobile styles are untouched. */
+  @media (min-width: 640px) {
+    #appCard {
+      height: min(920px, 94dvh) !important;
+      max-height: 94dvh !important;
+    }
+    #appScroll {
+      min-height: 0 !important;
+      overflow-y: auto !important;
+      overscroll-behavior-y: contain;
+    }
+  }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
