@@ -2043,19 +2043,36 @@ background:#881337!important;background-color:#881337!important;border-color:#88
     }
 
     function editMonthlyGoal() {
-      const initial = monthlyGoal > 0 ? String(monthlyGoal) : '';
-      const answer = window.prompt('目標金額を入力してね♡（円）\n※ 0を入力すると未設定に戻ります。', initial);
-      if (answer === null) return;
+      const modal = document.getElementById('t31GoalModal');
+      const field = document.getElementById('t31GoalInput');
+      if (!modal || !field) return;
+      field.value = monthlyGoal > 0 ? String(monthlyGoal) : '';
+      document.getElementById('t31GoalError').textContent = '';
+      modal.hidden = false;
+      requestAnimationFrame(() => field.focus());
+    }
+
+    function closeMonthlyGoalDialog() {
+      const modal = document.getElementById('t31GoalModal');
+      if (modal) modal.hidden = true;
+    }
+
+    function registerMonthlyGoalDialog(event) {
+      if (event) event.preventDefault();
+      const field = document.getElementById('t31GoalInput');
+      const error = document.getElementById('t31GoalError');
+      const answer = field.value.trim();
       const cleaned = answer.replace(/[，,\s￥¥]/g, '').replace(/[０-９]/g, c => String.fromCharCode(c.charCodeAt(0)-65248));
       if (!/^\d+$/.test(cleaned) || !Number.isSafeInteger(Number(cleaned))) {
-        window.alert('目標金額は数字で入力してね。');
+        error.textContent = '金額を数字で入力してね♡';
+        field.focus();
         return;
       }
       const input = document.getElementById('goalAmountHeader');
       if (!input) return;
       input.value = cleaned;
       saveInlineMonthlyGoal(input);
-      test8UpdateGoalLabel();
+      closeMonthlyGoalDialog();
     }
 
     function saveInlineMonthlyGoal(input) {
@@ -4580,5 +4597,33 @@ background:#881337!important;background-color:#881337!important;border-color:#88
 #tab-clock #goalRing.t21-goal-sparkle {animation:t21GoalGlow 1.6s ease-in-out 1 both;}
 @media(prefers-reduced-motion:reduce){#tab-clock #goalRing.t21-goal-sparkle{animation:none;}}
 </style>
+
+<!-- テスト㉛：目標金額専用入力ダイアログ -->
+<div id="t31GoalModal" class="t31-modal" hidden role="dialog" aria-modal="true" aria-labelledby="t31GoalTitle" onclick="if(event.target===this)closeMonthlyGoalDialog()">
+  <form class="t31-panel" onsubmit="registerMonthlyGoalDialog(event)">
+    <h2 id="t31GoalTitle">目標金額を入力してね♡</h2>
+    <input id="t31GoalInput" type="text" inputmode="numeric" pattern="[0-9０-９,，]*" autocomplete="off" placeholder="例：500000" aria-label="目標金額" />
+    <p id="t31GoalError" class="t31-error" role="alert"></p>
+    <div class="t31-actions">
+      <button type="button" onclick="closeMonthlyGoalDialog()">キャンセル</button>
+      <button type="submit">登録</button>
+    </div>
+  </form>
+</div>
+<style id="t31-goal-dialog-style">
+.t31-modal[hidden]{display:none!important}
+.t31-modal{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(28,13,19,.46)}
+.t31-panel{box-sizing:border-box;width:min(100%,350px);padding:24px 20px 20px;border-radius:18px;background:#fffdfd;box-shadow:0 16px 48px rgba(50,12,26,.23);text-align:center}
+.t31-panel h2{margin:0 0 20px;font-size:18px;font-weight:800;color:#8d304b}
+.t31-panel input{box-sizing:border-box;display:block;width:100%;min-height:52px;padding:11px 14px;border:2px solid #e0b5c0;border-radius:10px;background:#fff;color:#711a35;font-size:20px;font-weight:700;text-align:left;outline:none}
+.t31-panel input::placeholder{color:#b4a4a8;font-weight:500;opacity:1}
+.t31-panel input:focus{border-color:#b55b76;box-shadow:0 0 0 3px rgba(181,91,118,.13)}
+.t31-error{min-height:20px;margin:5px 0 10px;color:#b22c46;font-size:12px;text-align:left}
+.t31-actions{display:flex;gap:12px}
+.t31-actions button{flex:1;min-height:44px;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer}
+.t31-actions button:first-child{background:#fff;border:1px solid #d7abb8;color:#87344f}
+.t31-actions button:last-child{background:#963652;border:1px solid #963652;color:#fff}
+</style>
+<script>document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!document.getElementById('t31GoalModal').hidden)closeMonthlyGoalDialog()});</script>
 </body>
 </html>
