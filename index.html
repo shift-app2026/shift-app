@@ -14,7 +14,10 @@
   <meta name="twitter:card" content="summary">
 
   
-
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#881337">
   
   <link rel="apple-touch-icon" href="./icon-192.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
@@ -774,7 +777,39 @@ html, body { max-width: 100%; overflow-x: hidden; }
 /* ＋登録は保存ではなく入力画面を開く操作なので淡いピンクで区別 */
 #tab-calendar .preset-inline-heading + button {background:#fff1f2!important;color:#881337!important;border:1px solid #e9bd9b!important;}
 </style>
-<style id="test3-work-period-restore">
+<style id="ito-oct23-review-updates">
+/* iPhoneを含む狭い画面でも、バイト名と金額を読みやすく */
+.ito-receive-table{width:100%;overflow-x:auto}
+.ito-receive-table table{width:100%;table-layout:fixed;border-collapse:collapse}
+.ito-receive-table th,.ito-receive-table td{padding:11px 3px;border-bottom:1px solid #f2e2e5;text-align:center;vertical-align:middle}
+.ito-receive-table th:first-child{width:34%;text-align:left}
+.ito-receive-table thead th{font-size:12px;color:#4c0519;white-space:nowrap}
+.ito-receive-table tbody th{font-size:12px;color:#292524}
+.ito-job-label{display:flex;align-items:center;gap:4px;min-width:0;overflow-wrap:anywhere}
+.ito-job-dot,.ito-breakdown-dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+.ito-pay-amount{display:block;font-size:clamp(12px,3.6vw,16px);font-weight:800;color:#4c0519;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ito-pay-hours{display:block;font-size:12px;color:#57534e;margin-top:3px;white-space:nowrap}
+.ito-receive-total th,.ito-receive-total td{border-top:2px solid #e5b8c3;border-bottom:0;font-weight:800}
+.ito-annual-receive{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #e7e5e4}
+.ito-wall-progress{height:10px;background:#eee;border-radius:99px;overflow:hidden;margin:10px 0 5px}
+#itoWallProgressFill{height:100%;background:#881337;border-radius:99px;transition:width .2s ease;width:0}
+.ito-wall-note{font-size:11px;line-height:1.5;color:#78716c;margin-bottom:9px}
+.ito-breakdown-job-label{display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:clamp(12px,3.4vw,14px);white-space:normal;overflow-wrap:anywhere}
+#breakdownJobTabs .job-chip .job-chip,#breakdownJobTabs .job-chip .job-label{border:0!important;background:transparent!important;box-shadow:none!important}
+#tab-calendar .preset-inline-heading{font-size:clamp(13px,3.55vw,16px)!important;letter-spacing:-.055em!important}
+#tab-calendar .ito-preset-desc{font-size:12px!important;line-height:1.4}
+#goalRing{margin-bottom:-8px}
+#tab-clock #goalRing{max-width:100%}
+#registerPresetButton,#registerShiftButton,#tab-settings button[id^="set_reg_btn_"]{background:#881337!important;border-color:#881337!important;color:#fff!important;-webkit-text-fill-color:#fff!important}
+#registerPresetButton.unsaved-registration,#registerShiftButton.unsaved-registration,#tab-settings button[id^="set_reg_btn_"].unsaved-registration{color:#ffe082!important;-webkit-text-fill-color:#ffe082!important}
+</style>
+
+<style id="ito-compact-pay-oct23">
+/* 二重円の意匠は変えず、スマホで可能な範囲まで大きく表示 */
+#tab-clock #goalRing{width:min(19rem, 83vw)!important;height:min(19rem, 83vw)!important;max-width:100%;margin-bottom:-4px}
+#tab-clock #goalRing .goal-label-text{font-size:clamp(12px,3.6vw,15px)!important;letter-spacing:0!important}
+#tab-clock #goalRing #goalCurrentPay{font-size:clamp(24px,7.5vw,36px)!important}
+#tab-clock .ito-receive-table{overflow:visible}
 .ito-compact-job-row{padding:7px 0 8px;border-bottom:1px solid #ead8dc}
 .ito-compact-job-row:last-child{border-bottom:0;padding-bottom:2px}
 .ito-compact-job-heading{display:flex;align-items:center;gap:6px;min-width:0;font-size:clamp(12px,3.6vw,15px);font-weight:800;color:#292524}
@@ -784,29 +819,32 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .ito-compact-job-values strong{font-size:clamp(11px,3.45vw,15px);color:#292524;font-weight:800}
 .ito-compact-empty{font-size:13px;color:#57534e;padding:8px 0}
 @media(max-width:360px){.ito-compact-job-values{letter-spacing:-.035em}.ito-compact-job-values strong{font-size:11px}}
-
 </style>
-
-<style id="test4-approved-layout">
-/* 固定年月日がスクロール文字より手前に表示されるよう不透明背景を確保 */
-#tab-clock>.oct23-sticky-pay{background:#fff!important;isolation:isolate;z-index:35!important;padding-bottom:7px;box-shadow:0 4px 7px -7px #4c0519}
-#tab-clock>.oct23-sticky-pay>div:last-child{position:relative;z-index:1}
-#tab-calendar>.oct23-sticky-month,#tab-settings>.oct23-sticky-settings{z-index:35!important;isolation:isolate}
-#appScroll{isolation:isolate}
-/* お給料リング下の受取月ベース集計 */
-.test4-ring-stats{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;font-size:clamp(12px,3.5vw,15px);font-weight:700;color:#292524;line-height:1.45}
-.test4-ring-stats>div{display:flex;flex-direction:column;min-width:0}
-.test4-ring-stats strong{font-size:clamp(14px,3.9vw,17px);font-weight:800;color:#292524}
-.test4-stat-right{text-align:right;align-items:flex-end}
-.test4-wage-warning{margin:4px 0 2px;padding:7px 9px;border-radius:9px;background:#fff7ed;color:#9a3412;font-size:clamp(11px,3.15vw,13px);font-weight:700;line-height:1.5}
-#workPeriodSummaryCard{padding:12px 14px!important;gap:5px!important}
-#workPeriodSummaryCard>div:first-child{font-size:clamp(13px,3.7vw,15px)!important;padding-bottom:6px!important}
-#workPeriodSummaryCard .ito-compact-job-row{padding:6px 0!important}
-#workPeriodSummaryCard .ito-compact-job-heading{font-size:clamp(13px,3.6vw,15px)!important;gap:5px}
-#workPeriodSummaryCard .ito-compact-job-period{font-size:clamp(12px,3.3vw,14px)!important}
-#workPeriodSummaryCard .ito-compact-job-values{font-size:clamp(12px,3.4vw,14px)!important;margin-top:2px;flex-wrap:wrap}
-#workPeriodSummaryCard .ito-compact-job-values strong{font-size:inherit!important}
-#workPeriodSummaryCard .test4-unconfigured{color:#9a3412!important;white-space:normal}
+<style id="ito-wall-select-and-readable-hours">
+.ito-wall-selector-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0}
+.ito-wall-select{min-width:0;max-width:64%;padding:8px 10px;background:#fff;color:#292524;border:1px solid #d6b6bd;border-radius:10px;font-size:14px;font-weight:700}
+.ito-wall-remaining{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:14px;color:#44403c;margin:7px 0}
+.ito-wall-remaining strong{font-size:17px;color:#881337;white-space:nowrap}
+#itoReceiveTable .ito-compact-job-values{font-size:clamp(12px,3.5vw,15px)!important;gap:5px}
+#itoReceiveTable .ito-compact-job-values strong{font-size:inherit;font-weight:800}
+@media(max-width:360px){
+ #itoReceiveTable .ito-compact-job-values{font-size:12px!important;letter-spacing:-.03em}
+}
+</style>
+<style id="ito-ring-side-summary-oct23">
+/* 二重円の左右下に集計を配置。円の中心と既存機能は変更しない */
+#tab-clock .ito-goal-chart-area{position:relative;min-height:310px;padding-bottom:25px!important;isolation:isolate}
+#tab-clock .ito-goal-chart-area #goalRing{width:min(18.5rem,81vw)!important;height:min(18.5rem,81vw)!important;margin-bottom:0!important}
+#tab-clock .ito-ring-stat{position:absolute;bottom:7px;z-index:2;display:flex;flex-direction:column;gap:2px;max-width:45%;color:#292524;font-variant-numeric:tabular-nums}
+#tab-clock .ito-ring-stat-left{left:0;text-align:left;align-items:flex-start}
+#tab-clock .ito-ring-stat-right{right:0;text-align:right;align-items:flex-end}
+#tab-clock .ito-ring-stat-label{font-size:clamp(10px,2.9vw,12px);font-weight:700;white-space:nowrap}
+#tab-clock .ito-ring-stat strong{font-size:clamp(12px,3.65vw,16px);font-weight:800;white-space:nowrap;letter-spacing:-.035em}
+@media(max-width:360px){
+ #tab-clock .ito-goal-chart-area{min-height:285px}
+ #tab-clock .ito-goal-chart-area #goalRing{width:min(17rem,79vw)!important;height:min(17rem,79vw)!important}
+ #tab-clock .ito-ring-stat strong{font-size:12px}
+}
 </style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
@@ -890,7 +928,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         <h4 class="font-bold text-stone-900">💡 残業・深夜の割増について</h4>
         <p>・残業・深夜の割増は自動計算されません。22時以降などは「＋時給を追加」で、割増後の時給を入力してね♡</p>
         <p>（例：時給1,200円の25％増し → 1,500円）</p>
-        <p class="font-bold">・1日8時間を超えた分の割増も自動反映されません。実際のお給料は給与明細で確認してね♡</p>
+        <p class="font-bold">・1日8時間を超えた分の割増も自動反映されません。実際のお給料は給与明細で確認してね♡</p><div class="border-t border-stone-200 pt-2"><h4 class="font-bold text-stone-900">【週40時間を超える勤務について】</h4><p>週40時間を超えた場合など、法律上の時間外労働に該当すると、割増賃金が発生することがあります。</p><p>このアプリでは、週40時間を超えた場合の割増賃金は自動計算されません。</p><p>掛け持ち勤務の場合も含め、実際の割増賃金については、勤務先の給与明細などで確認してね♡</p></div>
       </div>
       <button type="button" onclick="closeOvertimeInfoModal()" class="w-full py-3 rounded-xl text-sm font-bold bg-rose-900 text-rose-50 hover:bg-rose-800 transition shadow-sm">閉じる</button>
     </div>
@@ -922,7 +960,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         <div class="space-y-2 border-t border-stone-100 pt-2"><div class="flex items-center justify-between"><span class="shift-section-title">【勤務時間を登録】</span><button type="button" onclick="registerNewPresetAndRegister()" id="registerShiftButton" class="px-4 py-1.5 bg-rose-900 text-white rounded-xl text-sm font-bold">登録</button></div><div id="modalCustomPresetContainer" class="space-y-2"></div></div>
         <section class="shift-preset-section space-y-2 border-t border-stone-100 pt-2">
           <div class="flex items-center justify-between gap-2"><span class="shift-section-title preset-inline-heading">【ワンタッチ登録しましょ～♡】</span><button type="button" onclick="openPresetRegisterModal()" class="px-3 py-1.5 rounded-xl bg-pink-50 text-rose-900 border border-rose-200 font-bold text-sm shrink-0">＋登録</button></div>
-          <p class="text-[11px] font-bold text-stone-600">※次回から登録した時間を選択するだけ♡</p>
+          <p class="ito-preset-desc font-bold text-stone-600">登録して時間を選択するだけなので楽になります。</p>
 
         </section>
       </div>
@@ -962,10 +1000,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
   <div id="breakdownModal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden">
     <div class="bg-white rounded-3xl p-5 w-full max-w-sm shadow-2xl border border-stone-200 space-y-3 max-h-[92vh] flex flex-col overflow-hidden">
       <div class="flex justify-between items-center border-b border-stone-200 pb-2.5 shrink-0">
-        <h3 class="text-xs font-bold text-stone-900 tracking-wide">📋 給料内訳</h3>
+        <h3 class="text-base font-bold text-stone-900 tracking-wide">📋 給料内訳</h3>
         <button type="button" onclick="closeBreakdownModal()" class="text-stone-600 hover:text-stone-900 font-bold text-base px-2">✕</button>
       </div>
-      <div id="breakdownJobTabs" class="flex space-x-1.5 shrink-0"></div>
+      <div id="breakdownJobTabs" class="flex gap-1.5 shrink-0"></div>
       <div id="breakdownContentArea" class="space-y-2 overflow-y-auto pr-1 text-xs text-stone-800 flex-1 divide-y divide-stone-100"></div>
       <div class="pt-2 border-t border-stone-200 shrink-0">
         <button type="button" onclick="closeBreakdownModal()" class="w-full py-3 rounded-xl text-sm font-bold bg-rose-900 text-rose-50 hover:bg-rose-800 transition shadow-sm">閉じる</button>
@@ -977,10 +1015,12 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
     <div id="appScroll" class="p-3 sm:p-4 flex-1 space-y-3 overflow-y-auto pb-28">
       
+      <div id="itoStickyHeaderHost" aria-label="現在の画面の固定見出し"></div>
+
       <!-- タブ1: 給与 -->
       <div id="tab-clock" class="tab-content space-y-3">
         <div class="oct23-sticky-pay">
-        <div id="trialBanner" class="hidden bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold px-2 py-2.5 rounded-2xl flex items-center justify-between gap-1" style="white-space:nowrap;font-size:clamp(9px,2.7vw,13px);letter-spacing:-0.025em"></div>
+
 
         <div class="flex justify-between items-center bg-gradient-to-br from-rose-950 via-rose-900 to-rose-950 text-rose-100 px-3 py-2 rounded-2xl shadow-md border border-rose-800/40 text-xs">
           <button type="button" onclick="changePayPeriodOffset(-1)" class="text-rose-100 font-bold px-3 py-1.5 hover:bg-white/10 rounded-xl transition text-sm">◀ 前月</button>
@@ -990,7 +1030,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
 
         <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)] space-y-3 relative">
-          <div class="flex items-center justify-center py-2 relative">
+          <div class="ito-goal-chart-area flex items-center justify-center py-2 relative">
             <div id="goalRing" class="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center shrink-0">
               <svg class="w-full h-full" viewBox="0 0 260 260" aria-hidden="true" style="overflow:visible">
                 <defs>
@@ -1023,19 +1063,24 @@ html, body { max-width: 100%; overflow-x: hidden; }
               </svg>
               
               <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                <span class="goal-label-text font-bold text-stone-500 tracking-wider">今月のお給料</span>
+                <span class="goal-label-text font-bold text-stone-500 tracking-wider">今月のお給料見込額</span>
                 <span id="goalCurrentPay" class="text-3xl sm:text-4xl font-bold font-serif-title text-stone-900 tracking-tight">¥0</span>
                 <span id="goalPercentText" class="text-sm font-bold mt-1">目標達成率 0%</span>
                 <span id="goalRemainText" class="text-xs font-bold text-stone-500 mt-1"></span>
               </div>
             </div>
+            <div class="ito-ring-stat ito-ring-stat-left" aria-label="今月の勤務時間">
+              <span class="ito-ring-stat-label">勤務時間</span>
+              <strong id="itoRingTotalHours">0時間00分</strong>
+            </div>
+            <div class="ito-ring-stat ito-ring-stat-right" aria-label="今月のお給料見込額">
+              <span class="ito-ring-stat-label">お給料見込額</span>
+              <strong id="itoRingTotalPay">¥0</strong>
+            </div>
           </div>
 
-          <div class="test4-ring-stats" aria-label="今月の受取予定分の勤務時間とお給料見込額">
-            <div><span>勤務時間</span><strong id="test4ReceiveHours">0時間00分</strong></div>
-            <div class="test4-stat-right"><span>お給料見込額</span><strong id="test4ReceivePay">¥0</strong></div>
-          </div>
-          <p id="test4ReceiveWarning" class="test4-wage-warning hidden" role="status"></p>
+          <p id="test5RingWarning" class="test5-wage-warning" hidden>⚠️ 時給が登録されていない時間帯があります。設定画面で確認してね♡</p>
+
           <div class="flex items-center justify-between pt-1 gap-2">
             <div class="flex items-center gap-1.5 bg-white border border-stone-200 rounded-xl px-3 py-2 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
               <span class="text-xs font-bold text-stone-600">目標金額 ¥</span>
@@ -1045,34 +1090,37 @@ html, body { max-width: 100%; overflow-x: hidden; }
           </div>
         </div>
 
-        <!-- test③: 締め期間ベースの勤務時間・見込額（10/26 ITO版から復元） -->
-        <div class="bg-gradient-to-br from-rose-50/60 via-rose-50/30 to-amber-50/40 text-stone-900 p-4 rounded-2xl border border-rose-100 shadow-sm space-y-2.5" id="workPeriodSummaryCard">
-          <div class="text-sm font-bold text-rose-950 border-b border-rose-200/60 pb-2 tracking-wide">【シフト入力済み時間＆見込額】</div>
-          <div id="itoReceiveTable" class="ito-receive-table" aria-label="バイト先別の締め期間・勤務時間とお給料見込額"></div>
+        <div class="bg-gradient-to-br from-rose-50/60 via-rose-50/30 to-amber-50/40 text-stone-900 p-4 rounded-2xl border border-rose-100 shadow-[0_1px_2px_rgba(0,0,0,0.05)] space-y-2.5">
+          <div class="text-sm font-bold text-rose-950 border-b border-rose-200/60 pb-2 flex justify-between items-center tracking-wide">
+            <span id="monthlyReceiveTitle">【シフト入力済み時間＆見込額】</span>
+          </div>
+          <div id="itoReceiveTable" class="ito-receive-table" aria-label="バイト先別の勤務時間とお給料見込額"></div>
         </div>
 
         <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)] space-y-2">
-          <div class="text-sm font-bold text-stone-800 border-b border-stone-200 pb-2 flex justify-between items-center tracking-wide">
-            <span id="yearlyTitleLabel">年間収入合計</span>
-          </div>
+          <div class="text-sm font-bold text-stone-800 border-b border-stone-200 pb-2 flex justify-between items-center tracking-wide"><span id="yearlyTitleLabel">年間収入合計</span></div>
           
-          <div class="flex justify-between items-baseline pt-1">
+          <div id="incomeWallBox" class="mt-3 bg-stone-50/70 border border-stone-200 rounded-xl px-3 py-2.5 transition-colors duration-300">
+            <div class="text-sm font-bold text-stone-700 mb-2 flex items-center justify-between gap-2">【年収の壁】 <button type="button" onclick="document.getElementById('incomeWallHelp').classList.remove('hidden')" class="text-xs font-bold text-rose-900 bg-rose-50 border border-rose-200 rounded-lg px-2 py-1">見てね♡</button></div>
+            <div class="ito-annual-receive">          <div class="flex justify-between items-baseline pt-1">
             <span id="yearlySubLabel" class="text-xs sm:text-sm text-stone-600 font-bold">10月までの収入</span>
             <span id="yearlyTotalPay" class="text-lg sm:text-xl font-bold font-serif-title tracking-tight text-stone-900">¥0</span>
           </div>
 
-          <div id="incomeWallBox" class="mt-3 bg-stone-50/70 border border-stone-200 rounded-xl px-3 py-2.5 transition-colors duration-300">
-            <div class="text-sm font-bold text-stone-700 mb-1 flex flex-wrap items-center gap-2">【年収の壁】 <button type="button" onclick="document.getElementById('incomeWallHelp').classList.remove('hidden')" class="text-xs font-bold text-rose-900 bg-rose-50 border border-rose-200 rounded-lg px-2 py-1">見てね♡</button></div>
-            <div class="space-y-1.5 text-xs">
-              <div class="flex justify-between items-baseline gap-2">
-                <span class="text-base text-stone-700 font-bold">103万円まで</span>
-                <span id="wall103" class="font-bold text-stone-700 text-base">0円</span>
-              </div>
-              <div class="flex justify-between items-baseline gap-2">
-                <span class="text-base text-stone-700 font-bold">130万円まで</span>
-                <span id="wall130" class="font-bold text-stone-700 text-base">0円</span>
-              </div>
             </div>
+            <div class="ito-wall-selector-row">
+              <label for="itoWallThreshold" class="text-sm font-bold text-stone-700">確認する金額</label>
+              <select id="itoWallThreshold" aria-label="確認する年収の目安金額" onchange="updateItoWallSelection()" class="ito-wall-select">
+                <option value="1030000">103万円（参考）</option>
+                <option value="1300000" selected>130万円（参考）</option>
+              </select>
+            </div>
+            <div class="ito-wall-progress" id="itoWallProgress" role="progressbar" aria-label="選択した金額への到達率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="itoWallProgressFill"></div></div>
+            <div class="ito-wall-remaining">
+              <span id="itoWallRemainingLabel">130万円までの残り</span>
+              <strong id="itoWallRemainingAmount">0円</strong>
+            </div>
+            <p class="ito-wall-note">※登録済みシフトから計算した税金・社会保険料控除前の見込額です。選択肢は比較用の参考金額で、現在の税・社会保険制度上の適用基準を示すものではありません。条件は「見てね♡」から確認してね。</p>
           </div>
         </div>
       </div>
@@ -1085,7 +1133,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
           <button type="button" onclick="changeMonth(1)" class="text-rose-100 font-bold px-3 py-1.5 hover:bg-white/10 rounded-xl transition text-sm">翌月 ▶</button>
         </div>
 
-        <div class="bg-rose-50 border border-rose-200 text-rose-900 text-xs sm:text-sm font-bold p-3 rounded-xl text-center">※日付をタップすると「シフト登録画面」に移動します♡</div>
+        
 
 <div class="bg-white border border-stone-100 rounded-3xl p-3 shadow-sm space-y-2">
           <div class="grid grid-cols-7 text-center text-sm sm:text-base font-bold text-stone-500 mb-1">
@@ -1150,7 +1198,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
               <input id="newJobNameInput" type="text" maxlength="8" placeholder="新しいバイト先を入力" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();registerNewJob();}">
               <button type="button" onclick="registerNewJob()" class="ito-job-register-button">登録</button>
             </div>
-            <div class="friend-job-hint font-bold text-stone-800">※3件まで登録できます。選択してから入力してね♡</div>
+            <div class="friend-job-hint font-bold text-stone-800">3件まで登録できます。選択してから入力してね♡</div>
             <div id="settingsJobTabs" class="space-y-1.5"></div>
           </div>
 
@@ -1364,7 +1412,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       renderSettingsJobTabs();
       renderSettingsJobContent(currentSettingsJobKey);
       initOverviewPage();
-      updateTrialBanner();
+
       let autoTimer = null;
       const settingsArea = document.getElementById('settingsJobContentArea');
       ['input', 'change'].forEach(ev => settingsArea.addEventListener(ev, () => {
@@ -1772,7 +1820,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       });
 
       if (html === '') {
-        summaryContent.innerHTML = `<span class="text-stone-400 font-bold">シフトは登録されていません</span>`;
+        summaryContent.innerHTML = `<span class="text-stone-400 font-bold">シフト登録がまだされていません</span>`;
         return;
       }
 
@@ -1869,6 +1917,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         activeBtn.classList.remove('bg-white', 'text-stone-700');
       }
 
+      if (typeof updateItoStickyHeader === 'function') updateItoStickyHeader(tabName);
       if (tabName === 'list') {
         renderStandaloneShiftList('jump');
       }
@@ -1947,7 +1996,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
         container.innerHTML += `
           <button type="button" onclick="switchBreakdownJob('${jk}')" class="job-chip flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition truncate px-1.5 ${styleClass}" style="${jobInlineStyle};--selected-job-accent:${getJobPalette(jk).dot};">
-            ${getJobLabelHtml(jk)}
+            <span class="ito-breakdown-job-label"><span class="ito-breakdown-dot" style="background:${getJobPalette(jk).dot}"></span>${esc(getJobDisplayName(jk))}</span>
           </button>
         `;
       });
@@ -2036,25 +2085,23 @@ html, body { max-width: 100%; overflow-x: hidden; }
           <span class="font-bold text-stone-800 w-28 text-xs sm:text-sm">${r.label}${r.rate ? `<span class="block text-[11px] font-medium text-stone-500">平均時給 ¥${r.rate.toLocaleString()}</span>` : ''}</span>
           <span class="text-stone-700 text-center flex-1 font-bold">${r.mid}</span>
           <span class="font-bold text-stone-900 w-24 text-right pr-1">¥${shown.toLocaleString()}</span></div>`;
-      }).join('') || `<div class="py-4 text-center text-stone-400 font-bold">対象期間のシフト登録はありません</div>`;
-      const noWage = !(job.wageSlots || []).some(s => s.start && s.end && s.wage > 0);
-      const warn = noWage ? `<div class="bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm font-bold p-2.5 rounded-xl mb-2">⚠️ 時給が未設定です。「設定」タブで時給を入力してね♡</div>` : '';
+      }).join('') || `<div class="py-4 text-center text-stone-500 font-bold text-sm sm:text-base">対象期間のシフト登録はありません</div>`;
+      const noWage = test5HasMissingWage(jobKey, start, end);
+      const warn = noWage ? `<div class="bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm font-bold p-2.5 rounded-xl mb-2">⚠️ 時給が登録されていない時間帯があります。設定画面で確認してね♡（金額は計算できません）</div>` : '';
       contentArea.innerHTML = `
         ${warn}
         <div class="bg-stone-50 p-3 rounded-xl border border-stone-200 space-y-1 mb-2">
-          <div class="text-center font-bold text-stone-800 text-xs sm:text-sm">給料計算の対象期間：<span class="text-stone-600">${fmtD(start)}〜${fmtD(end)}</span></div>
-          <div class="flex justify-around text-xs sm:text-sm font-bold text-stone-500">
+          <div class="text-center font-bold text-stone-800 text-sm sm:text-base">給料計算の対象期間：<span class="text-stone-600">${fmtD(start)}〜${fmtD(end)}</span></div>
+          <div class="flex justify-around text-sm sm:text-base font-bold text-stone-500">
             <span>締め日: ${job.closeDay === '月末' ? '月末' : job.closeDay + '日'}</span>
             <span>給料日: ${job.payDay === '月末' ? '月末' : job.payDay + '日'}</span>
           </div>
         </div>
-        <div class="grid grid-cols-3 text-sm font-bold text-stone-500 border-b border-stone-200 pb-2 whitespace-nowrap">
-          <span>項目</span><span class="text-center">労働時間</span><span class="text-right pr-1">給料見込額</span>
-        </div>
+        ${rows.length ? `<div class="grid grid-cols-3 text-sm font-bold text-stone-500 border-b border-stone-200 pb-2 whitespace-nowrap"><span>項目</span><span class="text-center">労働時間</span><span class="text-right pr-1">給料見込額</span></div>` : ""}
         ${rowsHtml}
         <div class="pt-2 mt-1 border-t-2 border-stone-200 flex justify-between items-center bg-rose-950 text-rose-50 p-3 rounded-2xl">
           <span class="font-bold text-xs sm:text-sm">合計</span>
-          <span class="text-lg sm:text-xl font-bold font-serif-title tracking-tight pr-1">¥${total.toLocaleString()}</span>
+          <span class="text-lg sm:text-xl font-bold font-serif-title tracking-tight pr-1">${noWage ? "計算できません" : "¥" + total.toLocaleString()}</span>
         </div>
         <p class="text-xs text-stone-500 font-medium leading-relaxed pt-1">※1日8時間を超えた分の割増は、自動では計算されません。22時以降は、設定した時間帯の時給が反映されます。</p>`;
     }
@@ -2112,6 +2159,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         return;
       }
       input.value = '';
+      document.querySelector('#tab-settings .ito-job-register-button')?.classList.add('registration-saved');
       renderSettingsJobTabs();
       renderSettingsJobContent(currentSettingsJobKey);
       renderModalJobTabs();
@@ -2488,6 +2536,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       }
       if (!saveAllDataStorage()) return;
       document.getElementById(`set_reg_btn_${i}`)?.classList.remove("unsaved-registration");
+      document.getElementById(`set_reg_btn_${i}`)?.classList.add("registration-saved");
       initOverviewPage();
       showToast("時給設定を登録しました");
     }
@@ -2844,19 +2893,27 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
     function updatePeriodProgressWidget() {
       let totalPay = 0;
-      getActiveJobKeys().forEach(jk => { totalPay += calcJobPeriodPay(jk, payPeriodOffset).pay; });
+      let totalMins = 0;
+      getActiveJobKeys().forEach(jk => {
+        const result = calcJobPeriodPay(jk, payPeriodOffset);
+        totalPay += result.pay;
+        totalMins += result.mins;
+      });
+      const ringHours = document.getElementById('itoRingTotalHours');
+      const ringPay = document.getElementById('itoRingTotalPay');
+      if (ringHours) ringHours.textContent = `${Math.floor(totalMins / 60)}時間${String(totalMins % 60).padStart(2, '0')}分`;
+      const missingWage = getActiveJobKeys().some(jk => {
+        const range = getJobPayPeriodRangeForReceiveMonth(configData[jk], payPeriodOffset);
+        return test5HasMissingWage(jk, range.start, range.end);
+      });
+      if (ringPay) ringPay.textContent = missingWage ? '計算できません' : formatCurrency(totalPay);
+      const warningEl = document.getElementById('test5RingWarning');
+      if (warningEl) warningEl.hidden = !missingWage;
       const goalCurrentPay = document.getElementById('goalCurrentPay');
       const goalPercentText = document.getElementById('goalPercentText');
       const goalProgressCircle = document.getElementById('goalProgressCircle');
-      const missingWage4 = getActiveJobKeys().some(jk => {
-        const r = getJobPayPeriodRangeForReceiveMonth(configData[jk], payPeriodOffset);
-        return test4HasUnconfiguredWage(jk, r.start, r.end);
-      });
-      if (goalCurrentPay) {
-        goalCurrentPay.innerText = missingWage4 ? '計算できません' : formatCurrency(totalPay);
-        goalCurrentPay.style.fontSize = missingWage4 ? 'clamp(15px,4.3vw,19px)' : '';
-      }
-      const rawPercent = !missingWage4 && monthlyGoal > 0 ? (totalPay / monthlyGoal) * 100 : 0;
+      if (goalCurrentPay) { goalCurrentPay.innerText = missingWage ? '計算できません' : formatCurrency(totalPay); goalCurrentPay.classList.toggle('test5-missing-ring', missingWage); }
+      const rawPercent = !missingWage && monthlyGoal > 0 ? (totalPay / monthlyGoal) * 100 : 0;
       if (goalPercentText) goalPercentText.innerText = `目標達成率 ${Math.round(rawPercent)}%`;
       const remEl = document.getElementById('goalRemainText');
       if (remEl) remEl.innerText = ''; // 目標までの残額は表示しない
@@ -2927,19 +2984,21 @@ html, body { max-width: 100%; overflow-x: hidden; }
       return new Date(now.getFullYear(), now.getMonth() + payPeriodOffset, 1);
     }
 
-    // test④: 登録済み勤務の各分に時給スロットが存在するかを判定する。
-    // 有給は時給スロットとは別計算のため除外する。
-    function test4HasUnconfiguredWage(jk, start, end) {
+    // 下のバイト別シフト一覧は、表示月に締め日が来る勤務期間を集計する。
+    // 例：10月表示、20日締めは9/21～10/20、月末締めは10/1～10/31。
+    // 円グラフ・その左右の数字は、従来どおり受取月ベースで変更しない。
+    // test⑤: 実働分の時給設定漏れを検査（休憩・有給は除く）。
+    function test5HasMissingWage(jk, start, end) {
       const job = configData[jk];
       if (!job) return false;
       for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-        const dateKey = formatDateKey(d);
-        const dateObj = new Date(d);
-        for (const sh of getDayShifts(dateKey, jk)) {
+        const day = new Date(d);
+        const shifts = getDayShifts(formatDateKey(day), jk);
+        for (const sh of shifts) {
           if (!sh || sh.isPaidLeave) continue;
           let missing = false;
           forEachWorkMinute(sh, min => {
-            if (!missing && getRateForMinuteDetailed(min, job, dateObj, false).category === 'unconfigured') missing = true;
+            if (!missing && getRateForMinuteDetailed(min, job, day, false).category === 'unconfigured') missing = true;
           });
           if (missing) return true;
         }
@@ -2966,11 +3025,13 @@ html, body { max-width: 100%; overflow-x: hidden; }
         if (r.worked) days++;
       }
       if (days > 0) pay += (job.transMonth || 0) + (job.allowanceMonth || 0);
-      return { pay: Math.floor(Math.round(pay * 1000) / 1000), mins, days, start, end, wageMissing: test4HasUnconfiguredWage(jk, start, end) };
+      return { pay: Math.floor(Math.round(pay * 1000) / 1000), mins, days, start, end, wageMissing: test5HasMissingWage(jk, start, end) };
     }
 
-    function renderWorkPeriodSummary() {
+    function calculateMonthlyReceivePay() {
       const viewMonth = getPayViewMonthDate();
+      const title = document.getElementById('monthlyReceiveTitle');
+      if (title) title.textContent = '【シフト入力済み時間＆見込額】';
       const container = document.getElementById('itoReceiveTable');
       if (!container) return;
       const active = getActiveJobKeys();
@@ -2980,12 +3041,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
         const result = calcJobCalendarMonthPay(jk, viewMonth);
         const name = esc(getJobDisplayName(jk));
         const dot = getJobPalette(jk).dot;
-        const payDisplay = result.wageMissing
-          ? '<strong class="test4-unconfigured">計算できません</strong>'
-          : `<strong>${formatCurrency(result.pay)}</strong>`;
-        const warning = result.wageMissing
-          ? '<div class="test4-wage-warning">⚠️ 時給が登録されていない時間帯があります。設定画面で確認してね♡</div>'
-          : '';
+        const payDisplay = result.wageMissing ? '<strong class="test5-unconfigured">計算できません</strong>' : `<strong>${formatCurrency(result.pay)}</strong>`;
+        const warning = result.wageMissing ? '<p class="test5-wage-warning">⚠️ 時給が登録されていない時間帯があります。設定画面で確認してね♡</p>' : '';
         return `<div class="ito-compact-job-row">
           <div class="ito-compact-job-heading"><span class="ito-job-dot" style="background:${dot}"></span><span class="ito-compact-job-name">${name}</span><span class="ito-compact-job-period">${md(result.start)}～${md(result.end)}</span></div>
           <div class="ito-compact-job-values"><span>時間 <strong>${hm(result.mins)}</strong></span><span>見込額 ${payDisplay}</span></div>
@@ -2995,63 +3052,43 @@ html, body { max-width: 100%; overflow-x: hidden; }
       container.innerHTML = rows || '<p class="ito-compact-empty">バイト先が登録されていません</p>';
     }
 
-
-    function calculateMonthlyReceivePay() {
-      let totalReceivePay = 0, totalMins = 0, totalDays = 0;
-      let breakdownHtml = '';
-      const activeKeys = getActiveJobKeys();
-      const viewMonth = getPayViewMonthDate();
-      const monthLabel = `${viewMonth.getFullYear()}年${viewMonth.getMonth() + 1}月`;
-      const titleEl = document.getElementById('monthlyReceiveTitle');
-      const totalLabelEl = document.getElementById('monthlyReceiveTotalLabel');
-      if (titleEl) titleEl.innerText = `${monthLabel}のお給料`;
-      if (totalLabelEl) totalLabelEl.innerText = `${monthLabel}の受取総額 合計`;
-
-      activeKeys.forEach(jk => {
-        const job = configData[jk];
-        const rr = calcJobPeriodPay(jk, payPeriodOffset);
-        const jobReceivePay = rr.pay;
-        totalMins += rr.mins; totalDays += rr.days;
-
-        totalReceivePay += jobReceivePay;
-
-        const payday = getAdjustedPaydayDate(viewMonth.getFullYear(), viewMonth.getMonth(), String(job.payDay || '5').trim());
-        const paydayText = `${payday.getMonth() + 1}/${payday.getDate()} 支払`;
-
-        breakdownHtml += `
-          <div class="receive-breakdown-row flex items-center gap-1.5 sm:gap-3 py-2.5 border-b border-rose-100 last:border-b-0 font-bold px-2">
-            <span class="receive-job-name min-w-0">${getJobLabelHtml(jk, 'max-w-full min-w-0')}</span>
-            <span class="payday-label text-stone-600 font-bold whitespace-nowrap">${paydayText}</span>
-            <span class="receive-job-amount font-bold text-rose-950 text-right whitespace-nowrap">${formatCurrency(jobReceivePay)}</span>
-          </div>
-        `;
-      });
-
-      // 円グラフ下は受取月の集計と一致させる。
-      const hm4 = m => `${Math.floor(m / 60)}時間${String(m % 60).padStart(2, '0')}分`;
-      const receiveHours4 = document.getElementById('test4ReceiveHours');
-      const receivePay4 = document.getElementById('test4ReceivePay');
-      const receiveWarning4 = document.getElementById('test4ReceiveWarning');
-      const missingReceiveWage4 = activeKeys.some(jk => {
-        const r = getJobPayPeriodRangeForReceiveMonth(configData[jk], payPeriodOffset);
-        return test4HasUnconfiguredWage(jk, r.start, r.end);
-      });
-      if (receiveHours4) receiveHours4.textContent = hm4(totalMins);
-      if (receivePay4) receivePay4.textContent = missingReceiveWage4 ? '計算できません' : formatCurrency(totalReceivePay);
-      if (receiveWarning4) {
-        receiveWarning4.textContent = missingReceiveWage4 ? '⚠️ 時給が登録されていない時間帯があります。設定画面で確認してね♡' : '';
-        receiveWarning4.classList.toggle('hidden', !missingReceiveWage4);
+    function updateItoWallSelection() {
+      const selector = document.getElementById('itoWallThreshold');
+      if (!selector) return;
+      const threshold = Number(selector.value) || 1300000;
+      const total = Number(window.itoWallYearPay) || 0;
+      const remaining = threshold - total;
+      const label = document.getElementById('itoWallRemainingLabel');
+      const amount = document.getElementById('itoWallRemainingAmount');
+      const progress = document.getElementById('itoWallProgress');
+      const fill = document.getElementById('itoWallProgressFill');
+      const box = document.getElementById('incomeWallBox');
+      const amountLabel = `${Math.round(threshold / 10000)}万円`;
+      if (label) label.textContent = remaining >= 0 ? `${amountLabel}までの残り` : `${amountLabel}を超過`;
+      if (amount) amount.textContent = `${Math.abs(remaining).toLocaleString('ja-JP')}円`;
+      const pct = Math.min(100, Math.max(0, total / threshold * 100));
+      if (fill) fill.style.width = `${pct}%`;
+      if (progress) {
+        progress.setAttribute('aria-valuenow', String(Math.round(pct)));
+        progress.setAttribute('aria-label', `${amountLabel}への到達率`);
       }
-      const ws = document.getElementById('monthlyWorkStat');
-      if (ws) ws.textContent = totalDays > 0 ? `⏱ 勤務 のべ${totalDays}日・${Math.floor(totalMins / 60)}時間${totalMins % 60 ? totalMins % 60 + '分' : ''}（有給は時間に含みません）` : '';
-      const container = document.getElementById('monthlyReceiveBreakdown');
-      const totalEl = document.getElementById('monthlyReceiveTotalPay');
-      if (container) {
-        container.innerHTML = breakdownHtml || `<span class="text-stone-400 font-bold">この月に受取予定の給料はありません</span>`;
+      if (box) {
+        const base = 'mt-3 rounded-xl px-3 py-2.5 transition-colors duration-300 border ';
+        box.className = base + (remaining <= 50000 ? 'bg-rose-50/60 border-rose-200' :
+          remaining <= 100000 ? 'bg-amber-50/60 border-amber-200' : 'bg-stone-50/70 border-stone-200');
       }
-      if (totalEl) totalEl.innerText = formatCurrency(totalReceivePay);
-      renderWorkPeriodSummary();
+      try { localStorage.setItem('itoWallThreshold', String(threshold)); } catch(e) {}
     }
+
+    function restoreItoWallSelection() {
+      const selector = document.getElementById('itoWallThreshold');
+      if (!selector) return;
+      try {
+        const saved = localStorage.getItem('itoWallThreshold');
+        if (saved && Array.from(selector.options).some(opt => opt.value === saved)) selector.value = saved;
+      } catch(e) {}
+    }
+    restoreItoWallSelection();
 
     function calculateYearlyTotalPay() {
       const now = new Date();
@@ -3084,28 +3121,9 @@ html, body { max-width: 100%; overflow-x: hidden; }
           : `${currentYear}年はまだ受け取りがありません`;
       }
 
-      const remain103 = Math.max(0, 1030000 - totalYearPay);
-      const remain130 = Math.max(0, 1300000 - totalYearPay);
-
-      const wall103 = document.getElementById('wall103');
-      const wall130 = document.getElementById('wall130');
-      const wallBox = document.getElementById('incomeWallBox');
-
-      if (wall103) wall103.innerText = `${remain103.toLocaleString()}円`;
-      if (wall130) wall130.innerText = `${remain130.toLocaleString()}円`;
-
-      if (wallBox) {
-        const base = "mt-3 rounded-xl px-3 py-2.5 transition-colors duration-300 border ";
-        wallBox.className = base + "bg-stone-50/70 border-stone-200";
-        if (wall103) wall103.className = "font-bold text-stone-700 text-base";
-        if (remain103 <= 50000) {
-          wallBox.className = base + "bg-rose-50/60 border-rose-200";
-          if (wall103) wall103.className = "font-bold text-rose-600 text-base";
-        } else if (remain103 <= 100000) {
-          wallBox.className = base + "bg-amber-50/60 border-amber-200";
-          if (wall103) wall103.className = "font-bold text-amber-700 text-base";
-        }
-      }
+      // 年収の目安は選択された値を基準に表示する（給与明細の確定額ではない）。
+      window.itoWallYearPay = totalYearPay;
+      updateItoWallSelection();
     }
 
     function getPaydayJobs(d) {
@@ -3517,7 +3535,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
         if (!best || rate > best.rate) best = { rate, category: 'slot' + i };
       });
       if (best) return best;
-      // 未設定の時間帯に別の時給を勝手に適用しない。
       return { rate: 0, category: 'unconfigured' };
     }
 
@@ -3601,56 +3618,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
       return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
     }
 
-    const TRIAL_DAYS = 21;
-    const LSTEP_URL = '';
-    function openPaymentPage() {
-      if (LSTEP_URL) window.open(LSTEP_URL, '_blank'); else showToast('決済ページは準備中です');
-    }
-
-    function updateTrialBanner() {
-      const banner = document.getElementById('trialBanner');
-      if (!banner) return;
-      // テスト版はLINE認証・無料期間の制限対象外。
-      banner.classList.add('hidden');
-      banner.onclick = null;
-      return;
-
-      let startStr = localStorage.getItem('mybasket_trial_start');
-      if (!startStr) {
-        startStr = formatDateKey(new Date());
-        try { localStorage.setItem('mybasket_trial_start', startStr); } catch(e) { console.warn('trial start cannot be saved', e); }
-      }
-
-      const [sy, sm, sd] = startStr.split('-').map(Number);
-      const startDate = new Date(sy, sm - 1, sd);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      startDate.setHours(0, 0, 0, 0);
-
-      const passedDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-      const remainingDays = TRIAL_DAYS - passedDays;
-
-      banner.classList.remove('hidden');
-      banner.onclick = function(){ showAlertModal('現在、無料お試し期間中です♪ まずはアプリをゆっくりお試しください🌷 購入のご案内は、後日お知らせします。'); };
-      banner.style.cursor = 'pointer';
-
-      if (remainingDays > 0) {
-        banner.innerHTML = `
-          <span style="white-space:nowrap">✨ お試し終了まであと${remainingDays}日</span>
-          <span class="text-amber-700 underline" style="white-space:nowrap;flex-shrink:0">続けて使うには？</span>
-        `;
-        banner.classList.remove('bg-rose-50', 'border-rose-300', 'text-rose-900');
-        banner.classList.add('bg-amber-50', 'border-amber-200', 'text-amber-900');
-      } else {
-        banner.innerHTML = `
-          <span>お試し期間が終了しました</span>
-          <span class="text-rose-700 underline">購入について</span>
-        `;
-        banner.classList.remove('bg-amber-50', 'border-amber-200', 'text-amber-900');
-        banner.classList.add('bg-rose-50', 'border-rose-300', 'text-rose-900');
-      }
-    }
-
     function exportAppData(event) {
       if (event) event.preventDefault();
       if (storageWriteBlocked) { showStorageSafetyWarning(); return; }
@@ -3658,7 +3625,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
       const payload = {
         exportedAt: new Date().toISOString(),
-        mybasket_trial_start: localStorage.getItem('mybasket_trial_start'),
         mybasket_shifts_v23: shiftsData,
         mybasket_wages_v77: (() => {
           let p = JSON.parse(JSON.stringify(configData));
@@ -3743,7 +3709,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
             shiftsData = sanitizeShifts(data.mybasket_shifts_v23 || data.mybasket_shifts_v22 || data.mybasket_shifts_v21 || {});
             let loadedWages = data.mybasket_wages_v77 || data.mybasket_wages_v76 || {};
             monthlyGoal = Number(loadedWages.monthlyGoal) || 0;
-            if (data.mybasket_trial_start) { localStorage.setItem('mybasket_trial_start', data.mybasket_trial_start); updateTrialBanner(); }
             configData = buildConfigData(loadedWages);
 
             if (!safeWriteAppJSON('mybasket_shifts_v23', shiftsData)) return;
@@ -3799,7 +3764,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 <script id="shared-oct22-registration-state">
 (function(){
  const mark=(id,dirty)=>document.getElementById(id)?.classList.toggle('unsaved-registration',dirty);
- window.markRegisterSaved=(id)=>mark(id,false);
+ window.markRegisterSaved=(id)=>{mark(id,false);document.getElementById(id)?.classList.add("registration-saved");};
  document.addEventListener('change',function(e){
    if(e.target.closest('#shiftInputModal') && (e.target.closest('#modalCustomPresetContainer') || e.target.id==='new_preset_start' || e.target.id==='new_preset_end')) mark('registerShiftButton',true);
    if(e.target.closest('#presetRegisterModal') && ['pr_start','pr_end'].includes(e.target.id)) mark('registerPresetButton',true);
@@ -3871,6 +3836,292 @@ html, body { max-width: 100%; overflow-x: hidden; }
  }
 })();
 </script>
+<style id="ito-20261023-button-font-final">
+/* All register buttons keep their wine-red background; only text color changes. */
+#registerShiftButton,#registerPresetButton,
+#tab-settings button[id^="set_reg_btn_"],
+#tab-settings .ito-job-register-button{
+ background:#881337!important;background-color:#881337!important;
+ border-color:#881337!important;
+ color:#ffe082!important;-webkit-text-fill-color:#ffe082!important;
+ opacity:1!important;
+}
+#registerShiftButton.registration-saved:not(.unsaved-registration),
+#registerPresetButton.registration-saved:not(.unsaved-registration),
+#tab-settings button[id^="set_reg_btn_"].registration-saved:not(.unsaved-registration),
+#tab-settings .ito-job-register-button.registration-saved:not(.unsaved-registration){
+ color:#fff!important;-webkit-text-fill-color:#fff!important;
+}
+/* Bigger but responsive fonts at both lower sides of the large double ring. */
+#tab-clock .ito-ring-stat-label{font-size:clamp(12px,3.45vw,15px)!important;line-height:1.2}
+#tab-clock .ito-ring-stat strong{font-size:clamp(14px,4vw,18px)!important;line-height:1.25;letter-spacing:-.04em}
+#tab-clock .ito-ring-stat{bottom:6px;max-width:48%}
+/* More readable time and amount in each two-line job summary. */
+#tab-clock .ito-compact-job-values{font-size:clamp(13px,3.7vw,16px)!important;letter-spacing:-.035em;gap:3px}
+#tab-clock .ito-compact-job-values strong{font-size:inherit!important}
+@media(max-width:360px){
+ #tab-clock .ito-ring-stat-label{font-size:11px!important}
+ #tab-clock .ito-ring-stat strong{font-size:13px!important}
+ #tab-clock .ito-compact-job-values{font-size:12px!important;letter-spacing:-.055em}
+}
+</style>
+<script id="ito-20261023-registration-color-state">
+(function(){
+ const registerSelector='#registerShiftButton,#registerPresetButton,#tab-settings button[id^="set_reg_btn_"],#tab-settings .ito-job-register-button';
+ document.addEventListener('input',function(e){
+   const el=e.target.closest?.('#shiftInputModal,#presetRegisterModal,#tab-settings');
+   if(!el)return;
+   const btn=el.querySelector?.('#registerShiftButton,#registerPresetButton') ||
+      (e.target.id==='newJobNameInput'?document.querySelector('#tab-settings .ito-job-register-button'):null);
+   if(btn)btn.classList.remove('registration-saved');
+   if(e.target.id && /^set_(time|wage|btype|bval)_/.test(e.target.id)){
+     const m=e.target.id.match(/_(\d+)(?:_(?:start|end))?$/);
+     if(m)document.getElementById('set_reg_btn_'+m[1])?.classList.remove('registration-saved');
+   }
+ },true);
+ document.addEventListener('change',function(e){
+   const t=e.target;
+   if(t.closest?.('#shiftInputModal'))document.getElementById('registerShiftButton')?.classList.remove('registration-saved');
+   if(t.closest?.('#presetRegisterModal'))document.getElementById('registerPresetButton')?.classList.remove('registration-saved');
+   const m=t.id?.match(/^set_(?:time|wage|btype|bval)_(\d+)(?:_(?:start|end))?$/);
+   if(m)document.getElementById('set_reg_btn_'+m[1])?.classList.remove('registration-saved');
+ },true);
+})();
+</script>
 
+<style id="ito-20261023-sticky-all-tabs-fix">
+/* The sticky element belongs directly to the actual scrolling container.
+   Sticky inside each tab ends at that tab's bottom and can overlap the ring. */
+#appScroll { position:relative; }
+#itoStickyHeaderHost {
+ position:sticky; top:0; z-index:45;
+ background:#fff; padding:0 0 7px;
+ isolation:isolate;
+}
+#itoStickyHeaderHost:empty { display:none; }
+#itoStickyHeaderHost > .ito-pinned-heading {
+ display:flex; align-items:center; justify-content:space-between;
+ width:100%; min-height:43px; margin:0;
+ position:relative; z-index:1;
+}
+#itoStickyHeaderHost > .ito-pinned-heading.oct23-sticky-pay { display:block; min-height:43px; padding-bottom:0; }
+#itoStickyHeaderHost > .ito-pinned-heading.oct23-sticky-pay > div { min-height:43px; }
+#itoStickyHeaderHost > .ito-pinned-heading.oct23-sticky-settings { min-height:43px; padding:8px 12px; }
+#itoStickyHeaderHost > .ito-pinned-heading.ito-guide-heading { min-height:43px; padding:8px 12px; }
+#itoStickyHeaderHost .ito-pinned-heading h2 { min-width:0; }
+#tab-clock .ito-goal-chart-area { z-index:0; }
+/* Narrower year-reference dropdown, keeping the selection behavior. */
+#tab-clock select#itoWallThreshold {font-size:12px!important; font-weight:600!important; line-height:1.3;}
+/* Slightly more breathing room in the two-line job summary. */
+#tab-clock .ito-compact-job-row {padding-top:11px; padding-bottom:12px;}
+#tab-clock .ito-compact-job-heading {gap:7px;}
+#tab-clock .ito-compact-job-values {margin-top:10px; padding-left:2px; padding-right:2px;}
+#tab-clock .ito-compact-job-row:last-child {padding-bottom:8px;}
+</style>
+<script id="ito-20261023-sticky-all-tabs-init">
+(function(){
+ const ids={clock:'#tab-clock > .oct23-sticky-pay',calendar:'#tab-calendar > .oct23-sticky-month',list:'#tab-list > div:first-child',settings:'#tab-settings > .oct23-sticky-settings',guide:'#tab-guide > div:first-child'};
+ let pinned={};
+ function setup(){
+   const host=document.getElementById('itoStickyHeaderHost');
+   if(!host)return;
+   for(const [tab,selector] of Object.entries(ids)){
+     const el=document.querySelector(selector);
+     if(el){pinned[tab]=el;el.classList.add('ito-pinned-heading');if(tab==='guide')el.classList.add('ito-guide-heading');}
+   }
+   window.updateItoStickyHeader=function(tab){
+     const bar=pinned[tab];
+     if(!bar)return;
+     if(host.firstElementChild!==bar){host.replaceChildren(bar);}
+   };
+   const active=document.querySelector('#appScroll > .tab-content:not(.hidden)');
+   const tab=active?.id?.replace(/^tab-/,'')||'clock';
+   window.updateItoStickyHeader(tab);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
+})();
+</script>
+
+<style id="ito-oct23-final-visual-polish">
+/* Fixed tab header is a solid surface: scrolling content must not show through. */
+#itoStickyHeaderHost {background:#fff!important;z-index:65!important;isolation:isolate;}
+#itoStickyHeaderHost::before {content:"";position:absolute;inset:0;background:#fff;z-index:0;pointer-events:none;}
+#itoStickyHeaderHost > .ito-pinned-heading {position:relative;z-index:1;}
+/* Increase the chart-side totals to match the nearby goal control. */
+#tab-clock .ito-ring-stat-label {font-size:clamp(13px,3.8vw,16px)!important;}
+#tab-clock .ito-ring-stat strong {font-size:clamp(15px,4.35vw,19px)!important;}
+/* Keep each job on two tidy lines, with values close rather than pushed to edges. */
+#itoReceiveTable .ito-compact-job-heading {font-size:clamp(14px,3.9vw,16px)!important;gap:6px;}
+#itoReceiveTable .ito-compact-job-period {font-size:clamp(12px,3.45vw,14px)!important;}
+#itoReceiveTable .ito-compact-job-values {
+  display:flex!important;align-items:baseline!important;
+  justify-content:flex-start!important;column-gap:clamp(12px,4vw,22px)!important;
+  row-gap:4px!important;white-space:nowrap;
+  font-size:clamp(13px,3.7vw,16px)!important;
+  letter-spacing:-.025em!important;
+  margin-top:10px!important;padding:0 2px!important;
+}
+#itoReceiveTable .ito-compact-job-values > span {flex:0 0 auto;white-space:nowrap;}
+#itoReceiveTable .ito-compact-job-values strong {font-size:inherit!important;font-weight:800;}
+@media(max-width:360px) {
+ #itoReceiveTable .ito-compact-job-values {font-size:clamp(11px,3.45vw,13px)!important;column-gap:10px!important;letter-spacing:-.05em!important;}
+ #tab-clock .ito-ring-stat-label {font-size:12px!important;}
+ #tab-clock .ito-ring-stat strong {font-size:14px!important;}
+}
+</style>
+<style id="ito-20261023-mobile-final-visibility">
+/* The solid sticky mask extends ABOVE the heading as well as beneath it.
+   This prevents the scrolling ring/text from appearing in the gap above the bar. */
+#appScroll { isolation:isolate; }
+#itoStickyHeaderHost {
+  position:sticky!important; top:0!important;
+  z-index:999!important; background:#fff!important;
+  isolation:isolate; overflow:visible!important;
+}
+#itoStickyHeaderHost::before {
+  content:""; position:absolute;
+  top:-160px; bottom:-1px; left:-24px; right:-24px;
+  background:#fff!important; z-index:0;
+  pointer-events:none;
+}
+#itoStickyHeaderHost > .ito-pinned-heading {position:relative!important;z-index:1!important;}
+/* Clear, balanced salary figures around the chart. */
+#tab-clock .ito-ring-stat-label {font-size:clamp(14px,3.9vw,16px)!important;line-height:1.25!important;}
+#tab-clock .ito-ring-stat strong {font-size:clamp(16px,4.45vw,19px)!important;line-height:1.3!important;}
+/* Compact job summary should use similar readable size. */
+#itoReceiveTable .ito-compact-job-heading {font-size:clamp(15px,4.1vw,17px)!important;}
+#itoReceiveTable .ito-compact-job-period {font-size:clamp(13px,3.55vw,15px)!important;}
+#itoReceiveTable .ito-compact-job-values {font-size:clamp(14px,3.9vw,17px)!important;column-gap:clamp(10px,3vw,18px)!important;}
+#tab-clock select#itoWallThreshold {font-size:13px!important;}
+@media(max-width:360px) {
+  #tab-clock .ito-ring-stat-label {font-size:13px!important;}
+  #tab-clock .ito-ring-stat strong {font-size:15px!important;}
+  #itoReceiveTable .ito-compact-job-values {font-size:12.5px!important;column-gap:8px!important;}
+  #itoReceiveTable .ito-compact-job-heading {font-size:14px!important;}
+  #itoReceiveTable .ito-compact-job-period {font-size:12px!important;}
+}
+</style>
+
+<style id="ito-20261023-job-summary-readable-final">
+/* Mobile-first readable job summary. This intentionally comes after earlier
+   responsive rules so the labels do not revert to faint, tiny type. */
+#tab-clock #itoReceiveTable .ito-compact-job-row {
+  padding-top:14px!important;
+  padding-bottom:15px!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-heading {
+  display:flex!important;
+  align-items:baseline!important;
+  flex-wrap:wrap!important;
+  column-gap:7px!important;
+  row-gap:3px!important;
+  font-size:clamp(14px,3.95vw,16px)!important;
+  line-height:1.5!important;
+  color:#292524!important;
+  font-weight:750!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-name,
+#tab-clock #itoReceiveTable .ito-compact-job-period {
+  font-size:inherit!important;
+  line-height:inherit!important;
+  color:#292524!important;
+  font-weight:700!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-values {
+  display:flex!important;
+  align-items:baseline!important;
+  justify-content:flex-start!important;
+  flex-wrap:wrap!important;
+  column-gap:clamp(12px,3.5vw,18px)!important;
+  row-gap:5px!important;
+  margin-top:9px!important;
+  padding:0 2px!important;
+  font-size:clamp(14px,3.95vw,16px)!important;
+  line-height:1.55!important;
+  letter-spacing:0!important;
+  color:#292524!important;
+  font-weight:700!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-values > span,
+#tab-clock #itoReceiveTable .ito-compact-job-values strong {
+  color:#292524!important;
+  font-size:inherit!important;
+  line-height:inherit!important;
+  font-weight:700!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-values strong {font-weight:800!important;}
+#tab-clock #itoReceiveTable .ito-compact-job-values > span {white-space:nowrap!important;}
+@media(max-width:360px) {
+  #tab-clock #itoReceiveTable .ito-compact-job-heading,
+  #tab-clock #itoReceiveTable .ito-compact-job-values {
+    font-size:14px!important;
+  }
+  #tab-clock #itoReceiveTable .ito-compact-job-values {
+    column-gap:10px!important;
+  }
+}
+</style>
+
+<style id="ito-20261023-final-three-adjustments">
+/* Compact the two-line job summaries while preserving approved font styling. */
+#tab-clock #itoReceiveTable .ito-compact-job-row {
+  padding-top:7px!important;
+  padding-bottom:8px!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-row:last-child {
+  padding-bottom:3px!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-heading {
+  line-height:1.35!important;
+  row-gap:2px!important;
+}
+#tab-clock #itoReceiveTable .ito-compact-job-values {
+  margin-top:5px!important;
+  line-height:1.35!important;
+  row-gap:3px!important;
+}
+/* The shift input modal is outside #tab-calendar: target the modal directly. */
+#shiftInputModal .shift-preset-section .preset-inline-heading {
+  font-size:clamp(15px,3.85vw,17px)!important;
+  font-weight:800!important;
+  letter-spacing:-.045em!important;
+  line-height:1.3!important;
+  white-space:nowrap!important;
+}
+#shiftInputModal .shift-preset-section .ito-preset-desc {
+  font-size:clamp(10px,2.85vw,12px)!important;
+  line-height:1.45!important;
+  letter-spacing:-.025em!important;
+  white-space:nowrap!important;
+  color:#44403c!important;
+  margin:0!important;
+}
+@media(max-width:360px) {
+  #shiftInputModal .shift-preset-section .preset-inline-heading {
+    font-size:clamp(14px,3.9vw,15px)!important;
+  }
+}
+</style>
+
+<style id="test5-ito-base-enhancements">
+/* ITO版の円・配色・登録ボタン・年収の壁・凡例を維持 */
+#tab-clock .ito-goal-chart-area { padding-top:4px!important; padding-bottom:0!important; }
+#tab-clock #goalRing { width:min(74vw,290px)!important;height:min(74vw,290px)!important; }
+#tab-clock .ito-ring-stat { z-index:2; }
+#tab-clock .ito-ring-stat-label {font-size:clamp(15px,4.15vw,18px)!important;}
+#tab-clock .ito-ring-stat strong {font-size:clamp(17px,4.6vw,20px)!important;}
+#tab-clock #itoReceiveTable .ito-compact-job-heading {font-size:clamp(15px,4.1vw,17px)!important;}
+#tab-clock #itoReceiveTable .ito-compact-job-values {font-size:clamp(15px,4.1vw,17px)!important;}
+#tab-clock #itoReceiveTable .ito-compact-job-row {padding-top:8px!important;padding-bottom:9px!important;}
+#tab-clock #itoReceiveTable .ito-compact-job-values > span {white-space:normal!important;}
+.test5-wage-warning {margin:5px 0;padding:8px 10px;border:1px solid #fcd9a5;border-radius:10px;background:#fff8eb;color:#9a3412;font-size:13px;font-weight:700;line-height:1.5;}
+.test5-wage-warning[hidden] {display:none!important;}
+.test5-unconfigured {color:#9a3412!important;white-space:normal;}
+#tab-clock #goalRing #goalCurrentPay.test5-missing-ring {font-size:clamp(14px,4.1vw,19px)!important;}
+/* 固定ヘッダーは既存のITO移動処理を尊重し、スクロール領域より手前に表示 */
+#itoStickyHeaderHost {position:relative;z-index:45;isolation:isolate;}
+#itoStickyHeaderHost > .ito-pinned-heading {background:#fff!important;isolation:isolate;}
+@media(max-width:360px) {#tab-clock #goalRing {width:min(73vw,270px)!important;height:min(73vw,270px)!important;}}
+</style>
 </body>
 </html>
