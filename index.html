@@ -952,6 +952,15 @@ background:#881337!important;background-color:#881337!important;border-color:#88
 #tab-clock #test28GoalEdit:focus-visible{outline:2px solid #8b1535;outline-offset:2px;border-radius:4px;}
 @media(max-width:360px){#tab-clock .test8-goal-row #test8GoalLabel{font-size:12px!important;}#tab-clock .test8-goal-row{gap:2px!important;}#tab-clock #test28GoalEdit{font-size:14px;min-width:16px;}}
 </style>
+<style id="test30-goal-only-fix">
+/* テスト㉚：目標金額の表示と編集だけを修正。円グラフには触れない。 */
+#tab-clock .test8-goal-row{display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;white-space:nowrap!important;}
+#tab-clock .test8-goal-row #test8GoalLabel{font-size:clamp(12px,3.55vw,16px)!important;font-weight:800!important;}
+#tab-clock .test8-goal-row #test30GoalDisplay{font-size:clamp(14px,4.1vw,19px)!important;font-weight:900!important;color:#261b1c!important;}
+#tab-clock .test8-goal-row #test30Yen{font-size:clamp(14px,4.1vw,19px)!important;font-weight:900!important;color:#261b1c!important;}
+#tab-clock .test8-goal-row #test30Yen[hidden],#tab-clock .test8-goal-row #goalAmountHeader[hidden]{display:none!important;}
+#tab-clock .test8-goal-row #test28GoalEdit{font-size:17px!important;min-width:28px!important;min-height:32px!important;cursor:pointer!important;touch-action:manipulation;}
+</style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
 
@@ -1136,10 +1145,11 @@ background:#881337!important;background-color:#881337!important;border-color:#88
         </div>
 
         <div class="test8-goal-row" aria-label="目標金額の設定">
-          <label for="goalAmountHeader" id="test8GoalLabel">目標金額の設定をしてね♡</label>
-          <span class="test8-yen">¥</span>
-                     <button type="button" id="test28GoalEdit" aria-label="目標金額を編集" title="目標金額を編集" onclick="document.getElementById('goalAmountHeader').focus();document.getElementById('goalAmountHeader').select();">✏️</button>
-<input type="text" inputmode="numeric" id="goalAmountHeader" oninput="formatInputNumber(this)" onblur="saveInlineMonthlyGoal(this)" onkeydown="if(event.key==='Enter'){this.blur();}" placeholder="＿＿＿＿＿" aria-label="目標金額" autocomplete="off">
+          <span id="test8GoalLabel">目標金額 ♡</span>
+          <span class="test8-yen" id="test30Yen">¥</span>
+          <span id="test30GoalDisplay">未設定</span>
+          <button type="button" id="test28GoalEdit" aria-label="目標金額を編集" title="目標金額を編集" onclick="editMonthlyGoal()">✏️</button>
+          <input type="text" id="goalAmountHeader" aria-label="目標金額の保存用" hidden tabindex="-1">
         </div>
 
         <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)] space-y-3 relative t16-ring-card">
@@ -2025,7 +2035,27 @@ background:#881337!important;background-color:#881337!important;border-color:#88
 
     function test8UpdateGoalLabel() {
       const label = document.getElementById('test8GoalLabel');
-      if (label) label.textContent = monthlyGoal > 0 ? '目標金額 ♡' : '目標金額の設定をしてね♡';
+      if (label) label.textContent = '目標金額 ♡';
+      const display = document.getElementById('test30GoalDisplay');
+      if (display) display.textContent = monthlyGoal > 0 ? monthlyGoal.toLocaleString('ja-JP') : '未設定';
+      const yen = document.getElementById('test30Yen');
+      if (yen) yen.hidden = !(monthlyGoal > 0);
+    }
+
+    function editMonthlyGoal() {
+      const initial = monthlyGoal > 0 ? String(monthlyGoal) : '';
+      const answer = window.prompt('目標金額を入力してね♡（円）\n※ 0を入力すると未設定に戻ります。', initial);
+      if (answer === null) return;
+      const cleaned = answer.replace(/[，,\s￥¥]/g, '').replace(/[０-９]/g, c => String.fromCharCode(c.charCodeAt(0)-65248));
+      if (!/^\d+$/.test(cleaned) || !Number.isSafeInteger(Number(cleaned))) {
+        window.alert('目標金額は数字で入力してね。');
+        return;
+      }
+      const input = document.getElementById('goalAmountHeader');
+      if (!input) return;
+      input.value = cleaned;
+      saveInlineMonthlyGoal(input);
+      test8UpdateGoalLabel();
     }
 
     function saveInlineMonthlyGoal(input) {
