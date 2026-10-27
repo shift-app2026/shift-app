@@ -940,6 +940,18 @@ background:#881337!important;background-color:#881337!important;border-color:#88
   letter-spacing: normal !important;
 }
 </style>
+<style id="test28-tiny-font-and-goal-pencil">
+/* ㉘：中央表示と目標設定行の文字をほんの少し大きく。既存の計算・操作はそのまま。 */
+#tab-clock #goalRing .goal-label-text{font-size:clamp(12px,3.5vw,15px)!important;}
+#tab-clock #goalRing #goalCurrentPay{font-size:clamp(21px,6.1vw,30px)!important;}
+#tab-clock #goalRing .t10-remaining-label{font-size:clamp(13px,3.7vw,16px)!important;}
+#tab-clock #goalRing #goalRemainText{font-size:clamp(16px,4.55vw,22px)!important;}
+#tab-clock .test8-goal-row #test8GoalLabel{font-size:clamp(13px,3.9vw,17px)!important;}
+#tab-clock .test8-goal-row #goalAmountHeader{font-size:clamp(17px,4.75vw,21px)!important;}
+#tab-clock #test28GoalEdit{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;padding:0 1px;background:transparent;border:0;cursor:pointer;font-size:16px;line-height:1;min-width:19px;min-height:25px;}
+#tab-clock #test28GoalEdit:focus-visible{outline:2px solid #8b1535;outline-offset:2px;border-radius:4px;}
+@media(max-width:360px){#tab-clock .test8-goal-row #test8GoalLabel{font-size:12px!important;}#tab-clock .test8-goal-row{gap:2px!important;}#tab-clock #test28GoalEdit{font-size:14px;min-width:16px;}}
+</style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
 
@@ -1126,7 +1138,8 @@ background:#881337!important;background-color:#881337!important;border-color:#88
         <div class="test8-goal-row" aria-label="目標金額の設定">
           <label for="goalAmountHeader" id="test8GoalLabel">目標金額の設定をしてね♡</label>
           <span class="test8-yen">¥</span>
-          <input type="text" inputmode="numeric" id="goalAmountHeader" oninput="formatInputNumber(this)" onblur="saveInlineMonthlyGoal(this)" onkeydown="if(event.key==='Enter'){this.blur();}" placeholder="＿＿＿＿＿" aria-label="目標金額" autocomplete="off">
+                     <button type="button" id="test28GoalEdit" aria-label="目標金額を編集" title="目標金額を編集" onclick="document.getElementById('goalAmountHeader').focus();document.getElementById('goalAmountHeader').select();">✏️</button>
+<input type="text" inputmode="numeric" id="goalAmountHeader" oninput="formatInputNumber(this)" onblur="saveInlineMonthlyGoal(this)" onkeydown="if(event.key==='Enter'){this.blur();}" placeholder="＿＿＿＿＿" aria-label="目標金額" autocomplete="off">
         </div>
 
         <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)] space-y-3 relative t16-ring-card">
