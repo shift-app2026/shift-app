@@ -14,10 +14,7 @@
   <meta name="twitter:card" content="summary">
 
   
-  <link rel="apple-touch-icon" href="./icon-192.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" content="#881337">
+
   
   <link rel="apple-touch-icon" href="./icon-192.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
@@ -3395,8 +3392,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
         if (!best || rate > best.rate) best = { rate, category: 'slot' + i };
       });
       if (best) return best;
-      const first = slots.find(s => s.start && s.end && s.wage > 0);
-      return { rate: first ? getSlotRate(first, dateObj) : 0, category: 'other' };
+      // 未設定の時間帯に別の時給を勝手に適用しない。
+      return { rate: 0, category: 'unconfigured' };
     }
 
     function isMinuteInRange(curMins, startMins, endMins) {
@@ -3488,6 +3485,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
     function updateTrialBanner() {
       const banner = document.getElementById('trialBanner');
       if (!banner) return;
+      // テスト版はLINE認証・無料期間の制限対象外。
+      banner.classList.add('hidden');
+      banner.onclick = null;
+      return;
 
       let startStr = localStorage.getItem('mybasket_trial_start');
       if (!startStr) {
@@ -3746,70 +3747,5 @@ html, body { max-width: 100%; overflow-x: hidden; }
 })();
 </script>
 
-<!-- LINE/Supabase 21-day trial integration (test build) -->
-<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-<style>
-#trialAccessGate{position:fixed;inset:0;z-index:99999;background:rgba(35,22,29,.78);display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Noto Sans JP',sans-serif}
-#trialAccessGate[hidden]{display:none!important}
-#trialAccessGate .trial-gate-card{background:#fff;border-radius:20px;padding:25px 18px;max-width:390px;width:100%;text-align:center;color:#292524;box-shadow:0 16px 40px #0003}
-#trialAccessGate button{background:#881337;color:white;padding:12px 16px;border-radius:12px;font-weight:bold;margin-top:12px}
-</style>
-<div id="trialAccessGate" role="alertdialog" aria-modal="true" aria-label="利用状況の確認">
- <div class="trial-gate-card"><h2 style="font-size:19px;font-weight:700;color:#881337">ほっしーのシフトアプリ</h2>
- <p id="trialGateMessage" style="margin-top:12px;line-height:1.7">LINEの利用状況を確認しています…</p>
- <button id="trialGateRetry" type="button" hidden>もう一度確認する</button>
- <button id="trialGateBackup" type="button" hidden>データを書き出す</button></div>
-</div>
-<script id="line-trial-supabase-bridge">
-(()=>{
-'use strict';
-const LIFF_ID='2011929118-Fyk1pdlU';
-const ENDPOINT='https://urwmuafkmlgzanpiksfv.supabase.co/functions/v1/line-trial-status';
-const gate=document.getElementById('trialAccessGate');
-const msg=document.getElementById('trialGateMessage');
-const retry=document.getElementById('trialGateRetry');
-const backup=document.getElementById('trialGateBackup');
-const show=(message,canRetry=true,canBackup=true)=>{gate.hidden=false;msg.textContent=message;retry.hidden=!canRetry;backup.hidden=!canBackup;};
-const unlock=()=>{gate.hidden=true;};
-retry.onclick=()=>{retry.hidden=true;check();};
-backup.onclick=()=>{if(typeof window.exportAppData==='function')window.exportAppData();else show('バックアップ機能を開けませんでした。',true,false);};
-async function check(){
- show('LINEの利用状況を確認しています…',false,false);
- try{
-  if(!window.liff)throw Error('LINE SDKを読み込めませんでした。');
-  await liff.init({liffId:LIFF_ID});
-  // LINE内でもログイン状態を確認する。isInClient()だけでは認証済みとは限らない。
-  if(!liff.isLoggedIn()){
-    if(!liff.isInClient()){
-      // 外部ブラウザから開かれた場合はLINEログインへ進む。
-      // LIFFの正規URLを案内し、GitHub直リンクからの試用開始は許可しない。
-      show('LINEでログインしていません。LINEのトーク画面からテスト用LIFFリンクを開いてください。',true,true);
-    }else{
-      show('LINE内でログイン情報を取得できませんでした。いったん閉じて、テスト用LIFFリンクから開き直してください。',true,true);
-    }
-    console.warn('LIFF auth state', {inClient:liff.isInClient(),loggedIn:liff.isLoggedIn()});
-    return;
-  }
-  const token=liff.getIDToken();
-  if(!token)throw Error('LINEのIDトークンが取得できませんでした。LIFFのopenidスコープを確認してください。');
-  const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({idToken:token}),cache:'no-store'});
-  const data=await res.json().catch(()=>({}));
-  if(!res.ok)throw Error('利用状況を確認できませんでした（'+res.status+'）。');
-  if(!data.authenticated||!data.trialStartedAt||!data.trialExpiresAt)throw Error('利用状況の応答が不完全です。');
-  const banner=document.getElementById('trialBanner');
-  if(banner){
-   banner.classList.remove('hidden');
-   banner.textContent=data.trialActive?'✨ お試し終了まであと'+Math.max(0,Number(data.remainingDays)||0)+'日':'無料お試し期間が終了しました';
-   banner.onclick=null;
-  }
-  // purchased_at alone is NOT proof of an active subscription: payment verification is pending.
-  if(data.trialActive===true){unlock();}
-  else show('21日間の無料お試し期間が終了しました。現在は閲覧・バックアップ以外の利用を準備中です。継続利用の確認は決済連携後に対応します。',true,true);
- }catch(e){console.error('Trial connection error:',e);show('利用状況を確認できませんでした：'+(e?.message||'不明なエラー')+'。',true,true);}
-}
-// Existing app code contains a local trial banner. Repaint it after app initialization.
-window.addEventListener('load',()=>{check();},{once:true});
-})();
-</script>
 </body>
 </html>
