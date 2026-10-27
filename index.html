@@ -774,6 +774,40 @@ html, body { max-width: 100%; overflow-x: hidden; }
 /* ＋登録は保存ではなく入力画面を開く操作なので淡いピンクで区別 */
 #tab-calendar .preset-inline-heading + button {background:#fff1f2!important;color:#881337!important;border:1px solid #e9bd9b!important;}
 </style>
+<style id="test3-work-period-restore">
+.ito-compact-job-row{padding:7px 0 8px;border-bottom:1px solid #ead8dc}
+.ito-compact-job-row:last-child{border-bottom:0;padding-bottom:2px}
+.ito-compact-job-heading{display:flex;align-items:center;gap:6px;min-width:0;font-size:clamp(12px,3.6vw,15px);font-weight:800;color:#292524}
+.ito-compact-job-name{min-width:0;overflow-wrap:anywhere}
+.ito-compact-job-period{font-size:clamp(11px,3.15vw,13px);font-weight:600;color:#57534e;white-space:nowrap}
+.ito-compact-job-values{display:flex;align-items:center;justify-content:space-between;gap:5px;white-space:nowrap;font-size:clamp(10px,3vw,13px);color:#57534e;margin-top:4px;font-variant-numeric:tabular-nums}
+.ito-compact-job-values strong{font-size:clamp(11px,3.45vw,15px);color:#292524;font-weight:800}
+.ito-compact-empty{font-size:13px;color:#57534e;padding:8px 0}
+@media(max-width:360px){.ito-compact-job-values{letter-spacing:-.035em}.ito-compact-job-values strong{font-size:11px}}
+
+</style>
+
+<style id="test4-approved-layout">
+/* 固定年月日がスクロール文字より手前に表示されるよう不透明背景を確保 */
+#tab-clock>.oct23-sticky-pay{background:#fff!important;isolation:isolate;z-index:35!important;padding-bottom:7px;box-shadow:0 4px 7px -7px #4c0519}
+#tab-clock>.oct23-sticky-pay>div:last-child{position:relative;z-index:1}
+#tab-calendar>.oct23-sticky-month,#tab-settings>.oct23-sticky-settings{z-index:35!important;isolation:isolate}
+#appScroll{isolation:isolate}
+/* お給料リング下の受取月ベース集計 */
+.test4-ring-stats{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;font-size:clamp(12px,3.5vw,15px);font-weight:700;color:#292524;line-height:1.45}
+.test4-ring-stats>div{display:flex;flex-direction:column;min-width:0}
+.test4-ring-stats strong{font-size:clamp(14px,3.9vw,17px);font-weight:800;color:#292524}
+.test4-stat-right{text-align:right;align-items:flex-end}
+.test4-wage-warning{margin:4px 0 2px;padding:7px 9px;border-radius:9px;background:#fff7ed;color:#9a3412;font-size:clamp(11px,3.15vw,13px);font-weight:700;line-height:1.5}
+#workPeriodSummaryCard{padding:12px 14px!important;gap:5px!important}
+#workPeriodSummaryCard>div:first-child{font-size:clamp(13px,3.7vw,15px)!important;padding-bottom:6px!important}
+#workPeriodSummaryCard .ito-compact-job-row{padding:6px 0!important}
+#workPeriodSummaryCard .ito-compact-job-heading{font-size:clamp(13px,3.6vw,15px)!important;gap:5px}
+#workPeriodSummaryCard .ito-compact-job-period{font-size:clamp(12px,3.3vw,14px)!important}
+#workPeriodSummaryCard .ito-compact-job-values{font-size:clamp(12px,3.4vw,14px)!important;margin-top:2px;flex-wrap:wrap}
+#workPeriodSummaryCard .ito-compact-job-values strong{font-size:inherit!important}
+#workPeriodSummaryCard .test4-unconfigured{color:#9a3412!important;white-space:normal}
+</style>
 </head>
 <body class="flex justify-center p-1 sm:p-2 relative min-h-screen items-center">
 
@@ -997,6 +1031,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
             </div>
           </div>
 
+          <div class="test4-ring-stats" aria-label="今月の受取予定分の勤務時間とお給料見込額">
+            <div><span>勤務時間</span><strong id="test4ReceiveHours">0時間00分</strong></div>
+            <div class="test4-stat-right"><span>お給料見込額</span><strong id="test4ReceivePay">¥0</strong></div>
+          </div>
+          <p id="test4ReceiveWarning" class="test4-wage-warning hidden" role="status"></p>
           <div class="flex items-center justify-between pt-1 gap-2">
             <div class="flex items-center gap-1.5 bg-white border border-stone-200 rounded-xl px-3 py-2 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
               <span class="text-xs font-bold text-stone-600">目標金額 ¥</span>
@@ -1006,16 +1045,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-rose-50/60 via-rose-50/30 to-amber-50/40 text-stone-900 p-4 rounded-2xl border border-rose-100 shadow-[0_1px_2px_rgba(0,0,0,0.05)] space-y-2.5">
-          <div class="text-sm font-bold text-rose-950 border-b border-rose-200/60 pb-2 flex justify-between items-center tracking-wide">
-            <span id="monthlyReceiveTitle">今月のお給料</span>
-          </div>
-          <div id="monthlyReceiveBreakdown" class="space-y-2 text-sm text-stone-700 font-medium"></div>
-          <div id="monthlyWorkStat" class="text-xs font-bold text-stone-600"></div>
-          <div class="border-t border-rose-200/60 pt-2 flex justify-between items-baseline">
-            <span id="monthlyReceiveTotalLabel" class="text-sm font-bold text-rose-950">今月の受取総額 合計</span>
-            <span id="monthlyReceiveTotalPay" class="text-2xl font-bold font-serif-title tracking-tight text-rose-950">¥0</span>
-          </div>
+        <!-- test③: 締め期間ベースの勤務時間・見込額（10/26 ITO版から復元） -->
+        <div class="bg-gradient-to-br from-rose-50/60 via-rose-50/30 to-amber-50/40 text-stone-900 p-4 rounded-2xl border border-rose-100 shadow-sm space-y-2.5" id="workPeriodSummaryCard">
+          <div class="text-sm font-bold text-rose-950 border-b border-rose-200/60 pb-2 tracking-wide">【シフト入力済み時間＆見込額】</div>
+          <div id="itoReceiveTable" class="ito-receive-table" aria-label="バイト先別の締め期間・勤務時間とお給料見込額"></div>
         </div>
 
         <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)] space-y-2">
@@ -2815,8 +2848,15 @@ html, body { max-width: 100%; overflow-x: hidden; }
       const goalCurrentPay = document.getElementById('goalCurrentPay');
       const goalPercentText = document.getElementById('goalPercentText');
       const goalProgressCircle = document.getElementById('goalProgressCircle');
-      if (goalCurrentPay) goalCurrentPay.innerText = formatCurrency(totalPay);
-      const rawPercent = monthlyGoal > 0 ? (totalPay / monthlyGoal) * 100 : 0;
+      const missingWage4 = getActiveJobKeys().some(jk => {
+        const r = getJobPayPeriodRangeForReceiveMonth(configData[jk], payPeriodOffset);
+        return test4HasUnconfiguredWage(jk, r.start, r.end);
+      });
+      if (goalCurrentPay) {
+        goalCurrentPay.innerText = missingWage4 ? '計算できません' : formatCurrency(totalPay);
+        goalCurrentPay.style.fontSize = missingWage4 ? 'clamp(15px,4.3vw,19px)' : '';
+      }
+      const rawPercent = !missingWage4 && monthlyGoal > 0 ? (totalPay / monthlyGoal) * 100 : 0;
       if (goalPercentText) goalPercentText.innerText = `目標達成率 ${Math.round(rawPercent)}%`;
       const remEl = document.getElementById('goalRemainText');
       if (remEl) remEl.innerText = ''; // 目標までの残額は表示しない
@@ -2887,6 +2927,75 @@ html, body { max-width: 100%; overflow-x: hidden; }
       return new Date(now.getFullYear(), now.getMonth() + payPeriodOffset, 1);
     }
 
+    // test④: 登録済み勤務の各分に時給スロットが存在するかを判定する。
+    // 有給は時給スロットとは別計算のため除外する。
+    function test4HasUnconfiguredWage(jk, start, end) {
+      const job = configData[jk];
+      if (!job) return false;
+      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        const dateKey = formatDateKey(d);
+        const dateObj = new Date(d);
+        for (const sh of getDayShifts(dateKey, jk)) {
+          if (!sh || sh.isPaidLeave) continue;
+          let missing = false;
+          forEachWorkMinute(sh, min => {
+            if (!missing && getRateForMinuteDetailed(min, job, dateObj, false).category === 'unconfigured') missing = true;
+          });
+          if (missing) return true;
+        }
+      }
+      return false;
+    }
+
+    function calcJobCalendarMonthPay(jk, viewMonth) {
+      const job = configData[jk];
+      const year = viewMonth.getFullYear();
+      const month = viewMonth.getMonth();
+      const closeInput = String(job.closeDay || '20').trim();
+      const closeNum = closeInput === '月末' ? 31 : (Number(closeInput) || 20);
+      const closingDate = (y, m) =>
+        new Date(y, m, Math.min(closeNum, new Date(y, m + 1, 0).getDate()));
+      const end = closingDate(year, month);
+      const prevClose = closingDate(year, month - 1);
+      const start = new Date(prevClose.getFullYear(), prevClose.getMonth(), prevClose.getDate() + 1);
+      let mins = 0, pay = 0, days = 0;
+      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        const r = calcJobDay(formatDateKey(d), jk, new Date(d));
+        mins += r.mins;
+        pay += r.pay;
+        if (r.worked) days++;
+      }
+      if (days > 0) pay += (job.transMonth || 0) + (job.allowanceMonth || 0);
+      return { pay: Math.floor(Math.round(pay * 1000) / 1000), mins, days, start, end, wageMissing: test4HasUnconfiguredWage(jk, start, end) };
+    }
+
+    function renderWorkPeriodSummary() {
+      const viewMonth = getPayViewMonthDate();
+      const container = document.getElementById('itoReceiveTable');
+      if (!container) return;
+      const active = getActiveJobKeys();
+      const hm = mins => `${Math.floor(mins / 60)}時間${String(mins % 60).padStart(2, '0')}分`;
+      const md = d => `${d.getMonth() + 1}/${d.getDate()}`;
+      const rows = active.map(jk => {
+        const result = calcJobCalendarMonthPay(jk, viewMonth);
+        const name = esc(getJobDisplayName(jk));
+        const dot = getJobPalette(jk).dot;
+        const payDisplay = result.wageMissing
+          ? '<strong class="test4-unconfigured">計算できません</strong>'
+          : `<strong>${formatCurrency(result.pay)}</strong>`;
+        const warning = result.wageMissing
+          ? '<div class="test4-wage-warning">⚠️ 時給が登録されていない時間帯があります。設定画面で確認してね♡</div>'
+          : '';
+        return `<div class="ito-compact-job-row">
+          <div class="ito-compact-job-heading"><span class="ito-job-dot" style="background:${dot}"></span><span class="ito-compact-job-name">${name}</span><span class="ito-compact-job-period">${md(result.start)}～${md(result.end)}</span></div>
+          <div class="ito-compact-job-values"><span>時間 <strong>${hm(result.mins)}</strong></span><span>見込額 ${payDisplay}</span></div>
+          ${warning}
+        </div>`;
+      }).join('');
+      container.innerHTML = rows || '<p class="ito-compact-empty">バイト先が登録されていません</p>';
+    }
+
+
     function calculateMonthlyReceivePay() {
       let totalReceivePay = 0, totalMins = 0, totalDays = 0;
       let breakdownHtml = '';
@@ -2918,6 +3027,21 @@ html, body { max-width: 100%; overflow-x: hidden; }
         `;
       });
 
+      // 円グラフ下は受取月の集計と一致させる。
+      const hm4 = m => `${Math.floor(m / 60)}時間${String(m % 60).padStart(2, '0')}分`;
+      const receiveHours4 = document.getElementById('test4ReceiveHours');
+      const receivePay4 = document.getElementById('test4ReceivePay');
+      const receiveWarning4 = document.getElementById('test4ReceiveWarning');
+      const missingReceiveWage4 = activeKeys.some(jk => {
+        const r = getJobPayPeriodRangeForReceiveMonth(configData[jk], payPeriodOffset);
+        return test4HasUnconfiguredWage(jk, r.start, r.end);
+      });
+      if (receiveHours4) receiveHours4.textContent = hm4(totalMins);
+      if (receivePay4) receivePay4.textContent = missingReceiveWage4 ? '計算できません' : formatCurrency(totalReceivePay);
+      if (receiveWarning4) {
+        receiveWarning4.textContent = missingReceiveWage4 ? '⚠️ 時給が登録されていない時間帯があります。設定画面で確認してね♡' : '';
+        receiveWarning4.classList.toggle('hidden', !missingReceiveWage4);
+      }
       const ws = document.getElementById('monthlyWorkStat');
       if (ws) ws.textContent = totalDays > 0 ? `⏱ 勤務 のべ${totalDays}日・${Math.floor(totalMins / 60)}時間${totalMins % 60 ? totalMins % 60 + '分' : ''}（有給は時間に含みません）` : '';
       const container = document.getElementById('monthlyReceiveBreakdown');
@@ -2926,6 +3050,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         container.innerHTML = breakdownHtml || `<span class="text-stone-400 font-bold">この月に受取予定の給料はありません</span>`;
       }
       if (totalEl) totalEl.innerText = formatCurrency(totalReceivePay);
+      renderWorkPeriodSummary();
     }
 
     function calculateYearlyTotalPay() {
