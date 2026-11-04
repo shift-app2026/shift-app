@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shift-app2026.github.io/shift-app/sitemap.xml
